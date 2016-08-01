@@ -536,7 +536,7 @@ function selectAllText(transform) {
  */
 function onTab(event, data, state, opts) {
     var transform = state.transform();
-    var newTransform = moveSelection(opts, transform, +1, 0);
+    var newTransform = moveSelection(opts, transform, data.isShift ? -1 : +1, 0);
 
     if (newTransform === transform) {
         return;
@@ -620,7 +620,39 @@ module.exports = insertRow;
 },{"../TablePosition":3,"../createRow":5}],12:[function(require,module,exports){
 'use strict';
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var TablePosition = require('../TablePosition');
+
+/**
+ * Normalize position in a table
+ * @param {Number} x
+ * @param {Number} y
+ * @param {Number} width
+ * @param {Number} height
+ * @return {Array<Number>}
+ */
+function calculPos(x, y, width, height) {
+    if (x < 0) {
+        x = width - 1;
+        y--;
+    }
+
+    if (y < 0) {
+        return [-1, -1];
+    }
+
+    if (x >= width) {
+        x = 0;
+        y++;
+    }
+
+    if (y >= height) {
+        return [-1, -1];
+    }
+
+    return [x, y];
+}
 
 /**
  * Move selection to an {x,y}
@@ -656,16 +688,14 @@ function moveSelection(opts, transform, x, y, absolute) {
         y += rowIndex;
     }
 
-    if (x < 0 || y < 0) {
-        return transform;
-    }
+    var _calculPos = calculPos(x, y, width, height);
 
-    if (x >= width) {
-        x = 0;
-        y++;
-    }
+    var _calculPos2 = _slicedToArray(_calculPos, 2);
 
-    if (y >= height) {
+    x = _calculPos2[0];
+    y = _calculPos2[1];
+
+    if (x < 0) {
         return transform;
     }
 
