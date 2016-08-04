@@ -5,8 +5,9 @@ const PluginEditTable = require('../lib/');
 
 const stateJson = require('./state');
 
+const tablePlugin = PluginEditTable();
 const plugins = [
-    PluginEditTable()
+    tablePlugin
 ];
 
 const NODES = {
@@ -34,16 +35,96 @@ const Example = React.createClass({
         return NODES[node.type];
     },
 
-    render: function() {
+    onInsertTable: function() {
+        let { state } = this.state;
+
+        this.onChange(
+            tablePlugin.transforms.insertTable(state.transform())
+                .apply()
+        );
+    },
+
+    onInsertColumn: function() {
+        let { state } = this.state;
+
+        this.onChange(
+            tablePlugin.transforms.insertColumn(state.transform())
+                .apply()
+        );
+    },
+
+    onInsertRow: function() {
+        let { state } = this.state;
+
+        this.onChange(
+            tablePlugin.transforms.insertRow(state.transform())
+                .apply()
+        );
+    },
+
+    onRemoveColumn: function() {
+        let { state } = this.state;
+
+        this.onChange(
+            tablePlugin.transforms.removeColumn(state.transform())
+                .apply()
+        );
+    },
+
+    onRemoveRow: function() {
+        let { state } = this.state;
+
+        this.onChange(
+            tablePlugin.transforms.removeRow(state.transform())
+                .apply()
+        );
+    },
+
+    onRemoveTable: function() {
+        let { state } = this.state;
+
+        this.onChange(
+            tablePlugin.transforms.removeTable(state.transform())
+                .apply()
+        );
+    },
+
+    renderNormalToolbar: function() {
         return (
-            <Slate.Editor
-                placeholder={'Enter some text...'}
-                plugins={plugins}
-                state={this.state.state}
-                onChange={this.onChange}
-                renderNode={this.renderNode}
-            />
-    );
+            <div>
+                <button onClick={this.onInsertTable}>Insert Table</button>
+            </div>
+        );
+    },
+
+    renderTableToolbar: function() {
+        return (
+            <div>
+                <button onClick={this.onInsertColumn}>Insert Column</button>
+                <button onClick={this.onInsertRow}>Insert Row</button>
+                <button onClick={this.onRemoveColumn}>Remove Column</button>
+                <button onClick={this.onRemoveRow}>Remove Row</button>
+                <button onClick={this.onRemoveTable}>Remove Table</button>
+            </div>
+        );
+    },
+
+    render: function() {
+        let { state } = this.state;
+        let isTable = tablePlugin.utils.isSelectionInTable(state);
+
+        return (
+            <div>
+                {isTable? this.renderTableToolbar() : this.renderNormalToolbar()}
+                <Slate.Editor
+                    placeholder={'Enter some text...'}
+                    plugins={plugins}
+                    state={state}
+                    onChange={this.onChange}
+                    renderNode={this.renderNode}
+                />
+            </div>
+        );
     }
 });
 
