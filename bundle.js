@@ -317,7 +317,21 @@ module.exports={
                     ]
                 }
             ]
-        }
+        },
+        {
+            "kind": "block",
+            "type": "paragraph",
+            "nodes": [
+                {
+                    "kind": "text",
+                    "ranges": [
+                        {
+                            "text": "Use Tab and Shift+Tab to move from cell to cells. Press Enter to go to next row. Press Up/Down to navigate the rows."
+                        }
+                    ]
+                }
+            ]
+        },
     ]
 }
 
@@ -1303,7 +1317,7 @@ function removeColumn(opts, transform, at) {
 
     var rows = table.nodes;
 
-    // Add a new cell to each row
+    // Remove the cell from every row
     rows = rows.map(function (row) {
         var cells = row.nodes;
         cells = cells.delete(at);
