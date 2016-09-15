@@ -1017,23 +1017,30 @@ module.exports = onTab;
 },{"./TablePosition":3,"./transforms/insertRow":14,"./transforms/moveSelectionBy":17}],12:[function(require,module,exports){
 'use strict';
 
+var TablePosition = require('./TablePosition');
 var moveSelectionBy = require('./transforms/moveSelectionBy');
 
 function onUpDown(event, data, state, opts) {
-    var transform = state.transform();
 
-    var newTransform = moveSelectionBy(opts, transform, 0, data.key === 'up' ? -1 : +1);
+    var direction = data.key === 'up' ? -1 : +1;
+    var pos = TablePosition.create(state, state.startBlock);
 
-    if (newTransform !== transform) {
+    if (pos.isFirstRow() && direction === -1 || pos.isLastRow() && direction === +1) {
+        // Let the default behavior move out of the table
+        return state;
+    } else {
         event.preventDefault();
-    }
 
-    return newTransform.apply();
+        var transform = state.transform();
+        transform = moveSelectionBy(opts, transform, 0, data.key === 'up' ? -1 : +1);
+
+        return transform.apply();
+    }
 }
 
 module.exports = onUpDown;
 
-},{"./transforms/moveSelectionBy":17}],13:[function(require,module,exports){
+},{"./TablePosition":3,"./transforms/moveSelectionBy":17}],13:[function(require,module,exports){
 'use strict';
 
 var TablePosition = require('../TablePosition');
@@ -1146,24 +1153,20 @@ var createTable = require('../createTable');
  * @return {Slate.Transform}
  */
 function insertTable(opts, transform) {
-    var columns = arguments.length <= 2 || arguments[2] === undefined ? 2 : arguments[2];
-    var rows = arguments.length <= 3 || arguments[3] === undefined ? 2 : arguments[3];
-    var state = transform.state;
+  var columns = arguments.length <= 2 || arguments[2] === undefined ? 2 : arguments[2];
+  var rows = arguments.length <= 3 || arguments[3] === undefined ? 2 : arguments[3];
+  var state = transform.state;
 
 
-    if (!state.selection.startKey) return false;
+  if (!state.selection.startKey) return false;
 
-    // Get text of current block
-    var startBlock = state.startBlock;
+  // Create the table node
+  var fillWithEmptyText = function fillWithEmptyText(x, y) {
+    return '';
+  };
+  var table = createTable(opts, columns, rows, fillWithEmptyText);
 
-    var currentText = startBlock.text;
-
-    // Create the table node
-    var table = createTable(opts, columns, rows, function (x, y) {
-        if (x == 0 && y == 0) return currentText;else return '';
-    });
-
-    return transform.insertBlock(table);
+  return transform.insertBlock(table);
 }
 
 module.exports = insertTable;
