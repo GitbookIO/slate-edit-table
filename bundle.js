@@ -619,6 +619,7 @@ var insertColumn = require('./transforms/insertColumn');
 var removeColumn = require('./transforms/removeColumn');
 var removeTable = require('./transforms/removeTable');
 var moveSelection = require('./transforms/moveSelection');
+var moveSelectionBy = require('./transforms/moveSelectionBy');
 
 var onEnter = require('./onEnter');
 var onTab = require('./onTab');
@@ -720,14 +721,15 @@ function EditTable(opts) {
             insertColumn: bindTransform(insertColumn),
             removeColumn: bindTransform(removeColumn),
             removeTable: bindTransform(removeTable),
-            moveSelection: bindTransform(moveSelection)
+            moveSelection: bindTransform(moveSelection),
+            moveSelectionBy: bindTransform(moveSelectionBy)
         }
     };
 }
 
 module.exports = EditTable;
 
-},{"./makeSchema":8,"./onBackspace":9,"./onEnter":10,"./onTab":11,"./onUpDown":12,"./transforms/insertColumn":13,"./transforms/insertRow":14,"./transforms/insertTable":15,"./transforms/moveSelection":16,"./transforms/removeColumn":18,"./transforms/removeRow":19,"./transforms/removeTable":20}],8:[function(require,module,exports){
+},{"./makeSchema":8,"./onBackspace":9,"./onEnter":10,"./onTab":11,"./onUpDown":12,"./transforms/insertColumn":13,"./transforms/insertRow":14,"./transforms/insertTable":15,"./transforms/moveSelection":16,"./transforms/moveSelectionBy":17,"./transforms/removeColumn":18,"./transforms/removeRow":19,"./transforms/removeTable":20}],8:[function(require,module,exports){
 'use strict';
 
 var Slate = require('slate');
@@ -1006,9 +1008,6 @@ function onTab(event, data, state, opts) {
     transform = moveSelectionBy(opts, transform, direction, 0);
 
     // Select all cell.
-    // We have to apply the transform so that "selectAllText"
-    // can have access to an updated "startBlock"
-    transform = transform.apply().transform();
     return selectAllText(transform).apply();
 }
 
@@ -1044,6 +1043,7 @@ module.exports = onUpDown;
 'use strict';
 
 var TablePosition = require('../TablePosition');
+var moveSelection = require('./moveSelection');
 var createCell = require('../createCell');
 
 /**
@@ -1055,7 +1055,8 @@ var createCell = require('../createCell');
  * @return {Slate.Transform}
  */
 function insertColumn(opts, transform, at) {
-    var state = transform.state;
+    var _transform = transform;
+    var state = _transform.state;
     var startBlock = state.startBlock;
 
 
@@ -1085,12 +1086,14 @@ function insertColumn(opts, transform, at) {
     });
 
     // Replace the table
-    return transform.setNodeByKey(table.key, newTable);
+    transform = transform.setNodeByKey(table.key, newTable);
+    // Update the selection (not doing can break the undo)
+    return moveSelection(opts, transform, pos.getColumnIndex() + 1, pos.getRowIndex());
 }
 
 module.exports = insertColumn;
 
-},{"../TablePosition":3,"../createCell":4}],14:[function(require,module,exports){
+},{"../TablePosition":3,"../createCell":4,"./moveSelection":16}],14:[function(require,module,exports){
 'use strict';
 
 var createRow = require('../createRow');
@@ -1321,12 +1324,23 @@ function removeColumn(opts, transform, at) {
     var rows = table.nodes;
 
     // Remove the cell from every row
-    rows = rows.map(function (row) {
-        var cells = row.nodes;
-        cells = cells.delete(at);
+    if (pos.getWidth() > 1) {
+        rows = rows.map(function (row) {
+            var cells = row.nodes.delete(at);
 
-        return row.merge({ nodes: cells });
-    });
+            return row.merge({ nodes: cells });
+        });
+    }
+    // If last column, clear it instead
+    else {
+            rows = rows.map(function (row) {
+                var clearedCells = row.nodes.map(function (cell) {
+                    return cell.set('nodes', cell.nodes.clear());
+                });
+
+                return row.merge({ nodes: clearedCells });
+            });
+        }
 
     // Update table
     var newTable = table.merge({
@@ -1345,7 +1359,7 @@ module.exports = removeColumn;
 var TablePosition = require('../TablePosition');
 
 /**
- * Delete current row in a table
+ * Remove current row in a table. Clear it if last remaining row
  *
  * @param {Object} opts
  * @param {Slate.Transform} transform
@@ -1366,9 +1380,24 @@ function removeRow(opts, transform, at) {
     }
 
     // Update table by removing the row
-    var newTable = table.merge({
-        nodes: table.nodes.delete(at)
-    });
+    var newTable = void 0;
+    if (pos.getHeight() > 1) {
+        newTable = table.merge({
+            nodes: table.nodes.delete(at)
+        });
+    }
+    // If last remaining row, clear it instead
+    else {
+            newTable = table.merge({
+                nodes: table.nodes.map(function (row) {
+                    return row.merge({
+                        nodes: row.nodes.map(function (cell) {
+                            return cell.set('nodes', cell.nodes.clear());
+                        })
+                    });
+                })
+            });
+        }
 
     return transform.unsetSelection()
     // Replace the table
@@ -7420,6 +7449,7 @@ module.exports = function detectBrowser(userAgentString) {
   var browsers = [
     [ 'edge', /Edge\/([0-9\._]+)/ ],
     [ 'chrome', /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9\.]+)(:?\s|$)/ ],
+    [ 'crios', /CriOS\/([0-9\.]+)(:?\s|$)/ ],
     [ 'firefox', /Firefox\/([0-9\.]+)(?:\s|$)/ ],
     [ 'opera', /Opera\/([0-9\.]+)(?:\s|$)/ ],
     [ 'opera', /OPR\/([0-9\.]+)(:?\s|$)$/ ],
@@ -59949,7 +59979,7 @@ var Node = {
 
     return this.getTexts().map(function (text) {
       return _this.getClosestBlock(text);
-    }).toSet().toList();
+    }).toOrderedSet().toList();
   },
 
 
@@ -60294,6 +60324,95 @@ var Node = {
 
 
   /**
+   * Split a node by `path` at `offset`.
+   *
+   * @param {String} path
+   * @param {Number} offset
+   * @return {Node}
+   */
+
+  splitNode: function splitNode(path, offset) {
+    var base = this;
+    var node = base.assertPath(path);
+    var parent = base.getParent(node);
+    var isParent = base == parent;
+    var index = parent.nodes.indexOf(node);
+
+    var child = node;
+    var one = void 0;
+    var two = void 0;
+
+    if (node.kind != 'text') {
+      child = node.getTextAtOffset(offset);
+    }
+
+    while (child && child != parent) {
+      if (child.kind == 'text') {
+        var i = node.kind == 'text' ? offset : offset - node.getOffset(child);
+        var _child = child;
+        var characters = _child.characters;
+
+        var oneChars = characters.take(i);
+        var twoChars = characters.skip(i);
+        one = child.merge({ characters: oneChars });
+        two = child.merge({ characters: twoChars, key: (0, _uid2.default)() });
+      } else {
+        var _child2 = child;
+        var nodes = _child2.nodes;
+
+        var oneNodes = nodes.takeUntil(function (n) {
+          return n.key == one.key;
+        }).push(one);
+        var twoNodes = nodes.skipUntil(function (n) {
+          return n.key == one.key;
+        }).rest().unshift(two);
+        one = child.merge({ nodes: oneNodes });
+        two = child.merge({ nodes: twoNodes, key: (0, _uid2.default)() });
+      }
+
+      child = base.getParent(child);
+    }
+
+    parent = parent.removeNode(index);
+    parent = parent.insertNode(index, two);
+    parent = parent.insertNode(index, one);
+    base = isParent ? parent : base.updateDescendant(parent);
+    return base;
+  },
+
+
+  /**
+   * Split the block nodes at a `range`, to optional `height`.
+   *
+   * @param {Selection} range
+   * @param {Number} height (optional)
+   * @return {Node}
+   */
+
+  splitBlockAtRange: function splitBlockAtRange(range) {
+    var height = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+    var startKey = range.startKey;
+    var startOffset = range.startOffset;
+
+    var base = this;
+    var node = base.assertDescendant(startKey);
+    var parent = base.getClosestBlock(node);
+    var offset = startOffset;
+    var h = 0;
+
+    while (parent && parent.kind == 'block' && h < height) {
+      offset += parent.getOffset(node);
+      node = parent;
+      parent = base.getClosestBlock(parent);
+      h++;
+    }
+
+    var path = base.getPath(node.key);
+    return this.splitNode(path, offset).normalize();
+  },
+
+
+  /**
    * Get a fragment of the node at a `range`.
    *
    * @param {Selection} range
@@ -60433,7 +60552,7 @@ var Node = {
       return _this3.getFurthestInline(text);
     }).filter(function (exists) {
       return exists;
-    }).toSet().toList();
+    }).toOrderedSet().toList();
   },
 
 
@@ -60451,7 +60570,7 @@ var Node = {
       return _this4.getClosestInline(text);
     }).filter(function (exists) {
       return exists;
-    }).toSet().toList();
+    }).toOrderedSet().toList();
   },
 
 
@@ -63215,6 +63334,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _debug = require('debug');
+
+var _debug2 = _interopRequireDefault(_debug);
+
 var _transforms = require('../transforms');
 
 var _transforms2 = _interopRequireDefault(_transforms);
@@ -63222,6 +63345,14 @@ var _transforms2 = _interopRequireDefault(_transforms);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * Debug.
+ *
+ * @type {Function}
+ */
+
+var debug = (0, _debug2.default)('slate:transform');
 
 /**
  * Transform.
@@ -63269,10 +63400,9 @@ var Transform = function () {
     value: function apply() {
       var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
       var merge = options.merge;
+      var save = options.save;
       var _options$isNative = options.isNative;
       var isNative = _options$isNative === undefined ? false : _options$isNative;
-      var _options$save = options.save;
-      var save = _options$save === undefined ? true : _options$save;
       var state = this.state;
       var operations = this.operations;
       var history = state.history;
@@ -63290,10 +63420,13 @@ var Transform = function () {
         merge = isOnlySelections(operations) || isContiguousInserts(operations, previous) || isContiguousRemoves(operations, previous);
       }
 
-      // Save the new operations.
-      if (save || !previous) {
-        this.save({ merge: merge });
+      // If the save flag isn't set, determine whether we should save.
+      if (save == null) {
+        save = !isOnlySelections(operations);
       }
+
+      // Save the new operations.
+      if (save) this.save({ merge: merge });
 
       // Return the new state with the `isNative` flag set.
       return this.state.merge({ isNative: !!isNative });
@@ -63318,6 +63451,7 @@ Object.keys(_transforms2.default).forEach(function (type) {
       args[_key] = arguments[_key];
     }
 
+    debug(type, { args: args });
     return _transforms2.default[type].apply(_transforms2.default, [this].concat(args));
   };
 });
@@ -63408,7 +63542,7 @@ function isContiguousRemoves(operations, previous) {
  */
 
 exports.default = Transform;
-},{"../transforms":342}],333:[function(require,module,exports){
+},{"../transforms":342,"debug":47}],333:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -65796,50 +65930,9 @@ function splitNode(state, operation) {
   var _state12 = state;
   var document = _state12.document;
 
-  var node = document.assertPath(path);
-  var parent = document.getParent(node);
-  var isParent = document == parent;
-  var index = parent.nodes.indexOf(node);
 
-  var child = node;
-  var one = void 0;
-  var two = void 0;
+  document = document.splitNode(path, offset);
 
-  if (node.kind != 'text') {
-    child = node.getTextAtOffset(offset);
-  }
-
-  while (child && child != parent) {
-    if (child.kind == 'text') {
-      var i = node.kind == 'text' ? offset : offset - node.getOffset(child);
-      var _child = child;
-      var characters = _child.characters;
-
-      var oneChars = characters.take(i);
-      var twoChars = characters.skip(i);
-      one = child.merge({ characters: oneChars });
-      two = child.merge({ characters: twoChars, key: (0, _uid2.default)() });
-    } else {
-      var _child2 = child;
-      var nodes = _child2.nodes;
-
-      var oneNodes = nodes.takeUntil(function (n) {
-        return n.key == one.key;
-      }).push(one);
-      var twoNodes = nodes.skipUntil(function (n) {
-        return n.key == one.key;
-      }).rest().unshift(two);
-      one = child.merge({ nodes: oneNodes });
-      two = child.merge({ nodes: twoNodes, key: (0, _uid2.default)() });
-    }
-
-    child = document.getParent(child);
-  }
-
-  parent = parent.removeNode(index);
-  parent = parent.insertNode(index, two);
-  parent = parent.insertNode(index, one);
-  document = isParent ? parent : document.updateDescendant(parent);
   state = state.merge({ document: document });
   return state;
 }
@@ -66720,7 +66813,7 @@ function deleteBackwardAtRange(transform, range) {
   }
 
   range = range.merge({
-    focusOffset: focusOffset - 1,
+    focusOffset: focusOffset - n,
     isBackward: true
   });
 
@@ -66776,7 +66869,7 @@ function deleteForwardAtRange(transform, range) {
   }
 
   range = range.merge({
-    focusOffset: focusOffset + 1
+    focusOffset: focusOffset + n
   });
 
   return transform.deleteAtRange(range);
@@ -67212,7 +67305,7 @@ function unwrapBlockAtRange(transform, range, properties) {
     });
   }).filter(function (exists) {
     return exists;
-  }).toSet().toList();
+  }).toOrderedSet().toList();
 
   wrappers.forEach(function (block) {
     var first = block.nodes.first();
@@ -67293,7 +67386,7 @@ function unwrapInlineAtRange(transform, range, properties) {
     });
   }).filter(function (exists) {
     return exists;
-  }).toSet().toList();
+  }).toOrderedSet().toList();
 
   inlines.forEach(function (inline) {
     var parent = document.getParent(inline);
@@ -67323,25 +67416,57 @@ function wrapBlockAtRange(transform, range, block) {
   var state = transform.state;
   var document = state.document;
 
+
   var blocks = document.getBlocksAtRange(range);
-  var depth = blocks.map(function (n) {
-    return document.getDepth(n);
-  }).min();
+  var firstblock = blocks.first();
+  var lastblock = blocks.last();
+  var parent = void 0,
+      siblings = void 0,
+      index = void 0;
 
-  var siblings = blocks.map(function (node) {
-    var d = document.getDepth(node);
-    if (d == depth) return node;
-    return document.getClosest(node, function (p) {
-      return document.getDepth(p) == depth;
-    });
-  }).toSet().toList();
+  // if there is only one block in the selection then we know the parent and siblings
+  if (blocks.length === 1) {
+    parent = document.getParent(firstblock);
+    siblings = blocks;
+  }
 
-  var first = siblings.first();
-  var parent = document.getParent(first);
-  var index = parent.nodes.indexOf(first);
+  // determine closest shared parent to all blocks in selection
+  else {
+      parent = document.getClosest(firstblock, function (p1) {
+        return !!document.getClosest(lastblock, function (p2) {
+          return p1 == p2;
+        });
+      });
+    }
 
-  transform.insertNodeByKey(parent.key, index, block);
+  // if no shared parent could be found then the parent is the document
+  if (parent == null) parent = document;
 
+  // create a list of direct children siblings of parent that fall in the selection
+  if (siblings == null) {
+    var indexes = parent.nodes.reduce(function (ind, node, i) {
+      if (node == firstblock || node.hasDescendant(firstblock)) ind[0] = i;
+      if (node == lastblock || node.hasDescendant(lastblock)) ind[1] = i;
+      return ind;
+    }, []);
+
+    index = indexes[0];
+    siblings = parent.nodes.slice(indexes[0], indexes[1] + 1);
+  }
+
+  // get the index to place the new wrapped node at
+  if (index == null) {
+    index = parent.nodes.indexOf(siblings.first());
+  }
+
+  // inject the new block node into the parent
+  if (parent != document) {
+    transform.insertNodeByKey(parent.key, index, block);
+  } else {
+    transform.insertNodeOperation([], index, block);
+  }
+
+  // move the sibling nodes into the new block node
   siblings.forEach(function (node, i) {
     transform.moveNodeByKey(node.key, block.key, i);
   });
@@ -68952,23 +69077,31 @@ function setSelectionOperation(transform, properties) {
   var selection = state.selection;
 
   var prevProps = {};
+  var props = {};
 
-  // If the current selection has marks, and the new selection doesn't change
-  // them in some way, they are old and should be removed.
-  if (selection.marks && properties.marks == selection.marks) {
-    properties.marks = null;
-  }
-
-  // Create a dictionary of the previous values for all of the properties that
+  // Remove any properties that are already equal to the current selection. And
+  // create a dictionary of the previous values for all of the properties that
   // are being changed, for the inverse operation.
   for (var k in properties) {
+    if (properties[k] == selection[k]) continue;
+    props[k] = properties[k];
     prevProps[k] = selection[k];
   }
 
+  // If the selection moves, clear any marks, unless the new selection
+  // does change the marks in some way
+  var moved = ['anchorKey', 'anchorOffset', 'focusKey', 'focusOffset'].some(function (p) {
+    return props.hasOwnProperty(p);
+  });
+
+  if (selection.marks && properties.marks == selection.marks && moved) {
+    props.marks = null;
+  }
+
   // Resolve the selection keys into paths.
-  if (properties.anchorKey) {
-    properties.anchorPath = document.getPath(properties.anchorKey);
-    delete properties.anchorKey;
+  if (props.anchorKey) {
+    props.anchorPath = document.getPath(props.anchorKey);
+    delete props.anchorKey;
   }
 
   if (prevProps.anchorKey) {
@@ -68976,9 +69109,9 @@ function setSelectionOperation(transform, properties) {
     delete prevProps.anchorKey;
   }
 
-  if (properties.focusKey) {
-    properties.focusPath = document.getPath(properties.focusKey);
-    delete properties.focusKey;
+  if (props.focusKey) {
+    props.focusPath = document.getPath(props.focusKey);
+    delete props.focusKey;
   }
 
   if (prevProps.focusKey) {
@@ -68995,7 +69128,7 @@ function setSelectionOperation(transform, properties) {
   // Define the operation.
   var operation = {
     type: 'set_selection',
-    properties: properties,
+    properties: props,
     inverse: inverse
   };
 
