@@ -111,7 +111,6 @@ const Example = React.createClass({
         let { state } = this.state;
         let isTable = tablePlugin.utils.isSelectionInTable(state);
 
-        window.state = state;
         return (
             <div>
                 {isTable? this.renderTableToolbar() : this.renderNormalToolbar()}
