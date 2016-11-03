@@ -5797,60 +5797,30 @@ exports.isHtml = function(str) {
 
 },{"./parse":36,"dom-serializer":54}],39:[function(require,module,exports){
 module.exports={
-  "_args": [
-    [
-      {
-        "raw": "cheerio@^0.22.0",
-        "scope": null,
-        "escapedName": "cheerio",
-        "name": "cheerio",
-        "rawSpec": "^0.22.0",
-        "spec": ">=0.22.0 <0.23.0",
-        "type": "range"
-      },
-      "/Users/samypesse/Projects/GitBook/slate-edit-table/node_modules/slate"
-    ]
+  "name": "cheerio",
+  "version": "0.22.0",
+  "description": "Tiny, fast, and elegant implementation of core jQuery designed specifically for the server",
+  "author": "Matt Mueller <mattmuelle@gmail.com> (mat.io)",
+  "license": "MIT",
+  "keywords": [
+    "htmlparser",
+    "jquery",
+    "selector",
+    "scraper",
+    "parser",
+    "html"
   ],
-  "_from": "cheerio@>=0.22.0 <0.23.0",
-  "_id": "cheerio@0.22.0",
-  "_inCache": true,
-  "_installable": true,
-  "_location": "/cheerio",
-  "_nodeVersion": "6.2.2",
-  "_npmOperationalInternal": {
-    "host": "packages-12-west.internal.npmjs.com",
-    "tmp": "tmp/cheerio-0.22.0.tgz_1471954900169_0.12557715992443264"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cheeriojs/cheerio.git"
   },
-  "_npmUser": {
-    "name": "mattmueller",
-    "email": "mattmuelle@gmail.com"
-  },
-  "_npmVersion": "3.10.6",
-  "_phantomChildren": {},
-  "_requested": {
-    "raw": "cheerio@^0.22.0",
-    "scope": null,
-    "escapedName": "cheerio",
-    "name": "cheerio",
-    "rawSpec": "^0.22.0",
-    "spec": ">=0.22.0 <0.23.0",
-    "type": "range"
-  },
-  "_requiredBy": [
-    "/slate"
+  "main": "./index.js",
+  "files": [
+    "index.js",
+    "lib"
   ],
-  "_resolved": "https://registry.npmjs.org/cheerio/-/cheerio-0.22.0.tgz",
-  "_shasum": "a9baa860a3f9b595a6b81b1a86873121ed3a269e",
-  "_shrinkwrap": null,
-  "_spec": "cheerio@^0.22.0",
-  "_where": "/Users/samypesse/Projects/GitBook/slate-edit-table/node_modules/slate",
-  "author": {
-    "name": "Matt Mueller",
-    "email": "mattmuelle@gmail.com",
-    "url": "mat.io"
-  },
-  "bugs": {
-    "url": "https://github.com/cheeriojs/cheerio/issues"
+  "engines": {
+    "node": ">= 0.6"
   },
   "dependencies": {
     "css-select": "~1.2.0",
@@ -5870,71 +5840,20 @@ module.exports={
     "lodash.reject": "^4.4.0",
     "lodash.some": "^4.4.0"
   },
-  "description": "Tiny, fast, and elegant implementation of core jQuery designed specifically for the server",
   "devDependencies": {
     "benchmark": "^2.1.0",
     "coveralls": "^2.11.9",
     "expect.js": "~0.3.1",
     "istanbul": "^0.4.3",
-    "jquery": "^3.0.0",
     "jsdom": "^9.2.1",
+    "jquery": "^3.0.0",
     "jshint": "^2.9.2",
     "mocha": "^2.5.3",
     "xyz": "~0.5.0"
   },
-  "directories": {},
-  "dist": {
-    "shasum": "a9baa860a3f9b595a6b81b1a86873121ed3a269e",
-    "tarball": "https://registry.npmjs.org/cheerio/-/cheerio-0.22.0.tgz"
-  },
-  "engines": {
-    "node": ">= 0.6"
-  },
-  "files": [
-    "index.js",
-    "lib"
-  ],
-  "gitHead": "35c4917205dca9d08139c95419e2626c0689e38a",
-  "homepage": "https://github.com/cheeriojs/cheerio#readme",
-  "keywords": [
-    "htmlparser",
-    "jquery",
-    "selector",
-    "scraper",
-    "parser",
-    "html"
-  ],
-  "license": "MIT",
-  "main": "./index.js",
-  "maintainers": [
-    {
-      "name": "mattmueller",
-      "email": "mattmuelle@gmail.com"
-    },
-    {
-      "name": "davidchambers",
-      "email": "dc@davidchambers.me"
-    },
-    {
-      "name": "jugglinmike",
-      "email": "mike@mikepennisi.com"
-    },
-    {
-      "name": "feedic",
-      "email": "me@feedic.com"
-    }
-  ],
-  "name": "cheerio",
-  "optionalDependencies": {},
-  "readme": "ERROR: No README data found!",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/cheeriojs/cheerio.git"
-  },
   "scripts": {
     "test": "make test"
-  },
-  "version": "0.22.0"
+  }
 }
 
 },{}],40:[function(require,module,exports){
