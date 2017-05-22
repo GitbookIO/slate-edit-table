@@ -7,6 +7,10 @@ nodes:
             - left
             - left
             - left
+        widths:
+            - 100
+            - 100
+            - 100
     nodes:
       # Row 1
       - kind: block
