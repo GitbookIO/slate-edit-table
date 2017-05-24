@@ -10,6 +10,9 @@ nodes:
         align:
             - left
             - left
+        widths:
+            - 100
+            - 100
     nodes:
       - kind: block
         type: table_row

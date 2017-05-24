@@ -6,6 +6,9 @@ nodes:
     data:
       align:
         - left
+      widths:
+        - 100
+        - 100
     nodes:
       - kind: block
         type: table_row
@@ -19,6 +22,9 @@ nodes:
     data:
       align:
         - left
+      widths:
+        - 100
+        - 100
     nodes:
       - kind: block
         type: table_row
