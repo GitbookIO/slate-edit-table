@@ -1051,14 +1051,8 @@ function rowsContainRequiredColumns(opts) {
             }, 1); // Min 1 column
 
 
-            var valid = rows.every(function (row) {
-                return columns === countCells(row);
-            });
-            if (valid) {
-                return null;
-            }
             // else normalize, by padding with empty cells
-            return rows.map(function (row) {
+            var invalidRows = rows.map(function (row) {
                 var cells = countCells(row);
                 var invalids = row.nodes.filterNot(isCell);
 
@@ -1074,6 +1068,8 @@ function rowsContainRequiredColumns(opts) {
                     add: columns - cells
                 };
             }).filter(Boolean);
+
+            return invalidRows.size > 0 ? invalidRows : null;
         },
 
 
