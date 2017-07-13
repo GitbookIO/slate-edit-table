@@ -21,7 +21,14 @@ nodes:
             type: table_cell
             nodes:
               - kind: text
-                text: "Row 1, Col 2"
+                text: ""
+              - kind: inline
+                type: link
+                nodes:
+                  - kind: text
+                    text: "Row 1, Col 2"
+              - kind: text
+                text: ""
           - kind: block
             type: table_cell
             nodes:
