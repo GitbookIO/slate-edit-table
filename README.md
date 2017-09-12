@@ -34,9 +34,9 @@ const plugins = [
 - ``[typeRow: String]`` — type for the rows.
 - ``[typeCell: String]`` — type for the cells.
 
-### Utilities and Transform
+### Utilities and Change
 
-`slate-edit-table` exports utilities and transforms:
+`slate-edit-table` exports utilities and changes:
 
 #### `utils.isSelectionInTable`
 
@@ -44,57 +44,57 @@ const plugins = [
 
 Return true if selection is inside a table.
 
-#### `transforms.insertTable`
+#### `changes.insertTable`
 
-`plugin.transforms.insertTable(transform: Transform, columns: Number?, rows: Number?) => Transform`
+`plugin.changes.insertTable(change: Change, columns: Number?, rows: Number?) => Change`
 
 Insert a new empty table.
 
-#### `transforms.insertRow`
+#### `changes.insertRow`
 
-`plugin.transforms.insertRow(transform: Transform, at: Number?) => Transform`
+`plugin.changes.insertRow(change: Change, at: Number?) => Change`
 
 Insert a new row after the current one or at the specific index (`at`).
 
-#### `transforms.insertColumn`
+#### `changes.insertColumn`
 
-`plugin.transforms.insertColumn(transform: Transform, at: Number?) => Transform`
+`plugin.changes.insertColumn(change: Change, at: Number?) => Change`
 
 Insert a new column after the current one or at the specific index (`at`).
 
-#### `transforms.removeTable`
+#### `changes.removeTable`
 
-`plugin.transforms.removeTable(transform: Transform) => Transform`
+`plugin.changes.removeTable(change: Change) => Change`
 
 Remove current table.
 
-#### `transforms.removeRow`
+#### `changes.removeRow`
 
-`plugin.transforms.removeRow(transform: Transform, at: Number?) => Transform`
+`plugin.changes.removeRow(change: Change, at: Number?) => Change`
 
 Remove current row or the one at a specific index (`at`).
 
-#### `transforms.removeColumn`
+#### `changes.removeColumn`
 
-`plugin.transforms.removeColumn(transform: Transform, at: Number?) => Transform`
+`plugin.changes.removeColumn(change: Change, at: Number?) => Change`
 
 Remove current column or the one at a specific index (`at`).
 
-#### `transforms.moveSelection`
+#### `changes.moveSelection`
 
-`plugin.transforms.moveSelection(transform: Transform, column: Number, row: Number) => Transform`
+`plugin.changes.moveSelection(change: Change, column: Number, row: Number) => Change`
 
 Move the selection to a specific position in the table.
 
-#### `transforms.moveSelectionBy`
+#### `changes.moveSelectionBy`
 
-`plugin.transforms.moveSelectionBy(transform: Transform, column: Number, row: Number) => Transform`
+`plugin.changes.moveSelectionBy(change: Change, column: Number, row: Number) => Change`
 
 Move the selection by the given amount of columns and rows.
 
-#### `transforms.setColumnAlign`
+#### `changes.setColumnAlign`
 
-`plugin.transforms.setColumnAlign(transform: Transform, align: String, at: Number) => Transform`
+`plugin.changes.setColumnAlign(change: Change, align: String, at: Number) => Change`
 
 Sets column alignment for a given column (`at`), in the current table. `align`
 defaults to center, `at` is optional and defaults to current cursor position.
