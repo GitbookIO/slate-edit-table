@@ -26,11 +26,11 @@ const schema = {
 const Example = React.createClass({
     getInitialState: function() {
         return {
-            state: Slate.Raw.deserialize(stateJson, { terse: true })
+            state: Slate.State.fromJSON(stateJson),
         };
     },
 
-    onChange: function(state) {
+    onChange: function({ state }) {
         this.setState({
             state: state
         });
@@ -40,8 +40,7 @@ const Example = React.createClass({
         let { state } = this.state;
 
         this.onChange(
-            tablePlugin.transforms.insertTable(state.transform())
-                .apply()
+            tablePlugin.changes.insertTable(state.change())
         );
     },
 
@@ -49,8 +48,7 @@ const Example = React.createClass({
         let { state } = this.state;
 
         this.onChange(
-            tablePlugin.transforms.insertColumn(state.transform())
-                .apply()
+            tablePlugin.changes.insertColumn(state.change())
         );
     },
 
@@ -58,8 +56,7 @@ const Example = React.createClass({
         let { state } = this.state;
 
         this.onChange(
-            tablePlugin.transforms.insertRow(state.transform())
-                .apply()
+            tablePlugin.changes.insertRow(state.change())
         );
     },
 
@@ -67,8 +64,7 @@ const Example = React.createClass({
         let { state } = this.state;
 
         this.onChange(
-            tablePlugin.transforms.removeColumn(state.transform())
-                .apply()
+            tablePlugin.changes.removeColumn(state.change())
         );
     },
 
@@ -76,8 +72,7 @@ const Example = React.createClass({
         let { state } = this.state;
 
         this.onChange(
-            tablePlugin.transforms.removeRow(state.transform())
-                .apply()
+            tablePlugin.changes.removeRow(state.change())
         );
     },
 
@@ -85,8 +80,7 @@ const Example = React.createClass({
         let { state } = this.state;
 
         this.onChange(
-            tablePlugin.transforms.removeTable(state.transform())
-                .apply()
+            tablePlugin.changes.removeTable(state.change())
         );
     },
 
@@ -94,8 +88,7 @@ const Example = React.createClass({
         let { state } = this.state;
 
         this.onChange(
-            tablePlugin.transforms.setColumnAlign(state.transform(), align)
-                .apply()
+            tablePlugin.changes.setColumnAlign(state.change(), align)
         );
     },
 
