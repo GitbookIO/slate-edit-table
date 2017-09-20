@@ -1,15 +1,15 @@
 const expect = require('expect');
 
-module.exports = function(plugin, state) {
+module.exports = function(plugin, change) {
+    const { state } = change;
     const cursorBlock = state.document.getDescendant('_cursor_');
     const offset = 2;
-    const transform = state.transform();
-    state = transform
-        .moveToRangeOf(cursorBlock)
-        .move(offset)
-        .apply();
 
-    const position = plugin.utils.getPosition(state);
+    change
+        .moveToRangeOf(cursorBlock)
+        .move(offset);
+
+    const position = plugin.utils.getPosition(change.state);
 
     expect(position.getWidth()).toEqual(3);
     expect(position.getHeight()).toEqual(3);

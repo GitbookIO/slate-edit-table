@@ -25,9 +25,8 @@ describe('slate-edit-table', function() {
 
             const newChange = runChange(plugin, stateInput.change());
 
-            const newDocJSon = newChange.state.toJSON();
-
             if (expected) {
+                const newDocJSon = newChange.state.toJSON();
                 expect(newDocJSon).toEqual(Slate.State.fromJSON(expected).toJSON());
             }
         });
