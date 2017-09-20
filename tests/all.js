@@ -16,7 +16,9 @@ describe('slate-edit-table', function() {
         it(test, function() {
             const dir = path.resolve(__dirname, test);
             const input = readMetadata.sync(path.resolve(dir, 'input.yaml'));
-            const expected = readMetadata.sync(path.resolve(dir, 'expected.yaml'));
+            const expectedPath = path.resolve(dir, 'expected.yaml');
+            const expected = fs.existsSync(expectedPath) && readMetadata.sync(expectedPath);
+
             const runChange = require(path.resolve(dir, 'change.js'));
 
             const stateInput = Slate.State.fromJSON(input);
@@ -24,7 +26,10 @@ describe('slate-edit-table', function() {
             const newChange = runChange(plugin, stateInput.change());
 
             const newDocJSon = newChange.state.toJSON();
-            expect(newDocJSon).toEqual(Slate.State.fromJSON(expected).toJSON());
+
+            if (expected) {
+                expect(newDocJSon).toEqual(Slate.State.fromJSON(expected).toJSON());
+            }
         });
     });
 });

@@ -1,0 +1,31 @@
+
+nodes:
+  # A cell without surrounding row get wrapped in rows
+  - kind: block
+    type: table
+    data:
+      align:
+        - left
+    nodes:
+      - kind: block
+        type: table_row
+        nodes:
+          - kind: block
+            type: table_cell
+            nodes:
+              - kind: text
+                text: "Cell 1"
+  - kind: block
+    type: table
+    data:
+      align:
+        - left
+    nodes:
+      - kind: block
+        type: table_row
+        nodes:
+          - kind: block
+            type: table_cell
+            nodes:
+              - kind: text
+                text: "Cell 2"

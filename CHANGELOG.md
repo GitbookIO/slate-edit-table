@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+## [0.10.2] - 2017-09-20
+
+- New `utils.getPosition(state) => TablePosition` to know easily the current
+  position within a table (#39)
+- New option `exitBlockType`. When provided, `Mod+Enter` will exit the current
+  table into a new block of this type.
+- Fixed cursor issues when inserting rows using Tab (#26)
+
 ## [0.10.1] - 2017-07-13
   [0.10.1]: https://github.com/GitbookIO/slate-edit-table/compare/0.10.0...0.10.1
 
