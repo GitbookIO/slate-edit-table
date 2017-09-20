@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- New `utils.getPosition(state) => TablePosition` to know easily the current
+  position within a table.
+
 ## [0.10.1] - 2017-07-13
   [0.10.1]: https://github.com/GitbookIO/slate-edit-table/compare/0.10.0...0.10.1
 
