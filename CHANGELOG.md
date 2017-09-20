@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.11.0] - 2017-09-20
+
+**BREAKING**
+
+- Upgrade to be compatible with Slate after the `expose-transform` branch went in.
+- Change all instances of `transform` to `change`
+- Change the namespace of `plugin.transforms` to `plugin.changes`
+
 ## [0.10.2] - 2017-09-20
 
 - New `utils.getPosition(state) => TablePosition` to know easily the current
