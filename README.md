@@ -15,6 +15,7 @@ npm install slate-edit-table
 
 - Pressing <kbd>Up</kbd> and <kbd>Down</kbd>, move the cursor to next/previous row
 - Pressing <kbd>Enter</kbd>, insert a new row
+- Pressing <kbd>Cmd+Enter</kbd> (<kbd>Ctrl+Enter</kbd> on Windows/Linux) exits the table, into a new default block.
 - Pressing <kbd>Tab</kbd>, move the select to next cell
 - Pressing <kbd>Shift+Tab</kbd>, move the select to previous cell
 
@@ -33,6 +34,7 @@ const plugins = [
 - ``[typeTable: String]`` — type for table
 - ``[typeRow: String]`` — type for the rows.
 - ``[typeCell: String]`` — type for the cells.
+- ``[exitBlockType: String]`` — Mod+Enter will exit the table, into the given block type. Pass `null` to disable this behavior.
 
 ### Utilities and Transform
 
