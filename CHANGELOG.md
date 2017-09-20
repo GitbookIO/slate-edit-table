@@ -6,7 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Unreleased
 
 - New `utils.getPosition(state) => TablePosition` to know easily the current
-  position within a table.
+  position within a table (#39)
+- Fixed cursor issues when inserting rows using Tab (#26)
 
 ## [0.10.1] - 2017-07-13
   [0.10.1]: https://github.com/GitbookIO/slate-edit-table/compare/0.10.0...0.10.1
