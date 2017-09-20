@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.10.2] - 2017-09-20
+
 - New `utils.getPosition(state) => TablePosition` to know easily the current
   position within a table (#39)
 - New option `exitBlockType`. When provided, `Mod+Enter` will exit the current
