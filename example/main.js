@@ -1,6 +1,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Slate = require('slate');
+const { Editor } = require('slate-react');
 const PluginEditTable = require('../lib/');
 
 const stateJson = require('./state');
@@ -15,7 +16,7 @@ const schema = {
         table:      props => <table><tbody {...props.attributes}>{props.children}</tbody></table>,
         table_row:  props => <tr {...props.attributes}>{props.children}</tr>,
         table_cell: (props) => {
-            let align = props.node.get('data').get('align') || 'left'
+            const align = props.node.get('data').get('align') || 'left';
             return <td style={{ textAlign: align }} {...props.attributes}>{props.children}</td>;
         },
         paragraph:  props => <p {...props.attributes}>{props.children}</p>,
@@ -24,75 +25,75 @@ const schema = {
 };
 
 const Example = React.createClass({
-    getInitialState: function() {
+    getInitialState() {
         return {
-            state: Slate.State.fromJSON(stateJson),
+            state: Slate.State.fromJSON(stateJson)
         };
     },
 
-    onChange: function({ state }) {
+    onChange({ state }) {
         this.setState({
-            state: state
+            state
         });
     },
 
-    onInsertTable: function() {
-        let { state } = this.state;
+    onInsertTable() {
+        const { state } = this.state;
 
         this.onChange(
             tablePlugin.changes.insertTable(state.change())
         );
     },
 
-    onInsertColumn: function() {
-        let { state } = this.state;
+    onInsertColumn() {
+        const { state } = this.state;
 
         this.onChange(
             tablePlugin.changes.insertColumn(state.change())
         );
     },
 
-    onInsertRow: function() {
-        let { state } = this.state;
+    onInsertRow() {
+        const { state } = this.state;
 
         this.onChange(
             tablePlugin.changes.insertRow(state.change())
         );
     },
 
-    onRemoveColumn: function() {
-        let { state } = this.state;
+    onRemoveColumn() {
+        const { state } = this.state;
 
         this.onChange(
             tablePlugin.changes.removeColumn(state.change())
         );
     },
 
-    onRemoveRow: function() {
-        let { state } = this.state;
+    onRemoveRow() {
+        const { state } = this.state;
 
         this.onChange(
             tablePlugin.changes.removeRow(state.change())
         );
     },
 
-    onRemoveTable: function() {
-        let { state } = this.state;
+    onRemoveTable() {
+        const { state } = this.state;
 
         this.onChange(
             tablePlugin.changes.removeTable(state.change())
         );
     },
 
-    onSetAlign: function (event, align) {
-        let { state } = this.state;
+    onSetAlign(event, align) {
+        const { state } = this.state;
 
         this.onChange(
             tablePlugin.changes.setColumnAlign(state.change(), align)
         );
     },
 
-    renderNormalToolbar: function() {
+    renderNormalToolbar() {
         return (
             <div>
                 <button onClick={this.onInsertTable}>Insert Table</button>
@@ -100,7 +101,7 @@ const Example = React.createClass({
         );
     },
 
-    renderTableToolbar: function() {
+    renderTableToolbar() {
         return (
             <div>
                 <button onClick={this.onInsertColumn}>Insert Column</button>
@@ -116,14 +117,14 @@ const Example = React.createClass({
         );
     },
 
-    render: function() {
-        let { state } = this.state;
-        let isTable = tablePlugin.utils.isSelectionInTable(state);
+    render() {
+        const { state } = this.state;
+        const isTable = tablePlugin.utils.isSelectionInTable(state);
 
         return (
             <div>
-                {isTable? this.renderTableToolbar() : this.renderNormalToolbar()}
-                <Slate.Editor
+                {isTable ? this.renderTableToolbar() : this.renderNormalToolbar()}
+                <Editor
                     placeholder={'Enter some text...'}
                     plugins={plugins}
                     state={state}
