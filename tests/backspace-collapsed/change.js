@@ -3,9 +3,9 @@ module.exports = function(plugin, change) {
     const blockStart = state.document.getDescendant('anchor');
 
     const withCursor = change
-        .collapseToStartOf(blockStart)
+        .collapseToStartOf(blockStart);
 
-      plugin.onKeyDown(
+    plugin.onKeyDown(
         {
             preventDefault() {},
             stopPropagation() {}

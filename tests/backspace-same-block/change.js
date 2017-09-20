@@ -7,7 +7,7 @@ module.exports = function(plugin, change) {
 
     const withCursor = change
         .collapseToStartOf(blockStart)
-        .extendToEndOf(blockEnd)
+        .extendToEndOf(blockEnd);
 
     const result = plugin.onKeyDown(
         {
