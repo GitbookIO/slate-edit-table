@@ -6,7 +6,7 @@ const readMetadata = require('read-metadata');
 
 const EditList = require('../lib');
 
-describe('slate-edit-list', function() {
+describe('slate-edit-table', function() {
     const tests = fs.readdirSync(__dirname);
     const plugin = EditList();
 
@@ -19,16 +19,15 @@ describe('slate-edit-list', function() {
             const expectedPath = path.resolve(dir, 'expected.yaml');
             const expected = fs.existsSync(expectedPath) && readMetadata.sync(expectedPath);
 
-            const runTransform = require(path.resolve(dir, 'transform.js'));
+            const runChange = require(path.resolve(dir, 'change.js'));
 
-            const stateInput = Slate.Raw.deserialize(input, { terse: true });
+            const stateInput = Slate.State.fromJSON(input);
 
-            const newState = runTransform(plugin, stateInput);
-
-            const newDocJSon = Slate.Raw.serialize(newState, { terse: true });
+            const newChange = runChange(plugin, stateInput.change());
 
             if (expected) {
-                expect(newDocJSon).toEqual(expected);
+                const newDocJSon = newChange.state.toJSON();
+                expect(newDocJSon).toEqual(Slate.State.fromJSON(expected).toJSON());
             }
         });
     });
