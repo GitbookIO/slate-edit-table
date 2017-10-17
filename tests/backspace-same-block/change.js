@@ -11,10 +11,10 @@ module.exports = function(plugin, change) {
 
     const result = plugin.onKeyDown(
         {
+            key: 'Backspace',
             preventDefault() {},
             stopPropagation() {}
         },
-        { key: 'backspace' },
         withCursor
     );
 

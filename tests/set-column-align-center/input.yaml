@@ -10,13 +10,13 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Col 0, Row 0"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Col 1, Row 0"
         - kind: block
           type: table_row
@@ -26,14 +26,14 @@ document:
               key: '_cursor_1'
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Col 0, Row 1"
             - kind: block
               type: table_cell
               key: '_cursor_2'
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Col 1, Row 1"
         - kind: block
           type: table_row
@@ -42,11 +42,11 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Col 0, Row 2"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Col 1, Row 2"

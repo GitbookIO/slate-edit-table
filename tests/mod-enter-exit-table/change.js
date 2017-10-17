@@ -7,10 +7,11 @@ module.exports = function(plugin, change) {
 
     const result = plugin.onKeyDown(
         {
+            key: 'Enter',
+            metaKey: true,
             preventDefault() {},
             stopPropagation() {}
         },
-        { key: 'enter', isMod: true },
         withCursor
     );
 
