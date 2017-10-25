@@ -5,6 +5,8 @@
 
 A Slate plugin to handle table edition.
 
+Demo: [gitbookio.github.io/slate-edit-table/](https://gitbookio.github.io/slate-edit-table/)
+
 ### Install
 
 ```
