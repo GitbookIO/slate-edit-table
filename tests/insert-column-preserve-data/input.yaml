@@ -4,13 +4,13 @@ document:
       type: table
       data:
         align:
-            - center
-            - left
+          - center
+          - center
+        custom: value
       nodes:
         - kind: block
           type: table_row
           nodes:
-            # at argument is set to 1, so this column gets left aligned
             - kind: block
               type: table_cell
               nodes:
@@ -26,7 +26,6 @@ document:
         - kind: block
           type: table_row
           nodes:
-            # at argument is set to 1, so this column gets left aligned
             - kind: block
               type: table_cell
               nodes:
@@ -35,6 +34,7 @@ document:
                     - text: "Col 0, Row 1"
             - kind: block
               type: table_cell
+              key: '_cursor_'
               nodes:
                 - kind: text
                   leaves:
@@ -42,7 +42,6 @@ document:
         - kind: block
           type: table_row
           nodes:
-            # at argument is set to 1, so this column gets left aligned
             - kind: block
               type: table_cell
               nodes:
