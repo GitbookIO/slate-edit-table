@@ -4,7 +4,7 @@ const Slate = require('slate');
 const { Editor } = require('slate-react');
 const PluginEditTable = require('../lib/');
 
-const stateJson = require('./state');
+const valueJson = require('./value');
 
 const tablePlugin = PluginEditTable();
 const plugins = [
@@ -27,69 +27,69 @@ const schema = {
 const Example = React.createClass({
     getInitialState() {
         return {
-            state: Slate.State.fromJSON(stateJson)
+            value: Slate.State.fromJSON(valueJson)
         };
     },
 
-    onChange({ state }) {
+    onChange({ value }) {
         this.setState({
-            state
+            value
         });
     },
 
     onInsertTable() {
-        const { state } = this.state;
+        const { value } = this.state;
 
         this.onChange(
-            tablePlugin.changes.insertTable(state.change())
+            tablePlugin.changes.insertTable(value.change())
         );
     },
 
     onInsertColumn() {
-        const { state } = this.state;
+        const { value } = this.state;
 
         this.onChange(
-            tablePlugin.changes.insertColumn(state.change())
+            tablePlugin.changes.insertColumn(value.change())
         );
     },
 
     onInsertRow() {
-        const { state } = this.state;
+        const { value } = this.state;
 
         this.onChange(
-            tablePlugin.changes.insertRow(state.change())
+            tablePlugin.changes.insertRow(value.change())
         );
     },
 
     onRemoveColumn() {
-        const { state } = this.state;
+        const { value } = this.state;
 
         this.onChange(
-            tablePlugin.changes.removeColumn(state.change())
+            tablePlugin.changes.removeColumn(value.change())
         );
     },
 
     onRemoveRow() {
-        const { state } = this.state;
+        const { value } = this.state;
 
         this.onChange(
-            tablePlugin.changes.removeRow(state.change())
+            tablePlugin.changes.removeRow(value.change())
         );
     },
 
     onRemoveTable() {
-        const { state } = this.state;
+        const { value } = this.state;
 
         this.onChange(
-            tablePlugin.changes.removeTable(state.change())
+            tablePlugin.changes.removeTable(value.change())
         );
     },
 
     onSetAlign(event, align) {
-        const { state } = this.state;
+        const { value } = this.state;
 
         this.onChange(
-            tablePlugin.changes.setColumnAlign(state.change(), align)
+            tablePlugin.changes.setColumnAlign(value.change(), align)
         );
     },
 
@@ -118,8 +118,8 @@ const Example = React.createClass({
     },
 
     render() {
-        const { state } = this.state;
-        const isTable = tablePlugin.utils.isSelectionInTable(state);
+        const { value } = this.state;
+        const isTable = tablePlugin.utils.isSelectionInTable(value);
 
         return (
             <div>
@@ -127,7 +127,7 @@ const Example = React.createClass({
                 <Editor
                     placeholder={'Enter some text...'}
                     plugins={plugins}
-                    state={state}
+                    value={value}
                     onChange={this.onChange}
                     schema={schema}
                 />
