@@ -5,7 +5,7 @@ document:
       type: table_row
       nodes:
         - kind: text
-          ranges:
+          leaves:
             - text: "No rows"
 
     # A cell without surrounding tr gets inserted within a table, and within a tr
@@ -13,6 +13,6 @@ document:
       type: table_cell
       nodes:
         - kind: text
-          ranges:
+          leaves:
             - text: "No rows"
 

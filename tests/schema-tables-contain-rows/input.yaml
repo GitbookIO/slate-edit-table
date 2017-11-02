@@ -5,7 +5,7 @@ document:
       type: table
       nodes:
         - kind: text
-          ranges:
+          leaves:
             - text: "No rows"
     # Only rows
     - kind: block
@@ -19,7 +19,7 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Row 1, Col 1"
         # Not a row 2
         - kind: block
@@ -29,7 +29,7 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Row 2, Col 1"
         # Row 3
         - kind: block
@@ -39,5 +39,5 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Row 3, Col 1"

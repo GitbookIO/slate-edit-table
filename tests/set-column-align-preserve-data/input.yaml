@@ -1,0 +1,57 @@
+document:
+  nodes:
+    - kind: block
+      type: table
+      data:
+          custom: value
+          align:
+              - left
+              - left
+      nodes:
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  leaves:
+                    - text: "Col 0, Row 0"
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  leaves:
+                    - text: "Col 1, Row 0"
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              key: '_cursor_1'
+              nodes:
+                - kind: text
+                  leaves:
+                    - text: "Col 0, Row 1"
+            - kind: block
+              type: table_cell
+              key: '_cursor_2'
+              nodes:
+                - kind: text
+                  leaves:
+                    - text: "Col 1, Row 1"
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  leaves:
+                    - text: "Col 0, Row 2"
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  leaves:
+                    - text: "Col 1, Row 2"

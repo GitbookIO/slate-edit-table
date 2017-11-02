@@ -1288,11 +1288,17 @@ debug@2.6.8, debug@^2.6.8:
   dependencies:
     ms "2.0.0"
 
-debug@^2.1.1, debug@^2.2.0, debug@^2.3.2:
+debug@^2.1.1, debug@^2.2.0:
   version "2.6.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.4.tgz#7586a9b3c39741c0282ae33445c4e8ac74734fe0"
   dependencies:
     ms "0.7.3"
+
+debug@^2.3.2:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
+  dependencies:
+    ms "2.0.0"
 
 deep-extend@~0.4.0:
   version "0.4.1"
@@ -1679,6 +1685,18 @@ extsprintf@1.0.2:
 fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
+
+fbjs@^0.8.16:
+  version "0.8.16"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
+  dependencies:
+    core-js "^1.0.0"
+    isomorphic-fetch "^2.1.1"
+    loose-envify "^1.0.0"
+    object-assign "^4.1.0"
+    promise "^7.1.1"
+    setimmediate "^1.0.5"
+    ua-parser-js "^0.7.9"
 
 fbjs@^0.8.9:
   version "0.8.12"
@@ -2227,6 +2245,10 @@ is-glob@^2.0.0, is-glob@^2.0.1:
   resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-2.0.1.tgz#d096f926a3ded5600f3fdfd91198cb0888c2d863"
   dependencies:
     is-extglob "^1.0.0"
+
+is-hotkey@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/is-hotkey/-/is-hotkey-0.0.3.tgz#3713fea135f86528c87cf39810b3934e45151390"
 
 is-in-browser@^1.1.3:
   version "1.1.3"
@@ -2924,12 +2946,20 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.8:
+prop-types@^15.5.10:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
+
+prop-types@^15.5.8:
+  version "15.6.0"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
 
 public-encrypt@^4.0.0:
   version "4.0.0"
@@ -3012,6 +3042,10 @@ react-dom@^15.3.0:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
+
+react-immutable-proptypes@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-immutable-proptypes/-/react-immutable-proptypes-2.1.0.tgz#023d6f39bb15c97c071e9e60d00d136eac5fa0b4"
 
 react-portal@^3.1.0:
   version "3.1.0"
@@ -3295,46 +3329,48 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-slate-base64-serializer@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/slate-base64-serializer/-/slate-base64-serializer-0.1.5.tgz#6206f2df41476af44b09c30d5a5b30dd79580363"
+slate-base64-serializer@^0.1.16:
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/slate-base64-serializer/-/slate-base64-serializer-0.1.16.tgz#2f8682b618b57153a6919c7b697b263a58280e80"
 
-slate-dev-logger@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/slate-dev-logger/-/slate-dev-logger-0.1.6.tgz#feaa51804933388e64d3803eecc736062a2c7800"
+slate-dev-logger@^0.1.17:
+  version "0.1.17"
+  resolved "https://registry.yarnpkg.com/slate-dev-logger/-/slate-dev-logger-0.1.17.tgz#bbf20679ca1b29e04dcfc0d14448b71def6c3eea"
 
-slate-plain-serializer@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/slate-plain-serializer/-/slate-plain-serializer-0.1.5.tgz#58d1cb22e531b08f23ba2e8659bf59baabfa2391"
+slate-plain-serializer@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/slate-plain-serializer/-/slate-plain-serializer-0.2.2.tgz#99db5d403790035e711ee00c0e83313fcf32e6d9"
   dependencies:
-    slate-dev-logger "^0.1.6"
+    slate-dev-logger "^0.1.17"
 
-slate-prop-types@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/slate-prop-types/-/slate-prop-types-0.1.5.tgz#98ead5741d2cb7ebfe67754c9c7c26798b6de659"
+slate-prop-types@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/slate-prop-types/-/slate-prop-types-0.2.2.tgz#02a548dbfeb2ba2eec870ca967a9d65e58443759"
   dependencies:
-    slate-dev-logger "^0.1.6"
+    slate-dev-logger "^0.1.17"
 
-slate-react@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.1.5.tgz#8681c64dd8db6e0323b93156331aa56c3fdf0fe2"
+slate-react@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.6.0.tgz#8887b1c17617aec190f250e648e14b5afd4f8849"
   dependencies:
     debug "^2.3.2"
     get-window "^1.1.1"
+    is-hotkey "^0.0.3"
     is-in-browser "^1.1.3"
     is-window "^1.0.2"
     keycode "^2.1.2"
     prop-types "^15.5.8"
+    react-immutable-proptypes "^2.1.0"
     react-portal "^3.1.0"
     selection-is-backward "^1.0.0"
-    slate-base64-serializer "^0.1.5"
-    slate-dev-logger "^0.1.6"
-    slate-plain-serializer "^0.1.5"
-    slate-prop-types "^0.1.5"
+    slate-base64-serializer "^0.1.16"
+    slate-dev-logger "^0.1.17"
+    slate-plain-serializer "^0.2.2"
+    slate-prop-types "^0.2.2"
 
-slate@^0.24.0:
-  version "0.24.5"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.24.5.tgz#3bfd9827b55aa8152638c102fcde0a285523af7e"
+slate@^0.27.2:
+  version "0.27.2"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.27.2.tgz#ca39c45d704b540278a037088348863a7ce3a437"
   dependencies:
     debug "^2.3.2"
     direction "^0.1.5"
@@ -3343,7 +3379,7 @@ slate@^0.24.0:
     is-empty "^1.0.0"
     is-plain-object "^2.0.4"
     lodash "^4.17.4"
-    slate-dev-logger "^0.1.6"
+    slate-dev-logger "^0.1.17"
     type-of "^2.0.1"
 
 slice-ansi@0.0.4:

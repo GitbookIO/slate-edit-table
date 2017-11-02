@@ -10,17 +10,17 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
