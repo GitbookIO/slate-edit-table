@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.12.0] - 2017-11-02
+
+**BREAKING**
+
+- Upgrade to be compatible with Slate 0.27.x
+
 ## [0.11.0] - 2017-09-20
 
 **BREAKING**
