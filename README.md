@@ -107,6 +107,10 @@ Move the selection by the given amount of columns and rows.
 Sets column alignment for a given column (`at`), in the current table. `align`
 defaults to center, `at` is optional and defaults to current cursor position.
 
+> The `align` values are stored in the table node's data.
+> `table.node.data.get('align')` should be an array of aligns, corresponding to
+each column.
+
 ### TablePosition
 
 An instance of `TablePosition` represents a position within a table (row and column).
