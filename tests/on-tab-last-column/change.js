@@ -1,10 +1,10 @@
 const expect = require('expect');
 
 module.exports = function(plugin, change) {
-    const cursorBlock = change.state.document.getDescendant('_cursor_');
+    const cursorBlock = change.value.document.getDescendant('_cursor_');
     change.moveToRangeOf(cursorBlock);
 
-    const initialPosition = plugin.utils.getPosition(change.state);
+    const initialPosition = plugin.utils.getPosition(change.value);
 
     plugin.onKeyDown(
         {
@@ -15,7 +15,7 @@ module.exports = function(plugin, change) {
         change
     );
 
-    const position = plugin.utils.getPosition(change.state);
+    const position = plugin.utils.getPosition(change.value);
 
     // Next row
     expect(position.getRowIndex()).toEqual(initialPosition.getRowIndex() + 1);

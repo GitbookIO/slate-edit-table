@@ -6,6 +6,11 @@ const readMetadata = require('read-metadata');
 
 const EditList = require('../lib');
 
+
+function deserializeValue(json) {
+    return Slate.Value.fromJSON(json, { normalize: false });
+}
+
 describe('slate-edit-table', function() {
     const tests = fs.readdirSync(__dirname);
     const plugin = EditList();
@@ -21,13 +26,13 @@ describe('slate-edit-table', function() {
 
             const runChange = require(path.resolve(dir, 'change.js'));
 
-            const stateInput = Slate.State.fromJSON(input);
+            const valueInput = deserializeValue(input);
 
-            const newChange = runChange(plugin, stateInput.change());
+            const newChange = runChange(plugin, valueInput.change());
 
             if (expected) {
-                const newDocJSon = newChange.state.toJSON();
-                expect(newDocJSon).toEqual(Slate.State.fromJSON(expected).toJSON());
+                const newDocJSon = newChange.value.toJSON();
+                expect(newDocJSon).toEqual(deserializeValue(expected).toJSON());
             }
         });
     });
