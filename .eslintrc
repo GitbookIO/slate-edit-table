@@ -1,6 +1,17 @@
 {
-    "extends": "gitbook",
+    "parser": "babel-eslint",
+    "extends": [
+        "gitbook"
+    ],
+    "plugins": [
+        "flowtype"
+    ],
     "env": {
         "mocha": true
-    }
+    },
+    "settings": {
+        "import/resolver": {
+            "babel-module": {}
+        }
+    },
 }
