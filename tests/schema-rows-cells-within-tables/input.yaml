@@ -6,7 +6,7 @@ document:
       nodes:
         - kind: text
           leaves:
-            - text: "No rows"
+            - text: "No table"
 
     # A cell without surrounding tr gets inserted within a table, and within a tr
     - kind: block
@@ -15,4 +15,3 @@ document:
         - kind: text
           leaves:
             - text: "No rows"
-
