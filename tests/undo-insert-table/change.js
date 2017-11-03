@@ -4,9 +4,7 @@ export default function(plugin, change) {
     const cursorBlock = change.value.document.getDescendant('_cursor_');
     const initial = change.value.change({ save: false });
 
-    initial
-        .moveToRangeOf(cursorBlock)
-        .move(6); // Cursor here: Before|After
+    initial.moveToRangeOf(cursorBlock).move(6); // Cursor here: Before|After
 
     const toTest = initial.value.change();
 
@@ -18,4 +16,4 @@ export default function(plugin, change) {
     expect(toTest.value.startBlock.text).toEqual('BeforeAfter');
 
     return toTest;
-};
+}

@@ -21,4 +21,4 @@ export default function(plugin, change) {
     expect(position.getColumnIndex()).toEqual(0);
 
     return change;
-};
+}

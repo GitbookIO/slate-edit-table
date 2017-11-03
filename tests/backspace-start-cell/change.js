@@ -4,8 +4,7 @@ export default function(plugin, change) {
     const { value } = change;
     const blockStart = value.document.getDescendant('anchor');
 
-    const withCursor = change
-        .collapseToStartOf(blockStart);
+    const withCursor = change.collapseToStartOf(blockStart);
 
     const result = plugin.onKeyDown(
         {
@@ -19,4 +18,4 @@ export default function(plugin, change) {
     expect(result).toBe(change);
 
     return change;
-};
+}

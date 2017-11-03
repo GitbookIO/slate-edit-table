@@ -11,4 +11,4 @@ export default function(plugin, change) {
     expect(toTest.value.startBlock.text).toEqual('Before');
 
     return toTest;
-};
+}

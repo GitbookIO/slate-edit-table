@@ -2,8 +2,7 @@ const expect = require('expect');
 
 export default function(plugin, change) {
     const blockStart = change.value.document.getDescendant('_cursor_');
-    const withCursor = change
-        .collapseToStartOf(blockStart);
+    const withCursor = change.collapseToStartOf(blockStart);
 
     const result = plugin.onKeyDown(
         {
@@ -18,4 +17,4 @@ export default function(plugin, change) {
     expect(result.value.startBlock.type).toBe('paragraph');
 
     return result;
-};
+}

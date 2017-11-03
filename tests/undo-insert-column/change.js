@@ -12,4 +12,4 @@ export default function(plugin, change) {
     expect(toTest.value.startBlock.text).toEqual('Col 1, Row 1');
 
     return toTest;
-};
+}

@@ -4,4 +4,4 @@ export default function(plugin, change) {
     change.moveToRangeOf(cursorBlock);
 
     return plugin.changes.insertRow(change);
-};
+}

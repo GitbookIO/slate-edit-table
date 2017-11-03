@@ -20,7 +20,9 @@ export default function(plugin, change) {
     // Same row
     expect(position.getRowIndex()).toEqual(initialPosition.getRowIndex());
     // Moved to next column
-    expect(position.getColumnIndex()).toEqual(initialPosition.getColumnIndex() + 1);
+    expect(position.getColumnIndex()).toEqual(
+        initialPosition.getColumnIndex() + 1
+    );
 
     return change;
-};
+}

@@ -15,4 +15,4 @@ export default function(plugin, change) {
         },
         withCursor
     );
-};
+}

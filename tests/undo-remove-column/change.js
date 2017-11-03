@@ -1,4 +1,3 @@
-
 export default function(plugin, change) {
     const cursorBlock = change.value.document.getDescendant('_cursor_');
     const initial = change.value.change({ save: false });
@@ -8,4 +7,4 @@ export default function(plugin, change) {
     toTest.undo();
 
     return toTest;
-};
+}
