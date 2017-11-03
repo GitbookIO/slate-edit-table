@@ -1,26 +1,48 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const Slate = require('slate');
-const { Editor } = require('slate-react');
-const PluginEditTable = require('../lib/');
+// @flow
+/* eslint-disable import/no-extraneous-dependencies */
+/* global document */
 
-const valueJson = require('./value');
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import Slate, { type Node } from 'slate';
+import { Editor } from 'slate-react';
+
+import PluginEditTable from '../lib/';
+import valueJson from './value.json';
 
 const tablePlugin = PluginEditTable();
-const plugins = [
-    tablePlugin
-];
+const plugins = [tablePlugin];
+
+type NodeProps = {
+    attributes: Object,
+    node: Node,
+    children: React.Node
+};
 
 const schema = {
     nodes: {
-        table:      props => <table><tbody {...props.attributes}>{props.children}</tbody></table>,
-        table_row:  props => <tr {...props.attributes}>{props.children}</tr>,
-        table_cell: (props) => {
+        table: (props: NodeProps) => (
+            <table>
+                <tbody {...props.attributes}>{props.children}</tbody>
+            </table>
+        ),
+        table_row: (props: NodeProps) => (
+            <tr {...props.attributes}>{props.children}</tr>
+        ),
+        table_cell: (props: NodeProps) => {
             const align = props.node.get('data').get('align') || 'left';
-            return <td style={{ textAlign: align }} {...props.attributes}>{props.children}</td>;
+            return (
+                <td style={{ textAlign: align }} {...props.attributes}>
+                    {props.children}
+                </td>
+            );
         },
-        paragraph:  props => <p {...props.attributes}>{props.children}</p>,
-        heading:    props => <h1 {...props.attributes}>{props.children}</h1>
+        paragraph: (props: NodeProps) => (
+            <p {...props.attributes}>{props.children}</p>
+        ),
+        heading: (props: NodeProps) => (
+            <h1 {...props.attributes}>{props.children}</h1>
+        )
     }
 };
 
@@ -40,49 +62,37 @@ const Example = React.createClass({
     onInsertTable() {
         const { value } = this.state;
 
-        this.onChange(
-            tablePlugin.changes.insertTable(value.change())
-        );
+        this.onChange(tablePlugin.changes.insertTable(value.change()));
     },
 
     onInsertColumn() {
         const { value } = this.state;
 
-        this.onChange(
-            tablePlugin.changes.insertColumn(value.change())
-        );
+        this.onChange(tablePlugin.changes.insertColumn(value.change()));
     },
 
     onInsertRow() {
         const { value } = this.state;
 
-        this.onChange(
-            tablePlugin.changes.insertRow(value.change())
-        );
+        this.onChange(tablePlugin.changes.insertRow(value.change()));
     },
 
     onRemoveColumn() {
         const { value } = this.state;
 
-        this.onChange(
-            tablePlugin.changes.removeColumn(value.change())
-        );
+        this.onChange(tablePlugin.changes.removeColumn(value.change()));
     },
 
     onRemoveRow() {
         const { value } = this.state;
 
-        this.onChange(
-            tablePlugin.changes.removeRow(value.change())
-        );
+        this.onChange(tablePlugin.changes.removeRow(value.change()));
     },
 
     onRemoveTable() {
         const { value } = this.state;
 
-        this.onChange(
-            tablePlugin.changes.removeTable(value.change())
-        );
+        this.onChange(tablePlugin.changes.removeTable(value.change()));
     },
 
     onSetAlign(event, align) {
@@ -110,9 +120,15 @@ const Example = React.createClass({
                 <button onClick={this.onRemoveRow}>Remove Row</button>
                 <button onClick={this.onRemoveTable}>Remove Table</button>
                 <br />
-                <button onClick={(e) => this.onSetAlign(e, 'left') }>Set align left</button>
-                <button onClick={(e) => this.onSetAlign(e, 'center') }>Set align center</button>
-                <button onClick={(e) => this.onSetAlign(e, 'right') }>Set align right</button>
+                <button onClick={e => this.onSetAlign(e, 'left')}>
+                    Set align left
+                </button>
+                <button onClick={e => this.onSetAlign(e, 'center')}>
+                    Set align center
+                </button>
+                <button onClick={e => this.onSetAlign(e, 'right')}>
+                    Set align right
+                </button>
             </div>
         );
     },
@@ -123,7 +139,9 @@ const Example = React.createClass({
 
         return (
             <div>
-                {isTable ? this.renderTableToolbar() : this.renderNormalToolbar()}
+                {isTable
+                    ? this.renderTableToolbar()
+                    : this.renderNormalToolbar()}
                 <Editor
                     placeholder={'Enter some text...'}
                     plugins={plugins}
@@ -136,7 +154,5 @@ const Example = React.createClass({
     }
 });
 
-ReactDOM.render(
-    <Example />,
-    document.getElementById('example')
-);
+// $FlowFixMe
+ReactDOM.render(<Example />, document.getElementById('example'));

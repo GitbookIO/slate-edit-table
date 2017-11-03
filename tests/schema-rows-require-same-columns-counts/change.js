@@ -1,3 +1,3 @@
-module.exports = function(plugin, change) {
+export default function(plugin, change) {
     return change.normalize();
 };

@@ -1,29 +1,30 @@
-const expect = require('expect');
-const fs = require('fs');
-const path = require('path');
-const Slate = require('slate');
-const readMetadata = require('read-metadata');
+import expect from 'expect';
+import fs from 'fs';
+import path from 'path';
+import Slate from 'slate';
+import readMetadata from 'read-metadata';
 
-const EditList = require('../lib');
-
+import EditTable from '../lib';
 
 function deserializeValue(json) {
     return Slate.Value.fromJSON(json, { normalize: false });
 }
 
-describe('slate-edit-table', function() {
+describe('slate-edit-table', () => {
     const tests = fs.readdirSync(__dirname);
-    const plugin = EditList();
+    const plugin = EditTable();
 
-    tests.forEach(function(test) {
+    tests.forEach(test => {
         if (test[0] === '.' || path.extname(test).length > 0) return;
 
-        it(test, function() {
+        it(test, () => {
             const dir = path.resolve(__dirname, test);
             const input = readMetadata.sync(path.resolve(dir, 'input.yaml'));
             const expectedPath = path.resolve(dir, 'expected.yaml');
-            const expected = fs.existsSync(expectedPath) && readMetadata.sync(expectedPath);
+            const expected =
+                fs.existsSync(expectedPath) && readMetadata.sync(expectedPath);
 
+            // eslint-disable-next-line
             const runChange = require(path.resolve(dir, 'change.js'));
 
             const valueInput = deserializeValue(input);

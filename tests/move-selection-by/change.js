@@ -1,6 +1,6 @@
 const expect = require('expect');
 
-module.exports = function(plugin, change) {
+export default function(plugin, change) {
     const { value } = change;
     const cursorBlock = value.document.getDescendant('_cursor_');
     const offset = 2;

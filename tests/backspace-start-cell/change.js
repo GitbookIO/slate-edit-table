@@ -1,6 +1,6 @@
 const expect = require('expect');
 
-module.exports = function(plugin, change) {
+export default function(plugin, change) {
     const { value } = change;
     const blockStart = value.document.getDescendant('anchor');
 

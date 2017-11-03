@@ -1,6 +1,6 @@
 const expect = require('expect');
 
-module.exports = function(plugin, change) {
+export default function(plugin, change) {
     const cursorBlock = change.value.document.getDescendant('_cursor_');
     change.moveToRangeOf(cursorBlock);
 
