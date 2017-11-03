@@ -6,13 +6,20 @@ import readMetadata from 'read-metadata';
 
 import EditTable from '../lib';
 
+const PLUGIN = EditTable();
+const SCHEMA = Slate.Schema.create({
+    plugins: [PLUGIN]
+});
+
 function deserializeValue(json) {
-    return Slate.Value.fromJSON(json, { normalize: false });
+    return Slate.Value.fromJSON(
+        { ...json, schema: SCHEMA },
+        { normalize: false }
+    );
 }
 
 describe('slate-edit-table', () => {
     const tests = fs.readdirSync(__dirname);
-    const plugin = EditTable();
 
     tests.forEach(test => {
         if (test[0] === '.' || path.extname(test).length > 0) return;
@@ -29,7 +36,7 @@ describe('slate-edit-table', () => {
 
             const valueInput = deserializeValue(input);
 
-            const newChange = runChange(plugin, valueInput.change());
+            const newChange = runChange(PLUGIN, valueInput.change());
 
             if (expected) {
                 const newDocJSon = newChange.value.toJSON();
