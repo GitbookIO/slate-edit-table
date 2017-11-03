@@ -3,6 +3,9 @@
     "extends": [
         "gitbook"
     ],
+    "rules": {
+        "no-param-reassign": 0
+    },
     "plugins": [
         "flowtype"
     ],
