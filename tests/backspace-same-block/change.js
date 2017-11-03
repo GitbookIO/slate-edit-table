@@ -18,7 +18,7 @@ export default function(plugin, change) {
         withCursor
     );
 
-    expect(result).toBe(null);
+    expect(result).toBe(undefined);
 
     return change;
 }

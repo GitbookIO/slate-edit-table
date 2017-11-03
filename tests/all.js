@@ -25,7 +25,7 @@ describe('slate-edit-table', () => {
                 fs.existsSync(expectedPath) && readMetadata.sync(expectedPath);
 
             // eslint-disable-next-line
-            const runChange = require(path.resolve(dir, 'change.js'));
+            const runChange = require(path.resolve(dir, 'change.js')).default;
 
             const valueInput = deserializeValue(input);
 
