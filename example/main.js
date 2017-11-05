@@ -19,32 +19,34 @@ type NodeProps = {
     children: React.Node
 };
 
-const schema = {
-    nodes: {
-        table: (props: NodeProps) => (
-            <table>
-                <tbody {...props.attributes}>{props.children}</tbody>
-            </table>
-        ),
-        table_row: (props: NodeProps) => (
-            <tr {...props.attributes}>{props.children}</tr>
-        ),
-        table_cell: (props: NodeProps) => {
-            const align = props.node.get('data').get('align') || 'left';
+function renderNode(props: NodeProps): React.Node {
+    const { node, attributes, children } = props;
+    let textAlign;
+
+    switch (node.type) {
+        case 'table':
             return (
-                <td style={{ textAlign: align }} {...props.attributes}>
-                    {props.children}
+                <table>
+                    <tbody {...attributes}>{children}</tbody>
+                </table>
+            );
+        case 'table_row':
+            return <tr {...attributes}>{children}</tr>;
+        case 'table_cell':
+            textAlign = node.get('data').get('align') || 'left';
+            return (
+                <td style={{ textAlign }} {...attributes}>
+                    {children}
                 </td>
             );
-        },
-        paragraph: (props: NodeProps) => (
-            <p {...props.attributes}>{props.children}</p>
-        ),
-        heading: (props: NodeProps) => (
-            <h1 {...props.attributes}>{props.children}</h1>
-        )
+        case 'paragraph':
+            return <p {...attributes}>{children}</p>;
+        case 'heading':
+            return <h1 {...attributes}>{children}</h1>;
+        default:
+            return null;
     }
-};
+}
 
 const Example = React.createClass({
     getInitialState() {
@@ -144,10 +146,10 @@ const Example = React.createClass({
                     : this.renderNormalToolbar()}
                 <Editor
                     placeholder={'Enter some text...'}
+                    renderNode={renderNode}
                     plugins={plugins}
                     value={value}
                     onChange={this.onChange}
-                    schema={schema}
                 />
             </div>
         );
