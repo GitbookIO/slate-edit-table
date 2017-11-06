@@ -1,18 +1,3 @@
 document:
-  nodes:
-    # At least one row
-    - kind: block
-      type: table
-      data:
-        align:
-          - left
-      nodes:
-        - kind: block
-          type: table_row
-          nodes:
-            - kind: block
-              type: table_cell
-              nodes:
-                - kind: text
-                  leaves:
-                    - text: ""
+  # The text was removed, and so the table
+  nodes: []
