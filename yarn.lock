@@ -4745,9 +4745,17 @@ slate-base64-serializer@^0.2.1:
   dependencies:
     isomorphic-base64 "^1.0.2"
 
-slate-dev-logger@^0.1.25:
+slate-dev-logger@^0.1.25, slate-dev-logger@^0.1.32:
   version "0.1.32"
   resolved "https://registry.yarnpkg.com/slate-dev-logger/-/slate-dev-logger-0.1.32.tgz#76b73d75a149d0eac0cab134965aca14f7542888"
+
+slate-hyperscript@^0.4.6:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.4.6.tgz#4c4ec91fe5bd108848ac6bccbbd286f0de8ee631"
+  dependencies:
+    is-empty "^1.0.0"
+    is-plain-object "^2.0.4"
+    slate-dev-logger "^0.1.32"
 
 slate-plain-serializer@^0.3.1:
   version "0.3.1"

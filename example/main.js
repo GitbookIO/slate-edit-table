@@ -4,11 +4,11 @@
 
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import Slate, { type Node } from 'slate';
+import { type Node } from 'slate';
 import { Editor } from 'slate-react';
 
 import PluginEditTable from '../lib/';
-import valueJson from './value.json';
+import INITIAL_VALUE from './value';
 
 const tablePlugin = PluginEditTable();
 const plugins = [tablePlugin];
@@ -51,7 +51,7 @@ function renderNode(props: NodeProps): React.Node {
 const Example = React.createClass({
     getInitialState() {
         return {
-            value: Slate.State.fromJSON(valueJson)
+            value: INITIAL_VALUE
         };
     },
 
