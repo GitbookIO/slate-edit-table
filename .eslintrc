@@ -12,9 +12,4 @@
     "env": {
         "mocha": true
     },
-    "settings": {
-        "import/resolver": {
-            "babel-module": {}
-        }
-    },
 }
