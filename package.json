@@ -19,7 +19,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babelify": "^8.0.0",
     "browserify": "^13.3.0",
-    "eslint": "^4.7.2",
+    "eslint": "^4.10.0",
     "eslint-config-gitbook": "2.0.3",
     "eslint-import-resolver-babel-module": "4.0.0-beta.3",
     "expect": "^1.20.2",
