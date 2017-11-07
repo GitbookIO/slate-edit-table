@@ -48,70 +48,10 @@ function renderNode(props: NodeProps): React.Node {
     }
 }
 
-const Example = React.createClass({
-    getInitialState() {
-        return {
-            value: INITIAL_VALUE
-        };
-    },
-
-    onChange({ value }) {
-        this.setState({
-            value
-        });
-    },
-
-    onInsertTable() {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertTable(value.change()));
-    },
-
-    onInsertColumn() {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertColumn(value.change()));
-    },
-
-    onInsertRow() {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertRow(value.change()));
-    },
-
-    onRemoveColumn() {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeColumn(value.change()));
-    },
-
-    onRemoveRow() {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeRow(value.change()));
-    },
-
-    onRemoveTable() {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeTable(value.change()));
-    },
-
-    onSetAlign(event, align) {
-        const { value } = this.state;
-
-        this.onChange(
-            tablePlugin.changes.setColumnAlign(value.change(), align)
-        );
-    },
-
-    renderNormalToolbar() {
-        return (
-            <div>
-                <button onClick={this.onInsertTable}>Insert Table</button>
-            </div>
-        );
-    },
+class Example extends React.Component<*, *> {
+    state = {
+        value: INITIAL_VALUE
+    };
 
     renderTableToolbar() {
         return (
@@ -133,7 +73,65 @@ const Example = React.createClass({
                 </button>
             </div>
         );
-    },
+    }
+
+    renderNormalToolbar() {
+        return (
+            <div>
+                <button onClick={this.onInsertTable}>Insert Table</button>
+            </div>
+        );
+    }
+
+    onChange = ({ value }) => {
+        this.setState({
+            value
+        });
+    };
+
+    onInsertTable = () => {
+        const { value } = this.state;
+
+        this.onChange(tablePlugin.changes.insertTable(value.change()));
+    };
+
+    onInsertColumn = () => {
+        const { value } = this.state;
+
+        this.onChange(tablePlugin.changes.insertColumn(value.change()));
+    };
+
+    onInsertRow = () => {
+        const { value } = this.state;
+
+        this.onChange(tablePlugin.changes.insertRow(value.change()));
+    };
+
+    onRemoveColumn = () => {
+        const { value } = this.state;
+
+        this.onChange(tablePlugin.changes.removeColumn(value.change()));
+    };
+
+    onRemoveRow = () => {
+        const { value } = this.state;
+
+        this.onChange(tablePlugin.changes.removeRow(value.change()));
+    };
+
+    onRemoveTable = () => {
+        const { value } = this.state;
+
+        this.onChange(tablePlugin.changes.removeTable(value.change()));
+    };
+
+    onSetAlign = (event, align) => {
+        const { value } = this.state;
+
+        this.onChange(
+            tablePlugin.changes.setColumnAlign(value.change(), align)
+        );
+    };
 
     render() {
         const { value } = this.state;
@@ -154,7 +152,7 @@ const Example = React.createClass({
             </div>
         );
     }
-});
+}
 
 // $FlowFixMe
 ReactDOM.render(<Example />, document.getElementById('example'));
