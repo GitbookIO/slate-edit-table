@@ -4,7 +4,8 @@
         "gitbook"
     ],
     "rules": {
-        "no-param-reassign": 0
+        "no-param-reassign": 0,
+        "import/no-commonjs": 2
     },
     "plugins": [
         "flowtype"

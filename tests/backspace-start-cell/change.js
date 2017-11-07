@@ -1,4 +1,4 @@
-const expect = require('expect');
+import expect from 'expect';
 
 export default function(plugin, change) {
     const { value } = change;
