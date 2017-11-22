@@ -1,9 +1,9 @@
-const expect = require('expect');
+import expect from 'expect';
 
-module.exports = function(plugin, change) {
-    const { state } = change;
-    const blockStart = state.document.getDescendant('anchor');
-    const blockEnd = state.document.getDescendant('anchor');
+export default function(plugin, change) {
+    const { value } = change;
+    const blockStart = value.document.getDescendant('anchor');
+    const blockEnd = value.document.getDescendant('anchor');
 
     const withCursor = change
         .collapseToStartOf(blockStart)
@@ -18,7 +18,7 @@ module.exports = function(plugin, change) {
         withCursor
     );
 
-    expect(result).toBe(null);
+    expect(result).toBe(undefined);
 
     return change;
-};
+}

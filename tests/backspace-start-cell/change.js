@@ -1,11 +1,10 @@
-const expect = require('expect');
+import expect from 'expect';
 
-module.exports = function(plugin, change) {
-    const { state } = change;
-    const blockStart = state.document.getDescendant('anchor');
+export default function(plugin, change) {
+    const { value } = change;
+    const blockStart = value.document.getDescendant('anchor');
 
-    const withCursor = change
-        .collapseToStartOf(blockStart);
+    const withCursor = change.collapseToStartOf(blockStart);
 
     const result = plugin.onKeyDown(
         {
@@ -19,4 +18,4 @@ module.exports = function(plugin, change) {
     expect(result).toBe(change);
 
     return change;
-};
+}
