@@ -1,57 +1,105 @@
-// @flow
-/* eslint-disable import/no-extraneous-dependencies */
-/* global document */
+const React = require('react');
+const ReactDOM = require('react-dom');
+const Slate = require('slate');
+const { Editor } = require('slate-react');
+const PluginEditTable = require('../lib/');
 
-import * as React from 'react';
-import ReactDOM from 'react-dom';
-import { type Node } from 'slate';
-import { Editor } from 'slate-react';
-
-import PluginEditTable from '../lib/';
-import INITIAL_VALUE from './value';
+const stateJson = require('./state');
 
 const tablePlugin = PluginEditTable();
-const plugins = [tablePlugin];
+const plugins = [
+    tablePlugin
+];
 
-type NodeProps = {
-    attributes: Object,
-    node: Node,
-    children: React.Node
+const schema = {
+    nodes: {
+        table:      props => <table><tbody {...props.attributes}>{props.children}</tbody></table>,
+        table_row:  props => <tr {...props.attributes}>{props.children}</tr>,
+        table_cell: (props) => {
+            const align = props.node.get('data').get('align') || 'left';
+            return <td style={{ textAlign: align }} {...props.attributes}>{props.children}</td>;
+        },
+        paragraph:  props => <p {...props.attributes}>{props.children}</p>,
+        heading:    props => <h1 {...props.attributes}>{props.children}</h1>
+    }
 };
 
-function renderNode(props: NodeProps): React.Node {
-    const { node, attributes, children } = props;
-    let textAlign;
+const Example = React.createClass({
+    getInitialState() {
+        return {
+            state: Slate.State.fromJSON(stateJson)
+        };
+    },
 
-    switch (node.type) {
-        case 'table':
-            return (
-                <table>
-                    <tbody {...attributes}>{children}</tbody>
-                </table>
-            );
-        case 'table_row':
-            return <tr {...attributes}>{children}</tr>;
-        case 'table_cell':
-            textAlign = node.get('data').get('align') || 'left';
-            return (
-                <td style={{ textAlign }} {...attributes}>
-                    {children}
-                </td>
-            );
-        case 'paragraph':
-            return <p {...attributes}>{children}</p>;
-        case 'heading':
-            return <h1 {...attributes}>{children}</h1>;
-        default:
-            return null;
-    }
-}
+    onChange({ state }) {
+        this.setState({
+            state
+        });
+    },
 
-class Example extends React.Component<*, *> {
-    state = {
-        value: INITIAL_VALUE
-    };
+    onInsertTable() {
+        const { state } = this.state;
+
+        this.onChange(
+            tablePlugin.changes.insertTable(state.change())
+        );
+    },
+
+    onInsertColumn() {
+        const { state } = this.state;
+
+        this.onChange(
+            tablePlugin.changes.insertColumn(state.change())
+        );
+    },
+
+    onInsertRow() {
+        const { state } = this.state;
+
+        this.onChange(
+            tablePlugin.changes.insertRow(state.change())
+        );
+    },
+
+    onRemoveColumn() {
+        const { state } = this.state;
+
+        this.onChange(
+            tablePlugin.changes.removeColumn(state.change())
+        );
+    },
+
+    onRemoveRow() {
+        const { state } = this.state;
+
+        this.onChange(
+            tablePlugin.changes.removeRow(state.change())
+        );
+    },
+
+    onRemoveTable() {
+        const { state } = this.state;
+
+        this.onChange(
+            tablePlugin.changes.removeTable(state.change())
+        );
+    },
+
+    onSetAlign(event, align) {
+        const { state } = this.state;
+
+        this.onChange(
+            tablePlugin.changes.setColumnAlign(state.change(), align)
+        );
+    },
+
+    renderNormalToolbar() {
+        return (
+            <div>
+                <button onClick={this.onInsertTable}>Insert Table</button>
+            </div>
+        );
+    },
 
     renderTableToolbar() {
         return (
@@ -62,97 +110,33 @@ class Example extends React.Component<*, *> {
                 <button onClick={this.onRemoveRow}>Remove Row</button>
                 <button onClick={this.onRemoveTable}>Remove Table</button>
                 <br />
-                <button onClick={e => this.onSetAlign(e, 'left')}>
-                    Set align left
-                </button>
-                <button onClick={e => this.onSetAlign(e, 'center')}>
-                    Set align center
-                </button>
-                <button onClick={e => this.onSetAlign(e, 'right')}>
-                    Set align right
-                </button>
+                <button onClick={(e) => this.onSetAlign(e, 'left') }>Set align left</button>
+                <button onClick={(e) => this.onSetAlign(e, 'center') }>Set align center</button>
+                <button onClick={(e) => this.onSetAlign(e, 'right') }>Set align right</button>
             </div>
         );
-    }
-
-    renderNormalToolbar() {
-        return (
-            <div>
-                <button onClick={this.onInsertTable}>Insert Table</button>
-            </div>
-        );
-    }
-
-    onChange = ({ value }) => {
-        this.setState({
-            value
-        });
-    };
-
-    onInsertTable = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertTable(value.change()));
-    };
-
-    onInsertColumn = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertColumn(value.change()));
-    };
-
-    onInsertRow = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertRow(value.change()));
-    };
-
-    onRemoveColumn = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeColumn(value.change()));
-    };
-
-    onRemoveRow = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeRow(value.change()));
-    };
-
-    onRemoveTable = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeTable(value.change()));
-    };
-
-    onSetAlign = (event, align) => {
-        const { value } = this.state;
-
-        this.onChange(
-            tablePlugin.changes.setColumnAlign(value.change(), align)
-        );
-    };
+    },
 
     render() {
-        const { value } = this.state;
-        const isTable = tablePlugin.utils.isSelectionInTable(value);
+        const { state } = this.state;
+        const isTable = tablePlugin.utils.isSelectionInTable(state);
 
         return (
             <div>
-                {isTable
-                    ? this.renderTableToolbar()
-                    : this.renderNormalToolbar()}
+                {isTable ? this.renderTableToolbar() : this.renderNormalToolbar()}
                 <Editor
                     placeholder={'Enter some text...'}
-                    renderNode={renderNode}
                     plugins={plugins}
-                    value={value}
+                    state={state}
                     onChange={this.onChange}
+                    schema={schema}
                 />
             </div>
         );
     }
-}
+});
 
-// $FlowFixMe
-ReactDOM.render(<Example />, document.getElementById('example'));
+ReactDOM.render(
+    <Example />,
+    document.getElementById('example')
+);
