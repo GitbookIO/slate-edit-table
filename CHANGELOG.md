@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.11.1] - 2017-12-04
+
+- Fix normalization of cells containing several blocks
+
 ## [0.11.0] - 2017-09-20
 
 **BREAKING**
