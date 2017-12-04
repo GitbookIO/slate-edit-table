@@ -17,7 +17,7 @@ document:
               nodes:
                 - kind: text
                   ranges:
-                    - text: "Row 1, Col 1"
+                    - text: "Row 1, Col 1Row 1, Col 1, Content2"
             - kind: block
               type: table_cell
               nodes:

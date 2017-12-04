@@ -21,6 +21,12 @@ document:
                     - kind: text
                       ranges:
                         - text: "Row 1, Col 1"
+                - kind: block
+                  type: paragraph
+                  nodes:
+                    - kind: text
+                      ranges:
+                        - text: "Row 1, Col 1, Content2"
             - kind: block
               type: table_cell
               nodes:
