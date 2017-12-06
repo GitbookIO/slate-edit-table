@@ -135,13 +135,13 @@ class Example extends React.Component<*, *> {
 
     render() {
         const { value } = this.state;
-        const isTable = tablePlugin.utils.isSelectionInTable(value);
+        const isInTable = tablePlugin.utils.isSelectionInTable(value);
+        const isOutTable = tablePlugin.utils.isSelectionOutOfTable(value);
 
         return (
             <div>
-                {isTable
-                    ? this.renderTableToolbar()
-                    : this.renderNormalToolbar()}
+                {isInTable ? this.renderTableToolbar(): null}
+                {isOutTable? this.renderNormalToolbar(): null}
                 <Editor
                     placeholder={'Enter some text...'}
                     renderNode={renderNode}

@@ -48,6 +48,12 @@ const plugins = [
 
 Return true if selection is inside a table cell.
 
+#### `utils.isSelectionOutOfTable`
+
+`plugin.utils.isSelectionOutOfTable(value: Slate.Value) => boolean`
+
+Return true if selection starts and ends both outside any table.  (Notice: it is NOT the opposite value of `isSelectionInTable`)
+
 #### `utils.getPosition`
 
 `plugin.utils.getPosition(value: Slate.Value) => TablePosition`
