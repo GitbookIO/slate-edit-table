@@ -33,7 +33,11 @@ function renderNode(props: NodeProps): React.Node {
         case 'table_row':
             return <tr {...attributes}>{children}</tr>;
         case 'table_cell':
-            textAlign = node.get('data').get('align') || 'left';
+            textAlign = node.get('data').get('textAlign');
+            textAlign =
+                ['left', 'right', 'center'].indexOf(textAlign) === -1
+                    ? 'left'
+                    : textAlign;
             return (
                 <td style={{ textAlign }} {...attributes}>
                     {children}
@@ -55,7 +59,7 @@ class Example extends React.Component<*, *> {
 
     renderTableToolbar() {
         return (
-            <div>
+            <div onMouseLeave={this.onMouseLeave}>
                 <button onClick={this.onInsertColumn}>Insert Column</button>
                 <button onClick={this.onInsertRow}>Insert Row</button>
                 <button onClick={this.onRemoveColumn}>Remove Column</button>
@@ -82,55 +86,59 @@ class Example extends React.Component<*, *> {
             </div>
         );
     }
+    setEditorComponent = ref => {
+        this.editorREF = ref;
+        this.submitChange = ref.change;
+    };
 
     onChange = ({ value }) => {
         this.setState({
             value
         });
     };
-
-    onInsertTable = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertTable(value.change()));
+    onMouseLeave = event => {
+        event.preventDefault();
+        this.submitChange(change =>
+            change
+                .setOperationFlag('save', false)
+                .focus()
+                .setOperationFlag('save', true)
+        );
     };
 
-    onInsertColumn = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertColumn(value.change()));
+    onInsertTable = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.insertTable);
     };
 
-    onInsertRow = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertRow(value.change()));
+    onInsertColumn = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.insertColumn);
     };
 
-    onRemoveColumn = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeColumn(value.change()));
+    onInsertRow = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.insertRow);
     };
 
-    onRemoveRow = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeRow(value.change()));
+    onRemoveColumn = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.removeColumn);
     };
 
-    onRemoveTable = () => {
-        const { value } = this.state;
+    onRemoveRow = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.removeRow);
+    };
 
-        this.onChange(tablePlugin.changes.removeTable(value.change()));
+    onRemoveTable = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.removeTable);
     };
 
     onSetAlign = (event, align) => {
-        const { value } = this.state;
-
-        this.onChange(
-            tablePlugin.changes.setColumnAlign(value.change(), align)
-        );
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.setColumnAlign, align);
     };
 
     render() {
@@ -140,9 +148,10 @@ class Example extends React.Component<*, *> {
 
         return (
             <div>
-                {isInTable ? this.renderTableToolbar(): null}
-                {isOutTable? this.renderNormalToolbar(): null}
+                {isInTable ? this.renderTableToolbar() : null}
+                {isOutTable ? this.renderNormalToolbar() : null}
                 <Editor
+                    ref={this.setEditorComponent}
                     placeholder={'Enter some text...'}
                     renderNode={renderNode}
                     plugins={plugins}
