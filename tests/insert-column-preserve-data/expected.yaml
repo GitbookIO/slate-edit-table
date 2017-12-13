@@ -3,7 +3,7 @@ document:
     - kind: block
       type: table
       data:
-        align:
+        presetAlign:
           - center
           - left
           - center
@@ -20,6 +20,8 @@ document:
                     - text: "Col 0, Row 0"
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
@@ -41,6 +43,8 @@ document:
                     - text: "Col 0, Row 1"
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
@@ -62,6 +66,8 @@ document:
                     - text: "Col 0, Row 2"
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:

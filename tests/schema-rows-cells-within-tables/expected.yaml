@@ -4,7 +4,7 @@ document:
     - kind: block
       type: table
       data:
-        align:
+        presetAlign:
           - left
       nodes:
         - kind: block
@@ -18,7 +18,7 @@ document:
     - kind: block
       type: table
       data:
-        align:
+        presetAlign:
           - left
       nodes:
         - kind: block

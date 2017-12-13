@@ -3,7 +3,7 @@ document:
     - kind: block
       type: table
       data:
-          align:
+          presetAlign:
               - left
               - left
               - left

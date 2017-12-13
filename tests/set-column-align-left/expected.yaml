@@ -3,7 +3,7 @@ document:
     - kind: block
       type: table
       data:
-        align:
+        presetAlign:
             - left
             - left
       nodes:
@@ -13,12 +13,16 @@ document:
             # at argument is set to 1, so this column gets left aligned
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
                     - text: "Col 0, Row 0"
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
@@ -28,12 +32,16 @@ document:
           nodes:
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
                     - text: "Col 0, Row 1"
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
@@ -43,12 +51,16 @@ document:
           nodes:
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
                     - text: "Col 0, Row 2"
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
