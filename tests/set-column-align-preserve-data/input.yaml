@@ -4,7 +4,7 @@ document:
       type: table
       data:
           custom: value
-          align:
+          presetAlign:
               - left
               - left
       nodes:

@@ -9,7 +9,7 @@ document:
     - kind: block
       type: table
       data:
-          align:
+          presetAlign:
               - left
               - left
       nodes:
@@ -18,12 +18,16 @@ document:
           nodes:
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
                     - text: ""
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
@@ -33,12 +37,16 @@ document:
           nodes:
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
                     - text: ""
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
                   leaves:
