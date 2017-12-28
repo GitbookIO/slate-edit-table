@@ -61,12 +61,12 @@ class Example extends React.Component<*, *> {
 
     renderTableToolbar() {
         return (
-            <div onMouseLeave={this.onMouseLeave}>
-                <button onClick={this.onInsertColumn}>Insert Column</button>
-                <button onClick={this.onInsertRow}>Insert Row</button>
-                <button onClick={this.onRemoveColumn}>Remove Column</button>
-                <button onClick={this.onRemoveRow}>Remove Row</button>
-                <button onClick={this.onRemoveTable}>Remove Table</button>
+            <div>
+                <button onMouseDown={this.onInsertColumn}>Insert Column</button>
+                <button onMouseDown={this.onInsertRow}>Insert Row</button>
+                <button onMouseDown={this.onRemoveColumn}>Remove Column</button>
+                <button onMouseDown={this.onRemoveRow}>Remove Row</button>
+                <button onMouseDown={this.onRemoveTable}>Remove Table</button>
                 <br />
                 <button onClick={e => this.onSetAlign(e, 'left')}>
                     Set align left
@@ -97,15 +97,6 @@ class Example extends React.Component<*, *> {
         this.setState({
             value
         });
-    };
-    onMouseLeave = event => {
-        event.preventDefault();
-        this.submitChange(change =>
-            change
-                .setOperationFlag('save', false)
-                .focus()
-                .setOperationFlag('save', true)
-        );
     };
 
     onInsertTable = event => {
