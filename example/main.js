@@ -53,6 +53,8 @@ function renderNode(props: NodeProps): React.Node {
 }
 
 class Example extends React.Component<*, *> {
+    submitChange: Function;
+    editorREF: Editor;
     state = {
         value: INITIAL_VALUE
     };
@@ -86,7 +88,7 @@ class Example extends React.Component<*, *> {
             </div>
         );
     }
-    setEditorComponent = ref => {
+    setEditorComponent = (ref: Editor) => {
         this.editorREF = ref;
         this.submitChange = ref.change;
     };
