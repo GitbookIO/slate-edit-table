@@ -68,13 +68,13 @@ class Example extends React.Component<*, *> {
                 <button onMouseDown={this.onRemoveRow}>Remove Row</button>
                 <button onMouseDown={this.onRemoveTable}>Remove Table</button>
                 <br />
-                <button onClick={e => this.onSetAlign(e, 'left')}>
+                <button onMouseDown={e => this.onSetAlign(e, 'left')}>
                     Set align left
                 </button>
-                <button onClick={e => this.onSetAlign(e, 'center')}>
+                <button onMouseDown={e => this.onSetAlign(e, 'center')}>
                     Set align center
                 </button>
-                <button onClick={e => this.onSetAlign(e, 'right')}>
+                <button onMouseDown={e => this.onSetAlign(e, 'right')}>
                     Set align right
                 </button>
             </div>
