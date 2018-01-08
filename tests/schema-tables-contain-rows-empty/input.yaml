@@ -1,9 +1,9 @@
 document:
   nodes:
     # At least one row
-    - kind: block
+    - object: block
       type: table
       nodes:
-        - kind: text
+        - object: text
           leaves:
             - text: "No rows"

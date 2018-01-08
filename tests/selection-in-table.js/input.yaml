@@ -1,28 +1,28 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: table
       nodes:
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   key: start
                   leaves:
                     - text: "Table 1"
-    - kind: block
+    - object: block
       type: table
       nodes:
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   key: end
                   leaves:
                     - text: "Table 2"

@@ -1,15 +1,15 @@
 document:
   nodes:
     # A cell without surrounding row get wrapped in rows
-    - kind: block
+    - object: block
       type: table_cell
       nodes:
-        - kind: text
+        - object: text
           leaves:
             - text: "Cell 1"
-    - kind: block
+    - object: block
       type: table_cell
       nodes:
-        - kind: text
+        - object: text
           leaves:
             - text: "Cell 2"
