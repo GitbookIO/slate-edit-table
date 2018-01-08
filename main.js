@@ -33,7 +33,11 @@ function renderNode(props: NodeProps): React.Node {
         case 'table_row':
             return <tr {...attributes}>{children}</tr>;
         case 'table_cell':
-            textAlign = node.get('data').get('align') || 'left';
+            textAlign = node.get('data').get('textAlign');
+            textAlign =
+                ['left', 'right', 'center'].indexOf(textAlign) === -1
+                    ? 'left'
+                    : textAlign;
             return (
                 <td style={{ textAlign }} {...attributes}>
                     {children}
@@ -49,6 +53,8 @@ function renderNode(props: NodeProps): React.Node {
 }
 
 class Example extends React.Component<*, *> {
+    submitChange: Function;
+    editorREF: Editor;
     state = {
         value: INITIAL_VALUE
     };
@@ -56,19 +62,19 @@ class Example extends React.Component<*, *> {
     renderTableToolbar() {
         return (
             <div>
-                <button onClick={this.onInsertColumn}>Insert Column</button>
-                <button onClick={this.onInsertRow}>Insert Row</button>
-                <button onClick={this.onRemoveColumn}>Remove Column</button>
-                <button onClick={this.onRemoveRow}>Remove Row</button>
-                <button onClick={this.onRemoveTable}>Remove Table</button>
+                <button onMouseDown={this.onInsertColumn}>Insert Column</button>
+                <button onMouseDown={this.onInsertRow}>Insert Row</button>
+                <button onMouseDown={this.onRemoveColumn}>Remove Column</button>
+                <button onMouseDown={this.onRemoveRow}>Remove Row</button>
+                <button onMouseDown={this.onRemoveTable}>Remove Table</button>
                 <br />
-                <button onClick={e => this.onSetAlign(e, 'left')}>
+                <button onMouseDown={e => this.onSetAlign(e, 'left')}>
                     Set align left
                 </button>
-                <button onClick={e => this.onSetAlign(e, 'center')}>
+                <button onMouseDown={e => this.onSetAlign(e, 'center')}>
                     Set align center
                 </button>
-                <button onClick={e => this.onSetAlign(e, 'right')}>
+                <button onMouseDown={e => this.onSetAlign(e, 'right')}>
                     Set align right
                 </button>
             </div>
@@ -82,6 +88,10 @@ class Example extends React.Component<*, *> {
             </div>
         );
     }
+    setEditorComponent = (ref: Editor) => {
+        this.editorREF = ref;
+        this.submitChange = ref.change;
+    };
 
     onChange = ({ value }) => {
         this.setState({
@@ -89,60 +99,52 @@ class Example extends React.Component<*, *> {
         });
     };
 
-    onInsertTable = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertTable(value.change()));
+    onInsertTable = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.insertTable);
     };
 
-    onInsertColumn = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertColumn(value.change()));
+    onInsertColumn = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.insertColumn);
     };
 
-    onInsertRow = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.insertRow(value.change()));
+    onInsertRow = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.insertRow);
     };
 
-    onRemoveColumn = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeColumn(value.change()));
+    onRemoveColumn = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.removeColumn);
     };
 
-    onRemoveRow = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeRow(value.change()));
+    onRemoveRow = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.removeRow);
     };
 
-    onRemoveTable = () => {
-        const { value } = this.state;
-
-        this.onChange(tablePlugin.changes.removeTable(value.change()));
+    onRemoveTable = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.removeTable);
     };
 
     onSetAlign = (event, align) => {
-        const { value } = this.state;
-
-        this.onChange(
-            tablePlugin.changes.setColumnAlign(value.change(), align)
-        );
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.setColumnAlign, align);
     };
 
     render() {
         const { value } = this.state;
-        const isTable = tablePlugin.utils.isSelectionInTable(value);
+        const isInTable = tablePlugin.utils.isSelectionInTable(value);
+        const isOutTable = tablePlugin.utils.isSelectionOutOfTable(value);
 
         return (
             <div>
-                {isTable
-                    ? this.renderTableToolbar()
-                    : this.renderNormalToolbar()}
+                {isInTable ? this.renderTableToolbar() : null}
+                {isOutTable ? this.renderNormalToolbar() : null}
                 <Editor
+                    ref={this.setEditorComponent}
                     placeholder={'Enter some text...'}
                     renderNode={renderNode}
                     plugins={plugins}
