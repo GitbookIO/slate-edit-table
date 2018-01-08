@@ -1,0 +1,16 @@
+document:
+  nodes:
+    - kind: block
+      type: paragraph
+      nodes:
+        - kind: text
+          leaves:
+            - text: "Before"
+      # Removed table
+    - kind: block
+      type: paragraph
+      key: '_cursor_after_'
+      nodes:
+        - kind: text
+          leaves:
+            - text: "After"
