@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.13.2] - 2018-01-08
+
+- Add `isSelectionOutOfTable`
+- Fix keys detection
+- Fix selection errors when deleting table
+
 ## [0.13.1] - 2017-12-05
 
 - Improve `isSelectionInTable` to check for both end of the selection to be in the same table.
