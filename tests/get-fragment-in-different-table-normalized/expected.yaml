@@ -1,0 +1,40 @@
+document:
+  nodes:
+    - object: block
+      type: table
+      data:
+        presetAlign:
+          - center
+      nodes:
+        - object: block
+          type: table_row
+          nodes:
+            - object: block
+              type: table_cell
+              key: '_anchor_'
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "ol 1, Row 2"
+    - object: block
+      type: paragraph
+      nodes:
+        - object: text
+          leaves:
+            - text: "Ebony is the cutest cat in the world"
+    - object: block
+      type: table
+      data:
+        presetAlign:
+          - center
+      nodes:
+        - object: block
+          type: table_row
+          nodes:
+            - object: block
+              type: table_cell
+              key: '_focus_'
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "C"
