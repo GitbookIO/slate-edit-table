@@ -60,6 +60,11 @@ Return true if selection starts and ends both outside any table.  (Notice: it is
 
 Returns the detailed position in the current table. Throws if not in a table.
 
+#### `utils.getFragmentAtRange`
+`plugin.utils.getFragmentAtRange(node: Node, range: Range) => Document` 
+
+customized function for copy at selection
+
 #### `changes.insertTable`
 
 `plugin.changes.insertTable(change: Change, columns: ?number, rows: ?number) => Change`
@@ -119,6 +124,22 @@ defaults to center, `at` is optional and defaults to current cursor position.
 > `table.node.data.get('align')` should be an array of aligns string, corresponding to
 each column.
 
+### Rules
+
+Parser-Combinator rules for customize copy and paste
+
+#### `rules.getFragmentAtRange`
+
+```
+pligin.rules.getFragmentAtRange: Array< (
+    getFragmentAtRangeAsParser : ((Node, Range) => Document,
+    node: Node, 
+    range: Range, 
+    next: () => Document) => Document
+    )>
+```
+See details `bindRules(...args)` in `lib/rules/getFragmentAtRange/index.js`
+
 ### TablePosition
 
 An instance of `TablePosition` represents a position within a table (row and column).
@@ -163,3 +184,6 @@ True if on first column
 #### `position.isLastColumn() => boolean`
 
 True if on last column
+
+
+

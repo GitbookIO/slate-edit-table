@@ -1,6 +1,6 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: table
       data:
           presetAlign:
@@ -9,30 +9,30 @@ document:
               - left
       nodes:
         # Row 1
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Row 1, Col 1"
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Row 1, Col 2"
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Row 1, Col 3"
-        - kind: block
+        - object: block
           type: paragraph
           nodes:
-            - kind: text
+            - object: text
               leaves:
                 - text: "Row 1, Col 4"

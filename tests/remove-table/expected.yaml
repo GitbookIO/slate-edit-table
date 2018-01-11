@@ -1,15 +1,15 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
+        - object: text
           leaves:
             - text: "Before"
       # Removed table
-    - kind: block
+    - object: block
       type: paragraph
       nodes:
-        - kind: text
+        - object: text
           leaves:
             - text: "After"

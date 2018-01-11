@@ -1,36 +1,36 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: table
       data:
         presetAlign:
           - left
       nodes:
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               key: '_cursor_'
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Col 0, Row 0"
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Col 0, Row 1"
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Col 0, Row 2"

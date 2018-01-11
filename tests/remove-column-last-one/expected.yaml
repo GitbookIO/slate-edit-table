@@ -1,35 +1,35 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: table
       data:
         presetAlign:
           - left
       nodes:
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: ""
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: ""
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: ""

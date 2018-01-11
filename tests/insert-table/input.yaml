@@ -1,10 +1,10 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: paragraph
       key: '_cursor_'
       nodes:
-        - kind: text
+        - object: text
           leaves:
             - text: "BeforeAfter"
 

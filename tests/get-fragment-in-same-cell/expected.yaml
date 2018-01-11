@@ -1,0 +1,19 @@
+document:
+  nodes:
+    - object: block
+      type: table
+      data:
+        presetAlign:
+          - center
+        custom: value
+      nodes:
+        - object: block
+          type: table_row
+          nodes:
+            - object: block
+              type: table_cell
+              key: '_cursor_'
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "ol 1, Row 1"

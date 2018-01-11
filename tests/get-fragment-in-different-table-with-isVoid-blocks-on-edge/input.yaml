@@ -1,0 +1,124 @@
+document:
+  nodes:
+    - object: block
+      type: table
+      data:
+        presetAlign:
+          - center
+          - center
+      nodes:
+        - object: block
+          type: table_row
+          nodes:
+            - object: block
+              type: table_cell
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 0, Row 0"
+            - object: block
+              type: table_cell
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 1, Row 0"
+        - object: block
+          type: table_row
+          nodes:
+            - object: block
+              type: table_cell
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 0, Row 1"
+            - object: block
+              type: table_cell
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 1, Row 1"
+        - object: block
+          type: table_row
+          nodes:
+            - object: block
+              type: table_cell
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 0, Row 2"
+            - object: block
+              type: table_cell
+              key: '_anchor_'
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 1, Row 2"
+    - object: block
+      type: image
+      isVoid: true
+      data:
+        - meow: "Ebony is the cutest cat in the world"
+    - object: block
+      type: paragraph
+      nodes:
+        - object: text
+          leaves:
+            - text: "Ebony is the cutest cat in the world"
+    - object: block
+      type: image
+      isVoid: true
+      data:
+        - miao: "Ebony is the cutest cat in the world"
+    - object: block
+      type: table
+      data:
+        presetAlign:
+          - center
+          - center
+      nodes:
+        - object: block
+          type: table_row
+          nodes:
+            - object: block
+              type: table_cell
+              key: '_focus_'
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 0, Row 0"
+            - object: block
+              type: table_cell
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 1, Row 0"
+        - object: block
+          type: table_row
+          nodes:
+            - object: block
+              type: table_cell
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 0, Row 1"
+            - object: block
+              type: table_cell
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 1, Row 1"
+        - object: block
+          type: table_row
+          nodes:
+            - object: block
+              type: table_cell
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 0, Row 2"
+            - object: block
+              type: table_cell
+              nodes:
+                - object: text
+                  leaves:
+                    - text: "Col 1, Row 2"
