@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.14.0] - 2018-02-05
+
+**BREAKING**
+
+- Upgrade to be compatible with Slate 0.32.x
+- Fixed missing peerDependencies for `eslint-config-gitbook`
+
 ## [0.13.3] - 2018-01-08
 
 - Fix peer depedency range for slate to include 0.30 and 0.31
