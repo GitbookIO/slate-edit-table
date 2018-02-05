@@ -1,43 +1,43 @@
 document:
   nodes:
     # At least one row
-    - kind: block
+    - object: block
       type: table
       nodes:
-        - kind: text
+        - object: text
           leaves:
             - text: "No rows"
     # Only rows
-    - kind: block
+    - object: block
       type: table
       nodes:
         # Row 1
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Row 1, Col 1"
         # Not a row 2
-        - kind: block
+        - object: block
           type: default
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Row 2, Col 1"
         # Row 3
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Row 3, Col 1"

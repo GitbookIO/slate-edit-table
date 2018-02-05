@@ -1,56 +1,56 @@
 document:
   nodes:
-    - kind: block
+    - object: block
       type: table
       data:
         presetAlign: 
           - left
           - left
       nodes:
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Col 0, Row 0"
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Col 1, Row 0"
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               key: '_cursor_1'
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Col 0, Row 1"
-            - kind: block
+            - object: block
               type: table_cell
               key: '_cursor_2'
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Col 1, Row 1"
-        - kind: block
+        - object: block
           type: table_row
           nodes:
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Col 0, Row 2"
-            - kind: block
+            - object: block
               type: table_cell
               nodes:
-                - kind: text
+                - object: text
                   leaves:
                     - text: "Col 1, Row 2"

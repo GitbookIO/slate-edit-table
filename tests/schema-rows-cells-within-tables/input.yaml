@@ -1,17 +1,17 @@
 document:
   nodes:
     # A row without surrounding table gets inserted within a table
-    - kind: block
+    - object: block
       type: table_row
       nodes:
-        - kind: text
+        - object: text
           leaves:
             - text: "No table"
 
     # A cell without surrounding tr gets inserted within a table, and within a tr
-    - kind: block
+    - object: block
       type: table_cell
       nodes:
-        - kind: text
+        - object: text
           leaves:
             - text: "No rows"
