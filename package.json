@@ -47,7 +47,7 @@
   "scripts": {
     "build:dist": "babel ./lib --out-dir ./dist",
     "build:flow": "flow-copy-source -v ./lib/ ./dist/",
-    "publish": "npm run build:dist && npm run build:flow",
+    "prepublish": "npm run build:dist && npm run build:flow",
     "postpublish": "npm run deploy-example",
     "lint": "eslint ./",
     "build-example": "browserify ./example/main.js -o ./example/bundle.js -t [ babelify --presets [ env react stage-0 ] ]",
