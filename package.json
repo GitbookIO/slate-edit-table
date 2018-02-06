@@ -45,7 +45,7 @@
     "watchify": "^3.7.0"
   },
   "scripts": {
-    "build:dist": "babel ./lib --out-dir ./dist",
+    "build:dist": "rm -r ./dist; babel ./lib --out-dir ./dist",
     "build:flow": "flow-copy-source -v ./lib/ ./dist/",
     "prepublish": "npm run build:dist && npm run build:flow",
     "postpublish": "npm run deploy-example",
