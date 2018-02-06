@@ -5,6 +5,6 @@ document:
       key: '_cursor_after_'
       nodes:
         - kind: text
-          leaves:
+          ranges:
             - text: "Before"
       # Removed table

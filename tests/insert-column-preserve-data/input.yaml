@@ -6,7 +6,7 @@ document:
         presetAlign:
           - center
           - center
-        custom: value
+        custom: state
       nodes:
         - kind: block
           type: table_row
@@ -15,13 +15,13 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 0, Row 0"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 1, Row 0"
         - kind: block
           type: table_row
@@ -30,14 +30,14 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 0, Row 1"
             - kind: block
               type: table_cell
               key: '_cursor_'
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 1, Row 1"
         - kind: block
           type: table_row
@@ -46,11 +46,11 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 0, Row 2"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 1, Row 2"

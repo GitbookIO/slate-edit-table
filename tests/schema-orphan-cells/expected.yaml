@@ -14,7 +14,7 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Cell 1"
     - kind: block
       type: table
@@ -29,5 +29,5 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Cell 2"

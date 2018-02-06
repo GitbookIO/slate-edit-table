@@ -5,5 +5,5 @@ document:
       type: table
       nodes:
         - kind: text
-          leaves:
+          ranges:
             - text: "No rows"

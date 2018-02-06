@@ -66,19 +66,19 @@ Once you have constructed an instance of the plugin, you have access to utilitie
 
 #### `plugin.utils.isSelectionInTable`
 
-`plugin.utils.isSelectionInTable(value: Slate.Value) => boolean`
+`plugin.utils.isSelectionInTable(state: Slate.State) => boolean`
 
 Return true if selection is inside a table cell.
 
 #### `plugin.utils.isSelectionOutOfTable`
 
-`plugin.utils.isSelectionOutOfTable(value: Slate.Value) => boolean`
+`plugin.utils.isSelectionOutOfTable(state: Slate.State) => boolean`
 
-Return true if selection starts and ends both outside any table.  (Notice: it is NOT the opposite value of `isSelectionInTable`)
+Return true if selection starts and ends both outside any table.  (Notice: it is NOT the opposite state of `isSelectionInTable`)
 
 #### `plugin.utils.getPosition`
 
-`plugin.utils.getPosition(value: Slate.Value) => TablePosition`
+`plugin.utils.getPosition(state: Slate.State) => TablePosition`
 
 Returns the detailed position in the current table. Throws if not in a table.
 
@@ -137,6 +137,6 @@ Move the selection by the given amount of columns and rows.
 Sets column alignment for a given column (`at`), in the current table. `align`
 defaults to center, `at` is optional and defaults to current cursor position.
 
-> The `align` values are stored in the table node's data.
+> The `align` states are stored in the table node's data.
 > `table.node.data.get('align')` should be an array of aligns string, corresponding to
 each column.

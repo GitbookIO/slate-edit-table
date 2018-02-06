@@ -16,7 +16,7 @@ document:
                 textAlign: center
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 0, Row 0"
             - kind: block
               type: table_cell
@@ -24,7 +24,7 @@ document:
                 textAlign: right
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 1, Row 0"
         - kind: block
           type: table_row
@@ -35,7 +35,7 @@ document:
                 textAlign: center
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 0, Row 1"
             - kind: block
               type: table_cell
@@ -43,7 +43,7 @@ document:
                 textAlign: right
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 1, Row 1"
         - kind: block
           type: table_row
@@ -54,7 +54,7 @@ document:
                 textAlign: center
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 0, Row 2"
             - kind: block
               type: table_cell
@@ -62,5 +62,5 @@ document:
                 textAlign: right
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 1, Row 2"

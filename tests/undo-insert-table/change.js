@@ -1,19 +1,19 @@
 import expect from 'expect';
 
 export default function(plugin, change) {
-    const cursorBlock = change.value.document.getDescendant('_cursor_');
-    const initial = change.value.change({ save: false });
+    const cursorBlock = change.state.document.getDescendant('_cursor_');
+    const initial = change.state.change({ save: false });
 
     initial.moveToRangeOf(cursorBlock).move(6); // Cursor here: Before|After
 
-    const toTest = initial.value.change();
+    const toTest = initial.state.change();
 
     plugin.changes.insertTable(toTest);
 
     toTest.undo();
 
     // Back to previous cursor position
-    expect(toTest.value.startBlock.text).toEqual('BeforeAfter');
+    expect(toTest.state.startBlock.text).toEqual('BeforeAfter');
 
     return toTest;
 }

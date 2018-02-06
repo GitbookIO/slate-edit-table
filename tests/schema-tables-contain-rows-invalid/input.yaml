@@ -12,7 +12,7 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Row 1, Col 1"
         # Not a row 2
         - kind: block
@@ -22,7 +22,7 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Row 2, Col 1"
         # Row 3
         - kind: block
@@ -32,5 +32,5 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Row 3, Col 1"

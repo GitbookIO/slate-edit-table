@@ -14,7 +14,7 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: ""
     # Only rows
     - kind: block
@@ -31,7 +31,7 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Row 1, Col 1"
         # Row 3
         - kind: block
@@ -41,5 +41,5 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Row 3, Col 1"

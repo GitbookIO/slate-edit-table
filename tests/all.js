@@ -11,8 +11,8 @@ const SCHEMA = Slate.Schema.create({
     plugins: [PLUGIN]
 });
 
-function deserializeValue(json) {
-    return Slate.Value.fromJSON(
+function deserializeState(json) {
+    return Slate.State.fromJSON(
         { ...json, schema: SCHEMA },
         { normalize: false }
     );
@@ -34,13 +34,13 @@ describe('slate-edit-table', () => {
             // eslint-disable-next-line
             const runChange = require(path.resolve(dir, 'change.js')).default;
 
-            const valueInput = deserializeValue(input);
+            const stateInput = deserializeState(input);
 
-            const newChange = runChange(PLUGIN, valueInput.change());
+            const newChange = runChange(PLUGIN, stateInput.change());
 
             if (expected) {
-                const newDocJSon = newChange.value.toJSON();
-                expect(newDocJSon).toEqual(deserializeValue(expected).toJSON());
+                const newDocJSon = newChange.state.toJSON();
+                expect(newDocJSon).toEqual(deserializeState(expected).toJSON());
             }
         });
     });

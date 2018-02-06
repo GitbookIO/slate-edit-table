@@ -4,6 +4,6 @@ document:
       type: paragraph
       nodes:
         - kind: text
-          leaves:
+          ranges:
             - text: "BeforeAfter"
 

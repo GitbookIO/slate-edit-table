@@ -4,12 +4,12 @@ document:
       type: paragraph
       nodes:
         - kind: text
-          leaves:
+          ranges:
             - text: "Before"
       # Removed table
     - kind: block
       type: paragraph
       nodes:
         - kind: text
-          leaves:
+          ranges:
             - text: "After"

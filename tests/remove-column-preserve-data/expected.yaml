@@ -3,7 +3,7 @@ document:
     - kind: block
       type: table
       data:
-        custom: value
+        custom: state
         presetAlign:
           - left
           - center
@@ -15,13 +15,13 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 0, Row 0"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 2, Row 0"
         - kind: block
           type: table_row
@@ -30,13 +30,13 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 0, Row 1"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 2, Row 1"
         - kind: block
           type: table_row
@@ -45,11 +45,11 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 0, Row 2"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Col 2, Row 2"

@@ -16,26 +16,26 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Row 1, Col 1Row 1, Col 1, Content2"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: ""
                 - kind: inline
                   type: link
                   nodes:
                     - kind: text
-                      leaves:
+                      ranges:
                       - text: "Row 1, Col 2"
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: ""
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  leaves:
+                  ranges:
                     - text: "Row 1, Col 3"
