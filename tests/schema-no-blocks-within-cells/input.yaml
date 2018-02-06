@@ -21,6 +21,12 @@ document:
                     - object: text
                       leaves:
                         - text: "Row 1, Col 1"
+                - object: block
+                  type: paragraph
+                  nodes:
+                    - object: text
+                      leaves:
+                        - text: "Extra text"
             - object: block
               type: table_cell
               nodes:
