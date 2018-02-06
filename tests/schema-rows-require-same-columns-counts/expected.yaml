@@ -3,7 +3,7 @@ document:
     - kind: block
       type: table
       data:
-          align:
+          presetAlign:
               - left
               - left
               - left
@@ -16,19 +16,19 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Row 1, Col 1"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Row 1, Col 2"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Row 1, Col 3"
         # Row 2
         - kind: block
@@ -39,19 +39,19 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
         # Row 3
         - kind: block
@@ -62,17 +62,17 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Row 3, Col 1"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Row 3, Col 3"

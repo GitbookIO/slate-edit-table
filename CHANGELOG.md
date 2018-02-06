@@ -5,9 +5,37 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+<<<<<<< HEAD
 ## [0.11.1] - 2017-12-04
 
 - Fix normalization of cells containing several blocks
+=======
+## [0.13.3] - 2018-01-08
+
+- Fix peer depedency range for slate to include 0.30 and 0.31
+
+## [0.13.2] - 2018-01-08
+
+- Add `isSelectionOutOfTable`
+- Fix keys detection
+- Fix selection errors when deleting table
+
+## [0.13.1] - 2017-12-05
+
+- Improve `isSelectionInTable` to check for both end of the selection to be in the same table.
+
+## [0.13.0] - 2017-11-22
+
+**BREAKING**
+
+- Upgrade to be compatible with Slate 0.30.x
+
+## [0.12.0] - 2017-11-02
+
+**BREAKING**
+
+- Upgrade to be compatible with Slate 0.27.x
+>>>>>>> 853ad6b24acf462a55821f77a9c7708fbf4ca5d4
 
 ## [0.11.0] - 2017-09-20
 

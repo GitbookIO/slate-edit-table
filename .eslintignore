@@ -1,1 +1,3 @@
-dist
+dist/
+example/bundle.js
+node_modules/

@@ -1,0 +1,18 @@
+document:
+  nodes:
+    # At least one row
+    - kind: block
+      type: table
+      data:
+        presetAlign:
+          - left
+      nodes:
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  leaves:
+                    - text: ""

@@ -2,6 +2,11 @@ document:
   nodes:
     - kind: block
       type: table
+      data:
+        presetAlign:
+          - left
+          - left
+          - left
       nodes:
         - kind: block
           type: table_row
@@ -10,17 +15,17 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""

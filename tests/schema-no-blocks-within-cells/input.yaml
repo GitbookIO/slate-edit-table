@@ -3,7 +3,7 @@ document:
     - kind: block
       type: table
       data:
-          align:
+          presetAlign:
               - left
               - left
               - left
@@ -19,13 +19,13 @@ document:
                   type: paragraph
                   nodes:
                     - kind: text
-                      ranges:
+                      leaves:
                         - text: "Row 1, Col 1"
                 - kind: block
                   type: paragraph
                   nodes:
                     - kind: text
-                      ranges:
+                      leaves:
                         - text: "Row 1, Col 1, Content2"
             - kind: block
               type: table_cell
@@ -34,11 +34,11 @@ document:
                   type: link
                   nodes:
                     - kind: text
-                      ranges:
+                      leaves:
                         - text: "Row 1, Col 2"
             - kind: block
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Row 1, Col 3"

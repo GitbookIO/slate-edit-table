@@ -1,19 +1,19 @@
-const expect = require('expect');
+import expect from 'expect';
 
-module.exports = function(plugin, change) {
-    const cursorBlock = change.state.document.getDescendant('_cursor_');
+export default function(plugin, change) {
+    const cursorBlock = change.value.document.getDescendant('_cursor_');
     change.moveToRangeOf(cursorBlock);
 
     plugin.onKeyDown(
         {
+            key: 'Tab',
             preventDefault() {},
             stopPropagation() {}
         },
-        { key: 'tab' },
         change
     );
 
-    const position = plugin.utils.getPosition(change.state);
+    const position = plugin.utils.getPosition(change.value);
 
     // Last row (new one)
     expect(position.getRowIndex()).toEqual(2);
@@ -21,4 +21,4 @@ module.exports = function(plugin, change) {
     expect(position.getColumnIndex()).toEqual(0);
 
     return change;
-};
+}

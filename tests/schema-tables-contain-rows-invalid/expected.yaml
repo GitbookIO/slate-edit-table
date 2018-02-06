@@ -1,0 +1,29 @@
+document:
+  nodes:
+    # Only rows
+    - kind: block
+      type: table
+      data:
+        presetAlign:
+          - left
+      nodes:
+        # Row 1
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  leaves:
+                    - text: "Row 1, Col 1"
+        # Row 3
+        - kind: block
+          type: table_row
+          nodes:
+            - kind: block
+              type: table_cell
+              nodes:
+                - kind: text
+                  leaves:
+                    - text: "Row 3, Col 1"

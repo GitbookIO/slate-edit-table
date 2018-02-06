@@ -1,97 +1,85 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const Slate = require('slate');
-const { Editor } = require('slate-react');
-const PluginEditTable = require('../lib/');
+// @flow
+/* eslint-disable import/no-extraneous-dependencies */
+/* global document */
 
-const stateJson = require('./state');
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import { type Node } from 'slate';
+import { Editor } from 'slate-react';
+
+import PluginEditTable from '../lib/';
+import INITIAL_VALUE from './value';
 
 const tablePlugin = PluginEditTable();
-const plugins = [
-    tablePlugin
-];
+const plugins = [tablePlugin];
 
-const schema = {
-    nodes: {
-        table:      props => <table><tbody {...props.attributes}>{props.children}</tbody></table>,
-        table_row:  props => <tr {...props.attributes}>{props.children}</tr>,
-        table_cell: (props) => {
-            const align = props.node.get('data').get('align') || 'left';
-            return <td style={{ textAlign: align }} {...props.attributes}>{props.children}</td>;
-        },
-        paragraph:  props => <p {...props.attributes}>{props.children}</p>,
-        heading:    props => <h1 {...props.attributes}>{props.children}</h1>
-    }
+type NodeProps = {
+    attributes: Object,
+    node: Node,
+    children: React.Node
 };
 
-const Example = React.createClass({
-    getInitialState() {
-        return {
-            state: Slate.State.fromJSON(stateJson)
-        };
-    },
+function renderNode(props: NodeProps): React.Node {
+    const { node, attributes, children } = props;
+    let textAlign;
 
-    onChange({ state }) {
-        this.setState({
-            state
-        });
-    },
+    switch (node.type) {
+        case 'table':
+            return (
+                <table>
+                    <tbody {...attributes}>{children}</tbody>
+                </table>
+            );
+        case 'table_row':
+            return <tr {...attributes}>{children}</tr>;
+        case 'table_cell':
+            textAlign = node.get('data').get('textAlign');
+            textAlign =
+                ['left', 'right', 'center'].indexOf(textAlign) === -1
+                    ? 'left'
+                    : textAlign;
+            return (
+                <td style={{ textAlign }} {...attributes}>
+                    {children}
+                </td>
+            );
+        case 'paragraph':
+            return <p {...attributes}>{children}</p>;
+        case 'heading':
+            return <h1 {...attributes}>{children}</h1>;
+        default:
+            return null;
+    }
+}
 
-    onInsertTable() {
-        const { state } = this.state;
+class Example extends React.Component<*, *> {
+    submitChange: Function;
+    editorREF: Editor;
+    state = {
+        value: INITIAL_VALUE
+    };
 
-        this.onChange(
-            tablePlugin.changes.insertTable(state.change())
+    renderTableToolbar() {
+        return (
+            <div>
+                <button onMouseDown={this.onInsertColumn}>Insert Column</button>
+                <button onMouseDown={this.onInsertRow}>Insert Row</button>
+                <button onMouseDown={this.onRemoveColumn}>Remove Column</button>
+                <button onMouseDown={this.onRemoveRow}>Remove Row</button>
+                <button onMouseDown={this.onRemoveTable}>Remove Table</button>
+                <br />
+                <button onMouseDown={e => this.onSetAlign(e, 'left')}>
+                    Set align left
+                </button>
+                <button onMouseDown={e => this.onSetAlign(e, 'center')}>
+                    Set align center
+                </button>
+                <button onMouseDown={e => this.onSetAlign(e, 'right')}>
+                    Set align right
+                </button>
+            </div>
         );
-    },
-
-    onInsertColumn() {
-        const { state } = this.state;
-
-        this.onChange(
-            tablePlugin.changes.insertColumn(state.change())
-        );
-    },
-
-    onInsertRow() {
-        const { state } = this.state;
-
-        this.onChange(
-            tablePlugin.changes.insertRow(state.change())
-        );
-    },
-
-    onRemoveColumn() {
-        const { state } = this.state;
-
-        this.onChange(
-            tablePlugin.changes.removeColumn(state.change())
-        );
-    },
-
-    onRemoveRow() {
-        const { state } = this.state;
-
-        this.onChange(
-            tablePlugin.changes.removeRow(state.change())
-        );
-    },
-
-    onRemoveTable() {
-        const { state } = this.state;
-
-        this.onChange(
-            tablePlugin.changes.removeTable(state.change())
-        );
-    },
-
-    onSetAlign(event, align) {
-        const { state } = this.state;
-
-        this.onChange(
-            tablePlugin.changes.setColumnAlign(state.change(), align)
-        );
-    },
+    }
 
     renderNormalToolbar() {
         return (
@@ -99,44 +87,74 @@ const Example = React.createClass({
                 <button onClick={this.onInsertTable}>Insert Table</button>
             </div>
         );
-    },
+    }
+    setEditorComponent = (ref: Editor) => {
+        this.editorREF = ref;
+        this.submitChange = ref.change;
+    };
 
-    renderTableToolbar() {
-        return (
-            <div>
-                <button onClick={this.onInsertColumn}>Insert Column</button>
-                <button onClick={this.onInsertRow}>Insert Row</button>
-                <button onClick={this.onRemoveColumn}>Remove Column</button>
-                <button onClick={this.onRemoveRow}>Remove Row</button>
-                <button onClick={this.onRemoveTable}>Remove Table</button>
-                <br />
-                <button onClick={(e) => this.onSetAlign(e, 'left') }>Set align left</button>
-                <button onClick={(e) => this.onSetAlign(e, 'center') }>Set align center</button>
-                <button onClick={(e) => this.onSetAlign(e, 'right') }>Set align right</button>
-            </div>
-        );
-    },
+    onChange = ({ value }) => {
+        this.setState({
+            value
+        });
+    };
+
+    onInsertTable = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.insertTable);
+    };
+
+    onInsertColumn = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.insertColumn);
+    };
+
+    onInsertRow = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.insertRow);
+    };
+
+    onRemoveColumn = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.removeColumn);
+    };
+
+    onRemoveRow = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.removeRow);
+    };
+
+    onRemoveTable = event => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.removeTable);
+    };
+
+    onSetAlign = (event, align) => {
+        event.preventDefault();
+        this.submitChange(tablePlugin.changes.setColumnAlign, align);
+    };
 
     render() {
-        const { state } = this.state;
-        const isTable = tablePlugin.utils.isSelectionInTable(state);
+        const { value } = this.state;
+        const isInTable = tablePlugin.utils.isSelectionInTable(value);
+        const isOutTable = tablePlugin.utils.isSelectionOutOfTable(value);
 
         return (
             <div>
-                {isTable ? this.renderTableToolbar() : this.renderNormalToolbar()}
+                {isInTable ? this.renderTableToolbar() : null}
+                {isOutTable ? this.renderNormalToolbar() : null}
                 <Editor
+                    ref={this.setEditorComponent}
                     placeholder={'Enter some text...'}
+                    renderNode={renderNode}
                     plugins={plugins}
-                    state={state}
+                    value={value}
                     onChange={this.onChange}
-                    schema={schema}
                 />
             </div>
         );
     }
-});
+}
 
-ReactDOM.render(
-    <Example />,
-    document.getElementById('example')
-);
+// $FlowFixMe
+ReactDOM.render(<Example />, document.getElementById('example'));

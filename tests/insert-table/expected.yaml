@@ -4,12 +4,12 @@ document:
       type: paragraph
       nodes:
         - kind: text
-          ranges:
+          leaves:
             - text: "Before"
     - kind: block
       type: table
       data:
-          align:
+          presetAlign:
               - left
               - left
       nodes:
@@ -18,28 +18,36 @@ document:
           nodes:
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
         - kind: block
           type: table_row
           nodes:
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""
             - kind: block
               type: table_cell
+              data: 
+                textAlign: left
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: ""

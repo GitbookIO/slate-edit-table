@@ -4,7 +4,7 @@ document:
     - kind: block
       type: table
       data:
-        align:
+        presetAlign:
           - left
       nodes:
         - kind: block
@@ -14,12 +14,12 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Cell 1"
     - kind: block
       type: table
       data:
-        align:
+        presetAlign:
           - left
       nodes:
         - kind: block
@@ -29,5 +29,5 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  ranges:
+                  leaves:
                     - text: "Cell 2"

@@ -5,7 +5,13 @@
 
 A Slate plugin to handle table edition.
 
+<<<<<<< HEAD
 ## Install
+=======
+Demo: [gitbookio.github.io/slate-edit-table/](https://gitbookio.github.io/slate-edit-table/)
+
+### Install
+>>>>>>> 853ad6b24acf462a55821f77a9c7708fbf4ca5d4
 
 ```
 npm install slate-edit-table
@@ -60,13 +66,19 @@ Once you have constructed an instance of the plugin, you have access to utilitie
 
 #### `plugin.utils.isSelectionInTable`
 
-`plugin.utils.isSelectionInTable(state: State) => boolean`
+`plugin.utils.isSelectionInTable(value: Slate.Value) => boolean`
 
 Return true if selection is inside a table cell.
 
+#### `plugin.utils.isSelectionOutOfTable`
+
+`plugin.utils.isSelectionOutOfTable(value: Slate.Value) => boolean`
+
+Return true if selection starts and ends both outside any table.  (Notice: it is NOT the opposite value of `isSelectionInTable`)
+
 #### `plugin.utils.getPosition`
 
-`plugin.utils.getPosition(state: State) => TablePosition`
+`plugin.utils.getPosition(value: Slate.Value) => TablePosition`
 
 Returns the detailed position in the current table. Throws if not in a table.
 
@@ -124,3 +136,7 @@ Move the selection by the given amount of columns and rows.
 
 Sets column alignment for a given column (`at`), in the current table. `align`
 defaults to center, `at` is optional and defaults to current cursor position.
+
+> The `align` values are stored in the table node's data.
+> `table.node.data.get('align')` should be an array of aligns string, corresponding to
+each column.

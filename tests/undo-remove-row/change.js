@@ -1,9 +1,10 @@
-
-module.exports = function(plugin, change) {
-    const cursorBlock = change.state.document.getDescendant('_cursor_');
-    const initial = change.state.change({ save: false }).moveToRangeOf(cursorBlock);
-    const toTest = initial.state.change();
+export default function(plugin, change) {
+    const cursorBlock = change.value.document.getDescendant('_cursor_');
+    const initial = change.value
+        .change({ save: false })
+        .moveToRangeOf(cursorBlock);
+    const toTest = initial.value.change();
     plugin.changes.removeRow(toTest).undo();
 
     return toTest;
-};
+}

@@ -1,20 +1,20 @@
-const expect = require('expect');
+import expect from 'expect';
 
-module.exports = function(plugin, change) {
-    const blockStart = change.state.document.getDescendant('_cursor_');
-    const withCursor = change
-        .collapseToStartOf(blockStart);
+export default function(plugin, change) {
+    const blockStart = change.value.document.getDescendant('_cursor_');
+    const withCursor = change.collapseToStartOf(blockStart);
 
     const result = plugin.onKeyDown(
         {
+            key: 'Enter',
+            metaKey: true,
             preventDefault() {},
             stopPropagation() {}
         },
-        { key: 'enter', isMod: true },
         withCursor
     );
 
-    expect(result.state.startBlock.type).toBe('paragraph');
+    expect(result.value.startBlock.type).toBe('paragraph');
 
     return result;
-};
+}
