@@ -5,6 +5,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.14.2] - 2018-02-06
 ## [0.14.1] - 2018-02-06
 
 - Fixed build
