@@ -108,7 +108,7 @@ Return true if selection starts and ends both outside any table.  (Notice: it is
 
 `plugin.utils.getPosition(state: Slate.State) => TablePosition`
 
-Returns the detailed position in the current table. Throws if not in a table.
+Returns the detailed position in the current table.
 
 #### `plugin.changes.insertTable`
 
