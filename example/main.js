@@ -4,36 +4,26 @@
 
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { type Node } from 'slate';
 import { Editor } from 'slate-react';
 
 import PluginEditTable from '../lib/';
-import INITIAL_VALUE from './state';
+import INITIAL_STATE from './state';
 
 const tablePlugin = PluginEditTable();
 const plugins = [tablePlugin];
 
-type NodeProps = {
-    attributes: Object,
-    node: Node,
-    children: React.Node
-};
-
-function renderNode(props: NodeProps): React.Node {
-    const { node, attributes, children } = props;
-    let textAlign;
-
-    switch (node.type) {
-        case 'table':
-            return (
-                <table>
-                    <tbody {...attributes}>{children}</tbody>
-                </table>
-            );
-        case 'table_row':
-            return <tr {...attributes}>{children}</tr>;
-        case 'table_cell':
-            textAlign = node.get('data').get('textAlign');
+const schema = {
+    nodes: {
+        table: ({ attributes, children }: *) => (
+            <table>
+                <tbody {...attributes}>{children}</tbody>
+            </table>
+        ),
+        table_row: ({ attributes, children }: *) => (
+            <tr {...attributes}>{children}</tr>
+        ),
+        table_cell: ({ node, attributes, children }: *) => {
+            let textAlign = node.get('data').get('textAlign');
             textAlign =
                 ['left', 'right', 'center'].indexOf(textAlign) === -1
                     ? 'left'
@@ -43,20 +33,21 @@ function renderNode(props: NodeProps): React.Node {
                     {children}
                 </td>
             );
-        case 'paragraph':
-            return <p {...attributes}>{children}</p>;
-        case 'heading':
-            return <h1 {...attributes}>{children}</h1>;
-        default:
-            return null;
+        },
+        paragraph: ({ attributes, children }: *) => (
+            <p {...attributes}>{children}</p>
+        ),
+        heading: ({ attributes, children }: *) => (
+            <h1 {...attributes}>{children}</h1>
+        )
     }
-}
+};
 
 class Example extends React.Component<*, *> {
     submitChange: Function;
     editorREF: Editor;
     state = {
-        state: INITIAL_VALUE
+        state: INITIAL_STATE
     };
 
     renderTableToolbar() {
@@ -88,6 +79,7 @@ class Example extends React.Component<*, *> {
             </div>
         );
     }
+
     setEditorComponent = (ref: Editor) => {
         this.editorREF = ref;
         this.submitChange = ref.change;
@@ -146,7 +138,7 @@ class Example extends React.Component<*, *> {
                 <Editor
                     ref={this.setEditorComponent}
                     placeholder={'Enter some text...'}
-                    renderNode={renderNode}
+                    schema={schema}
                     plugins={plugins}
                     state={state}
                     onChange={this.onChange}
