@@ -13,6 +13,7 @@ export default function(plugin, change) {
             preventDefault() {},
             stopPropagation() {}
         },
+        null,
         withCursor
     );
 }
