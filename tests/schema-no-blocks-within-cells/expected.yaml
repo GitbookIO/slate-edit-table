@@ -17,7 +17,7 @@ document:
               nodes:
                 - object: text
                   leaves:
-                    - text: "Row 1, Col 1"
+                    - text: "Row 1, Col 1Extra text"
             - object: block
               type: table_cell
               nodes:
