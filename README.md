@@ -35,6 +35,38 @@ const plugins = [
 ]
 ```
 
+## Data structure
+
+Here is what your Slate document containing tables should look like:
+
+```jsx
+<document>
+  <paragraph>Some text</paragraph>
+
+  <table>
+    <table_row>
+      <table_cell>
+        <paragraph>Any block can goes into cells</paragraph>
+      </table_cell>
+
+      <table_cell>
+        <image isVoid src="image.png" />
+      </table_cell>
+    </table_row>
+
+    <table_row>
+      <table_cell>
+        <paragraph>Second row</paragraph>
+      </table_cell>
+
+      <table_cell>
+        <paragraph>Second row</paragraph>
+      </table_cell>
+    </table_row>
+  </table>
+</document>
+```
+
 ## API
 
 ### `Options`
