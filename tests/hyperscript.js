@@ -7,6 +7,9 @@ const h = createHyperscript({
         table: 'table',
         table_row: 'table_row',
         table_cell: 'table_cell'
+    },
+    inlines: {
+        link: 'link'
     }
 });
 

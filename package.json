@@ -30,8 +30,8 @@
     "mocha": "^3.0.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "read-metadata": "^1.0.0",
     "slate": "^0.24.0",
+    "slate-hyperprint": "^2.0.1",
     "slate-hyperscript": "0.1.8",
     "slate-react": "^0.1.10",
     "watchify": "^3.7.0"

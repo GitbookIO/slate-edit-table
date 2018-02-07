@@ -1,9 +1,10 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 import expect from 'expect';
 import fs from 'fs';
 import path from 'path';
 import Slate from 'slate';
-import readMetadata from 'read-metadata';
-
+import hyperprint from 'slate-hyperprint';
 import EditTable from '../lib';
 
 const PLUGIN = EditTable();
@@ -11,9 +12,9 @@ const SCHEMA = Slate.Schema.create({
     plugins: [PLUGIN]
 });
 
-function deserializeState(json) {
+function deserializeState(document) {
     return Slate.State.fromJSON(
-        { ...json, schema: SCHEMA },
+        { document, schema: SCHEMA },
         { normalize: false }
     );
 }
@@ -26,21 +27,21 @@ describe('slate-edit-table', () => {
 
         it(test, () => {
             const dir = path.resolve(__dirname, test);
-            const input = readMetadata.sync(path.resolve(dir, 'input.yaml'));
-            const expectedPath = path.resolve(dir, 'expected.yaml');
-            const expected =
-                fs.existsSync(expectedPath) && readMetadata.sync(expectedPath);
+            const inputDocument = require(path.resolve(dir, 'input.js'))
+                .default;
+            const expectedPath = path.resolve(dir, 'expected.js');
+            const expectedDocument =
+                fs.existsSync(expectedPath) && require(expectedPath).default;
 
-            // eslint-disable-next-line
             const runChange = require(path.resolve(dir, 'change.js')).default;
 
-            const stateInput = deserializeState(input);
+            const stateInput = deserializeState(inputDocument);
 
             const newChange = runChange(PLUGIN, stateInput.change());
 
-            if (expected) {
-                const newDocJSon = newChange.state.toJSON();
-                expect(newDocJSon).toEqual(deserializeState(expected).toJSON());
+            if (expectedDocument) {
+                const newDoc = hyperprint(newChange.state.document);
+                expect(newDoc).toEqual(hyperprint(expectedDocument));
             }
         });
     });
