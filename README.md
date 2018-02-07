@@ -5,13 +5,9 @@
 
 A Slate plugin to handle table edition.
 
-<<<<<<< HEAD
-## Install
-=======
 Demo: [gitbookio.github.io/slate-edit-table/](https://gitbookio.github.io/slate-edit-table/)
 
-### Install
->>>>>>> 853ad6b24acf462a55821f77a9c7708fbf4ca5d4
+## Install
 
 ```
 npm install slate-edit-table
