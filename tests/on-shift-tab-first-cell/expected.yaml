@@ -2,11 +2,6 @@ document:
   nodes:
     - kind: block
       type: table
-      data:
-        presetAlign:
-          - left
-          - left
-          - left      
       nodes:
         - kind: block
           type: table_row
