@@ -21,18 +21,12 @@ document:
             - kind: block
               type: table_cell
               nodes:
-                - kind: text
-                  ranges:
-                    - text: ""
                 - kind: inline
                   type: link
                   nodes:
                     - kind: text
                       ranges:
                       - text: "Row 1, Col 2"
-                - kind: text
-                  ranges:
-                    - text: ""
             - kind: block
               type: table_cell
               nodes:
