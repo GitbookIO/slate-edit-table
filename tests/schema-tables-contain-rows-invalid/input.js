@@ -7,9 +7,9 @@ export default (
             <table_row>
                 <table_cell>Row 1, Col 1</table_cell>
             </table_row>
-            <default>
+            <paragraph>
                 <table_cell>Row 2, Col 1</table_cell>
-            </default>
+            </paragraph>
             <table_row>
                 <table_cell>Row 3, Col 1</table_cell>
             </table_row>
