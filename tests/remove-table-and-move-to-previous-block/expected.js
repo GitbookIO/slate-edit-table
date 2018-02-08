@@ -4,7 +4,7 @@ import hyperscript from '../hyperscript';
 export default (
     <state>
         <document>
-            <paragraph>Before</paragraph>
+            <paragraph key="anchor_after">Before</paragraph>
         </document>
     </state>
 );

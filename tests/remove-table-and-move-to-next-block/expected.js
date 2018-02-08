@@ -5,7 +5,7 @@ export default (
     <state>
         <document>
             <paragraph>Before</paragraph>
-            <paragraph>After</paragraph>
+            <paragraph key="anchor_after">After</paragraph>
         </document>
     </state>
 );

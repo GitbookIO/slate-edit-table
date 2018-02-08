@@ -40,7 +40,7 @@ export default (
                     </table_cell>
                 </table_row>
             </table>
-            <paragraph>After</paragraph>
+            <paragraph key="anchor_after">After</paragraph>
         </document>
     </state>
 );
