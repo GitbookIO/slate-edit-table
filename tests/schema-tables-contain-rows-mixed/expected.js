@@ -6,7 +6,9 @@ export default (
         <document>
             <table presetAlign={['left']}>
                 <table_row>
-                    <table_cell />
+                    <table_cell>
+                        <paragraph />
+                    </table_cell>
                 </table_row>
             </table>
             <table presetAlign={['left']}>

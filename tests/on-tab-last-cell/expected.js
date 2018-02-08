@@ -28,9 +28,15 @@ export default (
                     </table_cell>
                 </table_row>
                 <table_row>
-                    <table_cell />
-                    <table_cell />
-                    <table_cell />
+                    <table_cell>
+                        <paragraph />
+                    </table_cell>
+                    <table_cell>
+                        <paragraph />
+                    </table_cell>
+                    <table_cell>
+                        <paragraph />
+                    </table_cell>
                 </table_row>
             </table>
         </document>
