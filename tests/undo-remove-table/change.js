@@ -8,7 +8,7 @@ export default function(plugin, change) {
     toTest.call(plugin.changes.removeTable).undo();
 
     // Back to previous cursor position
-    expect(toTest.state.startBlock.text).toEqual('Col 1, Row 1');
+    expect(toTest.state.startBlock.text).toEqual('Before');
 
     return toTest;
 }

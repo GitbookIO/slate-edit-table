@@ -26,6 +26,7 @@ describe('slate-edit-table', () => {
         if (test[0] === '.' || path.extname(test).length > 0) return;
 
         it(test, () => {
+            Slate.resetKeyGenerator();
             const dir = path.resolve(__dirname, test);
             const input = require(path.resolve(dir, 'input.js')).default;
             const expectedPath = path.resolve(dir, 'expected.js');

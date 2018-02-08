@@ -7,10 +7,10 @@ export default (
         <document>
             <table presetAlign={['left', 'left', 'left']}>
                 <table_row>
-                    <table_cell>Row 1, Col 1 Row 1, Col 1, Content2</table_cell>
+                    <table_cell>Row 1, Col 1</table_cell>
                     <table_cell>
                         <paragraph>
-                            <link>Row 1, Col 2</link>
+                            <link>Row 1, Col 2</link> with some text
                         </paragraph>
                     </table_cell>
                     <table_cell>

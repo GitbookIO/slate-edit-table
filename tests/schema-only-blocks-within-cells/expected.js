@@ -8,13 +8,11 @@ export default (
             <table presetAlign={['left', 'left', 'left']}>
                 <table_row>
                     <table_cell>
-                        <paragraph>
-                            Row 1, Col 1Row 1, Col 1, Content2
-                        </paragraph>
+                        <paragraph>Row 1, Col 1</paragraph>
                     </table_cell>
                     <table_cell>
                         <paragraph>
-                            <link>Row 1, Col 2</link>
+                            <link>Row 1, Col 2</link> with some text
                         </paragraph>
                     </table_cell>
                     <table_cell>
