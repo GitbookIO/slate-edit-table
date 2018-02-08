@@ -27,7 +27,7 @@ document:
           nodes:
             - kind: block
               type: table_cell
-              key: '_cursor_'
+              key: 'anchor'
               nodes:
                 - kind: text
                   ranges:

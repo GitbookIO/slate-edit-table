@@ -27,14 +27,14 @@ document:
           nodes:
             - kind: block
               type: table_cell
-              key: '_cursor_1'
+              key: 'anchor1'
               nodes:
                 - kind: text
                   ranges:
                     - text: "Col 0, Row 1"
             - kind: block
               type: table_cell
-              key: '_cursor_2'
+              key: 'anchor2'
               nodes:
                 - kind: text
                   ranges:

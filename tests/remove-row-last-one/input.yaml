@@ -14,7 +14,7 @@ document:
                     - text: "Col 0, Row 0"
             - kind: block
               type: table_cell
-              key: '_cursor_'
+              key: 'anchor'
               nodes:
                 - kind: text
                   ranges:

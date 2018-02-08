@@ -1,7 +1,7 @@
 import expect from 'expect';
 
 export default function(plugin, change) {
-    const cursorBlock = change.state.document.getDescendant('_cursor_');
+    const cursorBlock = change.state.document.getDescendant('anchor');
     const initial = change.state.change({ save: false });
 
     initial.moveToRangeOf(cursorBlock).move(6); // Cursor here: Before|After

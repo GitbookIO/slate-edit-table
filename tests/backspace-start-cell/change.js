@@ -2,7 +2,7 @@ import expect from 'expect';
 
 export default function(plugin, change) {
     const { state } = change;
-    const blockStart = state.document.getDescendant('_cursor_');
+    const blockStart = state.document.getDescendant('anchor');
 
     const withCursor = change.collapseToStartOf(blockStart);
 

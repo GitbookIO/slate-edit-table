@@ -33,7 +33,7 @@ document:
                 - kind: text
                   ranges:
                     - text: "Col 0, Row 1"
-                  key: "_cursor_"
+                  key: "anchor"
             - kind: block
               type: table_cell
               nodes:

@@ -2,7 +2,7 @@ document:
   nodes:
     - kind: block
       type: paragraph
-      key: '_cursor_after_'
+      key: 'anchor_after'
       nodes:
         - kind: text
           ranges:
@@ -42,7 +42,7 @@ document:
                     - text: "Col 0, Row 1"
             - kind: block
               type: table_cell
-              key: '_cursor_'
+              key: 'anchor'
               nodes:
                 - kind: text
                   ranges:

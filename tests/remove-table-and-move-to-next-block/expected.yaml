@@ -9,7 +9,7 @@ document:
       # Removed table
     - kind: block
       type: paragraph
-      key: '_cursor_after_'
+      key: 'anchor_after'
       nodes:
         - kind: text
           ranges:

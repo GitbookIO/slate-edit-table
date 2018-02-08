@@ -1,5 +1,5 @@
 export default function(plugin, change) {
-    const cursorBlock = change.state.document.getDescendant('_cursor_');
+    const cursorBlock = change.state.document.getDescendant('anchor');
     const initial = change.state
         .change({ save: false })
         .moveToRangeOf(cursorBlock);

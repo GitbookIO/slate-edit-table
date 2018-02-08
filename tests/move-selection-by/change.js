@@ -2,7 +2,7 @@ import expect from 'expect';
 
 export default function(plugin, change) {
     const { state } = change;
-    const cursorBlock = state.document.getDescendant('_cursor_');
+    const cursorBlock = state.document.getDescendant('anchor');
     const offset = 2;
     change.moveToRangeOf(cursorBlock).move(offset);
 

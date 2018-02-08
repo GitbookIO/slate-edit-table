@@ -10,7 +10,7 @@ export default (
             </table_row>
             <table_row>
                 <table_cell>Col 0, Row 1</table_cell>
-                <table_cell key="_cursor_">Col 1, Row 1</table_cell>
+                <table_cell key="anchor">Col 1, Row 1</table_cell>
             </table_row>
             <table_row>
                 <table_cell>Col 0, Row 2</table_cell>

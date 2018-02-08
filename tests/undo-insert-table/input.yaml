@@ -2,7 +2,7 @@ document:
   nodes:
     - kind: block
       type: paragraph
-      key: '_cursor_'
+      key: 'anchor'
       nodes:
         - kind: text
           ranges:

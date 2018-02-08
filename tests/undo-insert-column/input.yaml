@@ -35,7 +35,7 @@ document:
               type: table_cell
               nodes:
                 - kind: text
-                  key: '_cursor_'
+                  key: 'anchor'
                   ranges:
                     - text: "Col 1, Row 1"
         - kind: block
