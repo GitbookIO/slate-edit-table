@@ -5,12 +5,16 @@ export default (
     <document>
         <table presetAlign={['left']}>
             <table_row>
-                <table_cell>Cell 1</table_cell>
+                <table_cell>
+                    <paragraph>Cell 1</paragraph>
+                </table_cell>
             </table_row>
         </table>
         <table presetAlign={['left']}>
             <table_row>
-                <table_cell>Cell 2</table_cell>
+                <table_cell>
+                    <paragraph>Cell 2</paragraph>
+                </table_cell>
             </table_row>
         </table>
     </document>

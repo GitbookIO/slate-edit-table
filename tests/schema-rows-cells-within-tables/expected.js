@@ -8,7 +8,9 @@ export default (
         </table>
         <table presetAlign={['left']}>
             <table_row>
-                <table_cell>No rows</table_cell>
+                <table_cell>
+                    <paragraph>No rows</paragraph>
+                </table_cell>
             </table_row>
         </table>
     </document>
