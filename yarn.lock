@@ -4124,8 +4124,8 @@ slate-dev-logger@^0.1.10, slate-dev-logger@^0.1.14, slate-dev-logger@^0.1.7:
   resolved "https://registry.yarnpkg.com/slate-dev-logger/-/slate-dev-logger-0.1.37.tgz#d9bf2d41c71e71a75216b6557c5be1db6ea73548"
 
 slate-hyperprint@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/slate-hyperprint/-/slate-hyperprint-2.0.1.tgz#33936579753a9e05ebcdefcabae69822af53b1da"
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/slate-hyperprint/-/slate-hyperprint-2.1.1.tgz#7e0ce025c58b34f1bb24e4693aeaf80f19268afc"
   dependencies:
     indent-string "^3.2.0"
     js-yaml "^3.10.0"

@@ -40,7 +40,7 @@ const plugins = [
 Here is what your Slate document containing tables should look like:
 
 ```jsx
-<document>
+<state><document>
   <paragraph>Some text</paragraph>
 
   <table>
@@ -64,7 +64,7 @@ Here is what your Slate document containing tables should look like:
       </table_cell>
     </table_row>
   </table>
-</document>
+</document></state>
 ```
 
 ## API

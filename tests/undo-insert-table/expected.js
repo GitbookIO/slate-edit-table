@@ -2,7 +2,9 @@
 import hyperscript from '../hyperscript';
 
 export default (
-    <document>
-        <paragraph>BeforeAfter</paragraph>
-    </document>
+    <state>
+        <document>
+            <paragraph>BeforeAfter</paragraph>
+        </document>
+    </state>
 );

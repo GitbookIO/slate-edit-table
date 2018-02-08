@@ -3,10 +3,6 @@
 An instance of `TablePosition` represents a position within a table (row and column).
 You can get your current position in a table by using `plugin.utils.getPosition(state)`.
 
-## `EditTable.TablePosition.create(options: Options, state: State, node: Node) => TablePosition`
-
-Returns the TablePosition for the given node. This is general purpose. To get your current position, you can use `plugin.utils.getPosition(state)`.
-
 ## `position.getWidth() => number`
 
 Returns the number of columns in the current table.

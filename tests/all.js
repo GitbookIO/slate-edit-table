@@ -12,9 +12,9 @@ const SCHEMA = Slate.Schema.create({
     plugins: [PLUGIN]
 });
 
-function deserializeState(document) {
+function deserializeState(state) {
     return Slate.State.fromJSON(
-        { document, schema: SCHEMA },
+        { document: state.document, schema: SCHEMA },
         { normalize: false }
     );
 }
@@ -27,21 +27,20 @@ describe('slate-edit-table', () => {
 
         it(test, () => {
             const dir = path.resolve(__dirname, test);
-            const inputDocument = require(path.resolve(dir, 'input.js'))
-                .default;
+            const input = require(path.resolve(dir, 'input.js')).default;
             const expectedPath = path.resolve(dir, 'expected.js');
-            const expectedDocument =
+            const expected =
                 fs.existsSync(expectedPath) && require(expectedPath).default;
 
             const runChange = require(path.resolve(dir, 'change.js')).default;
 
-            const stateInput = deserializeState(inputDocument);
+            const stateInput = deserializeState(input);
 
             const newChange = runChange(PLUGIN, stateInput.change());
 
-            if (expectedDocument) {
+            if (expected) {
                 const newDoc = hyperprint(newChange.state.document);
-                expect(newDoc).toEqual(hyperprint(expectedDocument));
+                expect(newDoc).toEqual(hyperprint(expected.document));
             }
         });
     });
