@@ -3,6 +3,6 @@ import hyperscript from '../hyperscript';
 
 export default (
     <document>
-        <paragraph>BeforeAfter</paragraph>
+        <paragraph key="_cursor_">BeforeAfter</paragraph>
     </document>
 );

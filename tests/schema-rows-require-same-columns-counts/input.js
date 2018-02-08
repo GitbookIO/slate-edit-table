@@ -12,7 +12,7 @@ export default (
             <table_row>There is no columns here</table_row>
             <table_row>
                 <table_cell>Row 3, Col 1</table_cell>
-                <invalid>Row 3, Col 2</invalid>
+                <block type="invalid">Row 3, Col 2</block>
                 <table_cell>Row 3, Col 3</table_cell>
             </table_row>
         </table>
