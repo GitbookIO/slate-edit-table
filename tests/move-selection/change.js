@@ -11,8 +11,6 @@ export default function(plugin, change) {
     expect(change.state.startBlock.text).toEqual('Col 2, Row 2');
     const selection = change.state.selection;
     expect(selection.startKey).toEqual(selection.endKey);
-    // Keep same offset
-    expect(selection.startOffset).toEqual(offset);
 
     return change;
 }
