@@ -1,4 +1,8 @@
 /** @jsx hyperscript */
 import hyperscript from '../hyperscript';
 
-export default <document />;
+export default (
+    <state>
+        <document />
+    </state>
+);
