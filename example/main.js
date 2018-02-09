@@ -10,7 +10,7 @@ import PluginEditTable from '../lib/';
 import INITIAL_STATE from './state';
 
 const tablePlugin = PluginEditTable({
-    typeContent: 'text'
+    typeContent: 'text_block'
 });
 
 const plugins = [tablePlugin];
@@ -43,7 +43,7 @@ const schema = {
         heading: ({ attributes, children }: *) => (
             <h1 {...attributes}>{children}</h1>
         ),
-        text: ({ attributes, children }: *) => (
+        text_block: ({ attributes, children }: *) => (
             <span {...attributes}>{children}</span>
         )
     }

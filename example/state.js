@@ -22,26 +22,26 @@ const state = (
             <table>
                 <table_row>
                     <table_cell>
-                        <text>Cell 0,0</text>
+                        <text_block>Cell 0,0</text_block>
                     </table_cell>
                     <table_cell>
-                        <text>Cell 0,1</text>
-                    </table_cell>
-                </table_row>
-                <table_row>
-                    <table_cell>
-                        <text>Cell 1,0</text>
-                    </table_cell>
-                    <table_cell>
-                        <text>Cell 1,1</text>
+                        <text_block>Cell 0,1</text_block>
                     </table_cell>
                 </table_row>
                 <table_row>
                     <table_cell>
-                        <text>Cell 2,0</text>
+                        <text_block>Cell 1,0</text_block>
                     </table_cell>
                     <table_cell>
-                        <text>Cell 2,1</text>
+                        <text_block>Cell 1,1</text_block>
+                    </table_cell>
+                </table_row>
+                <table_row>
+                    <table_cell>
+                        <text_block>Cell 2,0</text_block>
+                    </table_cell>
+                    <table_cell>
+                        <text_block>Cell 2,1</text_block>
                     </table_cell>
                 </table_row>
             </table>
