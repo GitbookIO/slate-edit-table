@@ -9,17 +9,20 @@ export default function(plugin, change) {
     const table2 = state.document.getDescendant('table2');
 
     change.collapseToStartOf(paragraph);
-    expect(plugin.utils.isSelectionInTable(change.state)).toBe(false);
+    expect(plugin.utils.isSelectionOutOfTable(change.state)).toBe(true);
+
+    change.extendToEndOf(cellText);
+    expect(plugin.utils.isSelectionOutOfTable(change.state)).toBe(false);
 
     change.collapseToStartOf(cellText);
-    expect(plugin.utils.isSelectionInTable(change.state)).toBe(true);
+    expect(plugin.utils.isSelectionOutOfTable(change.state)).toBe(false);
 
     change.collapseToStartOf(table11);
-    expect(plugin.utils.isSelectionInTable(change.state)).toBe(true);
+    expect(plugin.utils.isSelectionOutOfTable(change.state)).toBe(false);
 
     change.extendToEndOf(table12);
-    expect(plugin.utils.isSelectionInTable(change.state)).toBe(true);
+    expect(plugin.utils.isSelectionOutOfTable(change.state)).toBe(false);
 
     change.extendToEndOf(table2);
-    expect(plugin.utils.isSelectionInTable(change.state)).toBe(false);
+    expect(plugin.utils.isSelectionOutOfTable(change.state)).toBe(false);
 }
