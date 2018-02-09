@@ -12,8 +12,8 @@ const h = createHyperscript({
     }
 });
 
-const value = (
-    <value>
+const state = (
+    <state>
         <document>
             <heading>Slate + Table Edition</heading>
             <paragraph>
@@ -21,16 +21,28 @@ const value = (
             </paragraph>
             <table>
                 <table_row>
-                    <table_cell>Cell 0,0</table_cell>
-                    <table_cell>Cell 0,1</table_cell>
+                    <table_cell>
+                        <text>Cell 0,0</text>
+                    </table_cell>
+                    <table_cell>
+                        <text>Cell 0,1</text>
+                    </table_cell>
                 </table_row>
                 <table_row>
-                    <table_cell>Cell 1,0</table_cell>
-                    <table_cell>Cell 1,1</table_cell>
+                    <table_cell>
+                        <text>Cell 1,0</text>
+                    </table_cell>
+                    <table_cell>
+                        <text>Cell 1,1</text>
+                    </table_cell>
                 </table_row>
                 <table_row>
-                    <table_cell>Cell 2,0</table_cell>
-                    <table_cell>Cell 2,1</table_cell>
+                    <table_cell>
+                        <text>Cell 2,0</text>
+                    </table_cell>
+                    <table_cell>
+                        <text>Cell 2,1</text>
+                    </table_cell>
                 </table_row>
             </table>
             <paragraph>
@@ -38,7 +50,7 @@ const value = (
                 go to next row. Press Up/Down to navigate the rows.
             </paragraph>
         </document>
-    </value>
+    </state>
 );
 
-export default value;
+export default state;

@@ -4,36 +4,29 @@
 
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { type Node } from 'slate';
 import { Editor } from 'slate-react';
 
 import PluginEditTable from '../lib/';
-import INITIAL_VALUE from './value';
+import INITIAL_STATE from './state';
 
-const tablePlugin = PluginEditTable();
+const tablePlugin = PluginEditTable({
+    typeContent: 'text'
+});
+
 const plugins = [tablePlugin];
 
-type NodeProps = {
-    attributes: Object,
-    node: Node,
-    children: React.Node
-};
-
-function renderNode(props: NodeProps): React.Node {
-    const { node, attributes, children } = props;
-    let textAlign;
-
-    switch (node.type) {
-        case 'table':
-            return (
-                <table>
-                    <tbody {...attributes}>{children}</tbody>
-                </table>
-            );
-        case 'table_row':
-            return <tr {...attributes}>{children}</tr>;
-        case 'table_cell':
-            textAlign = node.get('data').get('textAlign');
+const schema = {
+    nodes: {
+        table: ({ attributes, children }: *) => (
+            <table>
+                <tbody {...attributes}>{children}</tbody>
+            </table>
+        ),
+        table_row: ({ attributes, children }: *) => (
+            <tr {...attributes}>{children}</tr>
+        ),
+        table_cell: ({ node, attributes, children }: *) => {
+            let textAlign = node.get('data').get('textAlign');
             textAlign =
                 ['left', 'right', 'center'].indexOf(textAlign) === -1
                     ? 'left'
@@ -43,20 +36,24 @@ function renderNode(props: NodeProps): React.Node {
                     {children}
                 </td>
             );
-        case 'paragraph':
-            return <p {...attributes}>{children}</p>;
-        case 'heading':
-            return <h1 {...attributes}>{children}</h1>;
-        default:
-            return null;
+        },
+        paragraph: ({ attributes, children }: *) => (
+            <p {...attributes}>{children}</p>
+        ),
+        heading: ({ attributes, children }: *) => (
+            <h1 {...attributes}>{children}</h1>
+        ),
+        text: ({ attributes, children }: *) => (
+            <span {...attributes}>{children}</span>
+        )
     }
-}
+};
 
 class Example extends React.Component<*, *> {
     submitChange: Function;
     editorREF: Editor;
     state = {
-        value: INITIAL_VALUE
+        state: INITIAL_STATE
     };
 
     renderTableToolbar() {
@@ -88,14 +85,15 @@ class Example extends React.Component<*, *> {
             </div>
         );
     }
+
     setEditorComponent = (ref: Editor) => {
         this.editorREF = ref;
         this.submitChange = ref.change;
     };
 
-    onChange = ({ value }) => {
+    onChange = ({ state }) => {
         this.setState({
-            value
+            state
         });
     };
 
@@ -131,13 +129,15 @@ class Example extends React.Component<*, *> {
 
     onSetAlign = (event, align) => {
         event.preventDefault();
-        this.submitChange(tablePlugin.changes.setColumnAlign, align);
+        this.submitChange(change =>
+            change.call(tablePlugin.changes.setColumnAlign, align)
+        );
     };
 
     render() {
-        const { value } = this.state;
-        const isInTable = tablePlugin.utils.isSelectionInTable(value);
-        const isOutTable = tablePlugin.utils.isSelectionOutOfTable(value);
+        const { state } = this.state;
+        const isInTable = tablePlugin.utils.isSelectionInTable(state);
+        const isOutTable = tablePlugin.utils.isSelectionOutOfTable(state);
 
         return (
             <div>
@@ -146,9 +146,9 @@ class Example extends React.Component<*, *> {
                 <Editor
                     ref={this.setEditorComponent}
                     placeholder={'Enter some text...'}
-                    renderNode={renderNode}
+                    schema={schema}
                     plugins={plugins}
-                    value={value}
+                    state={state}
                     onChange={this.onChange}
                 />
             </div>
