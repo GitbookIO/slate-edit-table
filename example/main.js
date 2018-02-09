@@ -129,7 +129,9 @@ class Example extends React.Component<*, *> {
 
     onSetAlign = (event, align) => {
         event.preventDefault();
-        this.submitChange(tablePlugin.changes.setColumnAlign, align);
+        this.submitChange(change =>
+            change.call(tablePlugin.changes.setColumnAlign, align)
+        );
     };
 
     render() {
