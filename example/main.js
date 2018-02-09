@@ -9,7 +9,10 @@ import { Editor } from 'slate-react';
 import PluginEditTable from '../lib/';
 import INITIAL_STATE from './state';
 
-const tablePlugin = PluginEditTable();
+const tablePlugin = PluginEditTable({
+    typeContent: 'text'
+});
+
 const plugins = [tablePlugin];
 
 const schema = {
@@ -39,6 +42,9 @@ const schema = {
         ),
         heading: ({ attributes, children }: *) => (
             <h1 {...attributes}>{children}</h1>
+        ),
+        text: ({ attributes, children }: *) => (
+            <span {...attributes}>{children}</span>
         )
     }
 };
