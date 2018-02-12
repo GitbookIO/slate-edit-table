@@ -67,9 +67,7 @@ Here is what your Slate document containing tables should look like:
 </document></state>
 ```
 
-## API
-
-### `Options`
+## `Options`
 
 Option object you can pass to the plugin.
 
@@ -78,89 +76,137 @@ Option object you can pass to the plugin.
 - ``[typeCell: String]`` — type for the cells.
 - ``[typeContent: String]`` — default type for blocks in cells. Also used as default type for blocks created when exiting the table with Mod+Enter.
 
-### `EditTable`
+## `EditTable`
 
-#### `EditTable(options: Options) => Instance`
+### `EditTable(options: Options) => Instance`
 
-Constructs an instance of the table plugin, for the given options.
+Constructs an instance of the table plugin, for the given options. You can then add this instance to the list of plugins passed to Slate.
 
-#### [`EditTable.TablePosition`](./TablePosition)
+Once you have constructed an instance of the plugin, you get access to utilities and changes through `pluginInstance.utils` and `pluginInstance.changes`.
+
+### [`EditTable.TablePosition`](./TablePosition)
 
 An instance of `TablePosition` represents a position within a table (row and column).
 
-### `Instance`
+## Utils
 
-Once you have constructed an instance of the plugin, you have access to utilities and changes.
+### `utils.isSelectionInTable`
 
-#### `plugin.utils.isSelectionInTable`
-
-`plugin.utils.isSelectionInTable(state: Slate.State) => boolean`
+`isSelectionInTable(state: Slate.State) => boolean`
 
 Return true if selection is inside a table cell.
 
-#### `plugin.utils.isSelectionOutOfTable`
+### `utils.isSelectionOutOfTable`
 
-`plugin.utils.isSelectionOutOfTable(state: Slate.State) => boolean`
+`isSelectionOutOfTable(state: Slate.State) => boolean`
 
 Return true if selection starts and ends both outside any table.  (Notice: it is NOT the opposite state of `isSelectionInTable`)
 
-#### `plugin.utils.getPosition`
+### `utils.getPosition`
 
-`plugin.utils.getPosition(state: Slate.State) => TablePosition`
+`getPosition(state: Slate.State) => TablePosition`
 
 Returns the detailed position in the current table.
 
-#### `plugin.changes.insertTable`
+### `utils.createTable`
 
-`plugin.changes.insertTable(change: Change, columns: ?number, rows: ?number) => Change`
+```js
+createTable(
+    columns: number,
+    rows: number,
+    getCellContent?: (row: number, column: number) => Node[]
+): Block
+```
+
+Returns a table. The content can be filled with the given `getCellContent` generator.
+
+
+### `utils.createRow`
+
+```js
+createRow(
+    columns: number,
+    getCellContent?: (column: number) => Node[]
+): Block
+```
+
+Returns a row. The content can be filled with the given `getCellContent` generator.
+
+### `utils.createCell`
+
+```js
+createCell(opts: Options, nodes?: Node[]): Block
+```
+
+Returns a cell. The content defaults to an empty `typeContent` block.
+
+## Changes
+
+### `changes.insertTable`
+
+`insertTable(change: Change, columns: ?number, rows: ?number) => Change`
 
 Insert a new empty table.
 
-#### `plugin.changes.insertRow`
+### `changes.insertRow`
 
-`plugin.changes.insertRow(change: Change, at: ?number) => Change`
+```js
+insertRow(
+    opts: Options,
+    change: Change,
+    at?: number, // row index
+    getRow?: (columns: number) => Block // Generate the row yourself
+): Change
+```
 
 Insert a new row after the current one or at the specific index (`at`).
 
-#### `plugin.changes.insertColumn`
+### `changes.insertColumn`
 
-`plugin.changes.insertColumn(change: Change, at: ?number) => Change`
+```js
+insertColumn(
+    opts: Options,
+    change: Change,
+    at?: number, // Column index
+    getCell?: (column: number, row: number) => Block // Generate cells
+): Change
+```
 
 Insert a new column after the current one or at the specific index (`at`).
 
-#### `plugin.changes.removeTable`
+### `changes.removeTable`
 
-`plugin.changes.removeTable(change: Change) => Change`
+`removeTable(change: Change) => Change`
 
 Remove current table.
 
-#### `plugin.changes.removeRow`
+### `changes.removeRow`
 
-`plugin.changes.removeRow(change: Change, at: ?number) => Change`
+`removeRow(change: Change, at: ?number) => Change`
 
 Remove current row or the one at a specific index (`at`).
 
-#### `plugin.changes.removeColumn`
+### `changes.removeColumn`
 
-`plugin.changes.removeColumn(change: Change, at: ?number) => Change`
+`removeColumn(change: Change, at: ?number) => Change`
 
 Remove current column or the one at a specific index (`at`).
 
-#### `plugin.changes.moveSelection`
+### `changes.moveSelection`
 
-`plugin.changes.moveSelection(change: Change, column: number, row: number) => Change`
+`moveSelection(change: Change, column: number, row: number) => Change`
 
 Move the selection to a specific position in the table.
 
-#### `plugin.changes.moveSelectionBy`
+### `changes.moveSelectionBy`
 
-`plugin.changes.moveSelectionBy(change: Change, column: number, row: number) => Change`
+`moveSelectionBy(change: Change, column: number, row: number) => Change`
 
 Move the selection by the given amount of columns and rows.
 
-#### `plugin.changes.setColumnAlign`
+### `changes.setColumnAlign`
 
-`plugin.changes.setColumnAlign(change: Change, align: string, at: number) => Change`
+`setColumnAlign(change: Change, align: string, at: number) => Change`
 
 Sets column alignment for a given column (`at`), in the current table. `align`
 defaults to center, `at` is optional and defaults to current cursor position.
