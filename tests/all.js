@@ -40,8 +40,12 @@ describe('slate-edit-table', () => {
             const newChange = runChange(PLUGIN, stateInput.change());
 
             if (expected) {
-                const newDoc = hyperprint(newChange.state.document);
-                expect(newDoc).toEqual(hyperprint(expected.document));
+                const newDoc = hyperprint(newChange.state.document, {
+                    strict: true
+                });
+                expect(newDoc).toEqual(
+                    hyperprint(expected.document, { strict: true })
+                );
             }
         });
     });
