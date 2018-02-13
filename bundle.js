@@ -2111,8 +2111,9 @@ function blockWithinCells(opts) {
             change.insertNodeByKey(node.key, 0, block, { normalize: false });
 
             inlines.forEach(function (inline, inlineIndex) {
+                var isLast = inlineIndex === inlines.size - 1;
                 return change.moveNodeByKey(inline.key, block.key, inlineIndex, {
-                    normalize: false
+                    normalize: isLast
                 });
             });
 
