@@ -4,10 +4,10 @@ import hyperscript from '../hyperscript';
 export default (
     <state>
         <document>
-            <table presetAlign={['left']}>
+            <table>
                 <table_row>No table</table_row>
             </table>
-            <table presetAlign={['left']}>
+            <table>
                 <table_row>
                     <table_cell>
                         <paragraph>No rows</paragraph>

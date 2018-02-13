@@ -5,20 +5,20 @@ export default (
     <state>
         <document>
             <paragraph>Before</paragraph>
-            <table presetAlign={['left', 'left']}>
+            <table>
                 <table_row>
-                    <table_cell textAlign="left">
+                    <table_cell>
                         <paragraph />
                     </table_cell>
-                    <table_cell textAlign="left">
+                    <table_cell>
                         <paragraph />
                     </table_cell>
                 </table_row>
                 <table_row>
-                    <table_cell textAlign="left">
+                    <table_cell>
                         <paragraph />
                     </table_cell>
-                    <table_cell textAlign="left">
+                    <table_cell>
                         <paragraph />
                     </table_cell>
                 </table_row>

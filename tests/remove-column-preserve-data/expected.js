@@ -4,7 +4,7 @@ import hyperscript from '../hyperscript';
 export default (
     <state>
         <document>
-            <table custom="state" presetAlign={['left', 'center']}>
+            <table custom="state">
                 <table_row>
                     <table_cell>
                         <paragraph>Col 0, Row 0</paragraph>
