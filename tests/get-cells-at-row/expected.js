@@ -14,10 +14,10 @@ export default (
                     </table_cell>
                 </table_row>
                 <table_row>
-                    <table_cell key="anchor1">
+                    <table_cell custom="value">
                         <paragraph>Col 0, Row 1</paragraph>
                     </table_cell>
-                    <table_cell key="anchor2">
+                    <table_cell custom="value">
                         <paragraph>Col 1, Row 1</paragraph>
                     </table_cell>
                 </table_row>
