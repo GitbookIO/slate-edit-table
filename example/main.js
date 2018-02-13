@@ -9,6 +9,7 @@ import { type Block } from 'slate';
 import { Editor } from 'slate-react';
 
 import PluginEditTable from '../lib/';
+import alignPlugin from './aligns';
 import INITIAL_STATE from './state';
 
 const tablePlugin = PluginEditTable({
@@ -18,7 +19,7 @@ const tablePlugin = PluginEditTable({
     typeContent: 'paragraph'
 });
 
-const plugins = [tablePlugin];
+const plugins = [tablePlugin, alignPlugin];
 
 type NodeProps = {
     attributes: Object,
@@ -56,11 +57,8 @@ class TableCell extends React.Component<NodeProps> {
     render() {
         const { attributes, children, node } = this.props;
 
-        let textAlign = node.get('data').get('textAlign');
-        textAlign =
-            ['left', 'right', 'center'].indexOf(textAlign) === -1
-                ? 'left'
-                : textAlign;
+        const textAlign = node.get('data').get('align', 'left');
+
         return (
             <td style={{ textAlign }} {...attributes}>
                 {children}
@@ -181,7 +179,7 @@ class Example extends React.Component<*, *> {
     onSetAlign = (event, align) => {
         event.preventDefault();
         this.submitChange(change =>
-            change.call(tablePlugin.changes.setColumnAlign, align)
+            alignPlugin.changes.setColumnAlign(change, align)
         );
     };
 
