@@ -5,11 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
-<<<<<<< HEAD
-## [0.11.1] - 2017-12-04
+## [0.14.3] - 2018-02-06
 
-- Fix normalization of cells containing several blocks
-=======
+- Fix normalization of multiple blocks in cells
+
+## [0.14.2] - 2018-02-06
+## [0.14.1] - 2018-02-06
+
+- Fixed build
+
+## [0.14.0] - 2018-02-05
+
+**BREAKING**
+
+- Upgrade to be compatible with Slate 0.32.x
+- Fixed missing peerDependencies for `eslint-config-gitbook`
+
 ## [0.13.3] - 2018-01-08
 
 - Fix peer depedency range for slate to include 0.30 and 0.31
@@ -35,7 +46,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 **BREAKING**
 
 - Upgrade to be compatible with Slate 0.27.x
->>>>>>> 853ad6b24acf462a55821f77a9c7708fbf4ca5d4
 
 ## [0.11.0] - 2017-09-20
 
