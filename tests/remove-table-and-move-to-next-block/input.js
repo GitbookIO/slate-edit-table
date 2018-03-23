@@ -2,7 +2,7 @@
 import hyperscript from '../hyperscript';
 
 export default (
-    <state>
+    <value>
         <document>
             <paragraph>Before</paragraph>
             <table>
@@ -42,5 +42,5 @@ export default (
             </table>
             <paragraph key="anchor_after">After</paragraph>
         </document>
-    </state>
+    </value>
 );

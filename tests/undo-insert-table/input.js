@@ -2,9 +2,9 @@
 import hyperscript from '../hyperscript';
 
 export default (
-    <state>
+    <value>
         <document>
             <paragraph key="anchor">BeforeAfter</paragraph>
         </document>
-    </state>
+    </value>
 );

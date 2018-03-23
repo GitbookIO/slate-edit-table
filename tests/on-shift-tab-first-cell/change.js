@@ -1,7 +1,7 @@
 import expect from 'expect';
 
 export default function(plugin, change) {
-    const cursorBlock = change.state.document.getDescendant('anchor');
+    const cursorBlock = change.value.document.getDescendant('anchor');
     change.moveToRangeOf(cursorBlock);
 
     plugin.onKeyDown(
@@ -15,7 +15,7 @@ export default function(plugin, change) {
         change
     );
 
-    const position = plugin.utils.getPosition(change.state);
+    const position = plugin.utils.getPosition(change.value);
 
     // First row (new one)
     expect(position.getRowIndex()).toEqual(0);

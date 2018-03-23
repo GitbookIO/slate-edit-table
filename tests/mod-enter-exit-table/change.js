@@ -1,7 +1,7 @@
 import expect from 'expect';
 
 export default function(plugin, change) {
-    const blockStart = change.state.document.getDescendant('anchor');
+    const blockStart = change.value.document.getDescendant('anchor');
     const withCursor = change.collapseToStartOf(blockStart);
 
     const result = plugin.onKeyDown(
@@ -15,7 +15,7 @@ export default function(plugin, change) {
         withCursor
     );
 
-    expect(result.state.startBlock.type).toBe('paragraph');
+    expect(result.value.startBlock.type).toBe('paragraph');
 
     return result;
 }

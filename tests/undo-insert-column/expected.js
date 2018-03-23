@@ -2,7 +2,7 @@
 import hyperscript from '../hyperscript';
 
 export default (
-    <state>
+    <value>
         <document>
             <table align={['left', 'left']}>
                 <table_row>
@@ -31,5 +31,5 @@ export default (
                 </table_row>
             </table>
         </document>
-    </state>
+    </value>
 );

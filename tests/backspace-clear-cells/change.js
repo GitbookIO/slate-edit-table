@@ -1,7 +1,7 @@
 export default function(plugin, change) {
-    const { state } = change;
-    const blockStart = state.document.getDescendant('anchor');
-    const blockEnd = state.document.getDescendant('focus');
+    const { value } = change;
+    const blockStart = value.document.getDescendant('anchor');
+    const blockEnd = value.document.getDescendant('focus');
 
     const withCursor = change
         .collapseToStartOf(blockStart)

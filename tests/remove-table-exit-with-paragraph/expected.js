@@ -2,9 +2,9 @@
 import hyperscript from '../hyperscript';
 
 export default (
-    <state>
+    <value>
         <document>
             <paragraph />
         </document>
-    </state>
+    </value>
 );

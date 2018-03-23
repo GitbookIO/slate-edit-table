@@ -1,9 +1,9 @@
 export default function(plugin, change) {
-    const { state } = change;
-    const cursorBlock = state.document.getDescendant('anchor');
+    const { value } = change;
+    const cursorBlock = value.document.getDescendant('anchor');
     change.moveToRangeOf(cursorBlock);
 
-    const pos = plugin.utils.getPosition(change.state);
+    const pos = plugin.utils.getPosition(change.value);
 
     const cells = plugin.utils.getCellsAtRow(pos.table, pos.getRowIndex());
     cells.forEach(cell =>

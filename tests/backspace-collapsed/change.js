@@ -1,6 +1,6 @@
 export default function(plugin, change) {
-    const { state } = change;
-    const blockStart = state.document.getDescendant('anchor');
+    const { value } = change;
+    const blockStart = value.document.getDescendant('anchor');
 
     const withCursor = change.collapseToStartOf(blockStart);
 

@@ -2,7 +2,7 @@
 import hyperscript from '../hyperscript';
 
 export default (
-    <state>
+    <value>
         <document>
             <table>
                 <table_row>
@@ -12,5 +12,5 @@ export default (
                 </table_row>
             </table>
         </document>
-    </state>
+    </value>
 );
