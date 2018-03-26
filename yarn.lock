@@ -135,8 +135,8 @@ ajv@^5.2.3, ajv@^5.3.0:
     json-schema-traverse "^0.3.0"
 
 ansi-escapes@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.0.0.tgz#ec3e8b4e9f8064fc02c3ac9b65f1c275bda8ef92"
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.1.0.tgz#f73207bb81207d75fd6c83f125af26eea378ca30"
 
 ansi-regex@^2.0.0:
   version "2.1.1"
@@ -1411,8 +1411,8 @@ camelcase@^4.1.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-lite@^1.0.30000792:
-  version "1.0.30000819"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000819.tgz#aabee5fd15a080febab6ae5d30c9ea15f4c6d4e2"
+  version "1.0.30000820"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000820.tgz#6e36ee75187a2c83d26d6504a1af47cc580324d2"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -2570,8 +2570,8 @@ glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.0, glob@^7.1.2:
     path-is-absolute "^1.0.0"
 
 globals@^11.0.1, globals@^11.1.0:
-  version "11.3.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-11.3.0.tgz#e04fdb7b9796d8adac9c8f64c14837b2313378b0"
+  version "11.4.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-11.4.0.tgz#b85c793349561c16076a3c13549238a27945f1bc"
 
 globals@^9.18.0:
   version "9.18.0"
@@ -2782,8 +2782,8 @@ iconv-lite@^0.4.17, iconv-lite@~0.4.13:
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
 ieee754@^1.1.4:
-  version "1.1.10"
-  resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.10.tgz#719a6f7b026831e64bdb838b0de1bb0029bbf716"
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.11.tgz#c16384ffe00f5b7835824e67b6f2bd44a5229455"
 
 ignore@^3.3.3:
   version "3.3.7"
@@ -4567,7 +4567,7 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-slate-base64-serializer@^0.2.24:
+slate-base64-serializer@^0.2.28:
   version "0.2.28"
   resolved "https://registry.yarnpkg.com/slate-base64-serializer/-/slate-base64-serializer-0.2.28.tgz#141a93654b58203e82ee24c4068107a67b72aff8"
   dependencies:
@@ -4594,21 +4594,21 @@ slate-hyperscript@^0.5.0:
     is-plain-object "^2.0.4"
     slate-dev-logger "^0.1.39"
 
-slate-plain-serializer@^0.5.5:
+slate-plain-serializer@^0.5.9:
   version "0.5.9"
   resolved "https://registry.yarnpkg.com/slate-plain-serializer/-/slate-plain-serializer-0.5.9.tgz#dc6ac5d10c46cac1bfa8d9af36f5e76d766fd57e"
   dependencies:
     slate-dev-logger "^0.1.39"
 
-slate-prop-types@^0.4.22:
+slate-prop-types@^0.4.26:
   version "0.4.26"
   resolved "https://registry.yarnpkg.com/slate-prop-types/-/slate-prop-types-0.4.26.tgz#72ef2b6fded5893a2a0a273f679b92c4eee99e73"
   dependencies:
     slate-dev-logger "^0.1.39"
 
-slate-react@^0.11.0:
-  version "0.11.6"
-  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.11.6.tgz#f1c3bc832b7ad45a317bb589a17f62915323daf0"
+slate-react@^0.12.3:
+  version "0.12.3"
+  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.12.3.tgz#3d0739af6930ae2a178fa90da480d5106ba1c504"
   dependencies:
     debug "^2.3.2"
     get-window "^1.1.1"
@@ -4621,18 +4621,18 @@ slate-react@^0.11.0:
     react-immutable-proptypes "^2.1.0"
     react-portal "^3.1.0"
     selection-is-backward "^1.0.0"
-    slate-base64-serializer "^0.2.24"
+    slate-base64-serializer "^0.2.28"
     slate-dev-logger "^0.1.39"
-    slate-plain-serializer "^0.5.5"
-    slate-prop-types "^0.4.22"
+    slate-plain-serializer "^0.5.9"
+    slate-prop-types "^0.4.26"
 
-slate-schema-violations@^0.1.3:
+slate-schema-violations@^0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.7.tgz#cf2c6156eaf545f4d1985d3d1b94c50d6d273a08"
 
-slate@^0.32.0:
-  version "0.32.5"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.32.5.tgz#5386c75dec1e5b87648189c9fbb4294cec623ff0"
+slate@^0.33.3:
+  version "0.33.3"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.33.3.tgz#e9eb2f7c2740a46d45eb7b60c1f4da6699285878"
   dependencies:
     debug "^2.3.2"
     direction "^0.1.5"
@@ -4641,7 +4641,7 @@ slate@^0.32.0:
     is-plain-object "^2.0.4"
     lodash "^4.17.4"
     slate-dev-logger "^0.1.39"
-    slate-schema-violations "^0.1.3"
+    slate-schema-violations "^0.1.7"
     type-of "^2.0.1"
 
 slice-ansi@1.0.0:
