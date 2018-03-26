@@ -15,11 +15,11 @@ npm install slate-edit-table
 
 ## Features
 
-- Pressing <kbd>Up</kbd> and <kbd>Down</kbd>, moves the cursor to next/previous row
-- Pressing <kbd>Enter</kbd>, insert a new row
-- Pressing <kbd>Cmd+Enter</kbd> (<kbd>Ctrl+Enter</kbd> on Windows/Linux) exits the table, into a new default block.
-- Pressing <kbd>Tab</kbd>, move the cursor to next cell
-- Pressing <kbd>Shift+Tab</kbd>, move the cursor to previous cell
+- Pressing <kbd>Up</kbd>/<kbd>Down</kbd> moves the cursor to the row above/below
+- Pressing <kbd>Enter</kbd> inserts a new row
+- Pressing <kbd>Cmd+Enter</kbd> (<kbd>Ctrl+Enter</kbd> on Windows/Linux) exits the table, into a new default block
+- Pressing <kbd>Tab</kbd> moves the cursor to next cell
+- Pressing <kbd>Shift+Tab</kbd> moves the cursor to previous cell
 
 All these default features are configurable.
 
@@ -40,41 +40,43 @@ const plugins = [
 Here is what your Slate document containing tables should look like:
 
 ```jsx
-<state><document>
-  <paragraph>Some text</paragraph>
+<value>
+    <document>
+      <paragraph>Some text</paragraph>
 
-  <table>
-    <table_row>
-      <table_cell>
-        <paragraph>Any block can goes into cells</paragraph>
-      </table_cell>
+      <table>
+        <table_row>
+          <table_cell>
+            <paragraph>Any block can goes into cells</paragraph>
+          </table_cell>
 
-      <table_cell>
-        <image isVoid src="image.png" />
-      </table_cell>
-    </table_row>
+          <table_cell>
+            <image isVoid src="image.png" />
+          </table_cell>
+        </table_row>
 
-    <table_row>
-      <table_cell>
-        <paragraph>Second row</paragraph>
-      </table_cell>
+        <table_row>
+          <table_cell>
+            <paragraph>Second row</paragraph>
+          </table_cell>
 
-      <table_cell>
-        <paragraph>Second row</paragraph>
-      </table_cell>
-    </table_row>
-  </table>
-</document></state>
+          <table_cell>
+            <paragraph>Second row</paragraph>
+          </table_cell>
+        </table_row>
+      </table>
+    </document>
+</state>
 ```
 
 ## `Options`
 
 Option object you can pass to the plugin.
 
-- ``[typeTable: String]`` — type for table
-- ``[typeRow: String]`` — type for the rows.
-- ``[typeCell: String]`` — type for the cells.
-- ``[typeContent: String]`` — default type for blocks in cells. Also used as default type for blocks created when exiting the table with Mod+Enter.
+- `[typeTable: string]` — type for table
+- `[typeRow: string]` — type for the rows.
+- `[typeCell: string]` — type for the cells.
+- `[typeContent: string]` — default type for blocks in cells. Also used as default type for blocks created when exiting the table with Mod+Enter.
 
 ## `EditTable`
 
@@ -119,7 +121,6 @@ createTable(
 ```
 
 Returns a table. The content can be filled with the given `getCellContent` generator.
-
 
 ### `utils.createRow`
 
@@ -203,14 +204,3 @@ Move the selection to a specific position in the table.
 `moveSelectionBy(change: Change, column: number, row: number) => Change`
 
 Move the selection by the given amount of columns and rows.
-
-### `changes.setColumnAlign`
-
-`setColumnAlign(change: Change, align: string, at: number) => Change`
-
-Sets column alignment for a given column (`at`), in the current table. `align`
-defaults to center, `at` is optional and defaults to current cursor position.
-
-> The `align` states are stored in the table node's data.
-> `table.node.data.get('align')` should be an array of aligns string, corresponding to
-each column.
