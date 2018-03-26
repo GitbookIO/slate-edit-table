@@ -37,7 +37,6 @@
     "immutable": "^3.8.2",
     "mocha": "^3.0.1",
     "prettier": "^1.9.2",
-    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "slate": "^0.33.3",
