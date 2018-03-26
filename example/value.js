@@ -1,5 +1,5 @@
 /** @jsx h */
-// eslint-disable-next-line
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { createHyperscript } from 'slate-hyperscript';
 
 const h = createHyperscript({
@@ -12,8 +12,8 @@ const h = createHyperscript({
     }
 });
 
-const state = (
-    <state>
+export default (
+    <value>
         <document>
             <heading>Slate + Table Edition</heading>
             <paragraph>
@@ -50,7 +50,5 @@ const state = (
                 go to next row. Press Up/Down to navigate the rows.
             </paragraph>
         </document>
-    </state>
+    </value>
 );
-
-export default state;

@@ -1,5 +1,6 @@
 // @flow
-import { type Change, type Node } from 'slate';
+import { type Change } from 'slate';
+import { NODE_DATA_INVALID } from 'slate-schema-violations';
 import PluginEditTable from '../lib/';
 
 /*
@@ -17,7 +18,7 @@ const tablePlugin = PluginEditTable({
  * Set align data for the current column
  */
 function setColumnAlign(change: Change, align: string): Change {
-    const pos = tablePlugin.utils.getPosition(change.state);
+    const pos = tablePlugin.utils.getPosition(change.value);
     const columnCells = tablePlugin.utils.getCellsAtColumn(
         pos.table,
         pos.getColumnIndex()
@@ -30,28 +31,21 @@ function setColumnAlign(change: Change, align: string): Change {
 
 const alignPlugin = {
     schema: {
-        rules: [
-            // Enforce cells to have alignment data
-            {
-                match(node: Node) {
-                    return node.kind == 'block' && node.type == 'table_cell';
+        blocks: {
+            table_cell: {
+                data: {
+                    // Make sure cells have an alignment
+                    align: align => ['left', 'center', 'right'].includes(align)
                 },
-                validate(cell: Node) {
-                    return (
-                        ['left', 'center', 'right'].indexOf(
-                            cell.data.get('align')
-                        ) === -1
-                    );
-                },
-                normalize(change: Change, cell: Node) {
-                    return change.setNodeByKey(cell.key, {
-                        data: {
-                            align: 'left'
-                        }
-                    });
+                normalize(change: Change, violation: string, context: Object) {
+                    if (violation === NODE_DATA_INVALID) {
+                        change.setNodeByKey(context.node.key, {
+                            data: context.node.data.set('align', 'left')
+                        });
+                    }
                 }
             }
-        ]
+        }
     },
 
     changes: {

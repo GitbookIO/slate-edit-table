@@ -27,8 +27,8 @@
 #example table td {
     border: 1px solid black;
     border-top: none;
-   border-bottom: none;
-   border-right: none;
+    border-bottom: none;
+    border-right: none;
     flex: 1;
     word-break: break-all;
 }
