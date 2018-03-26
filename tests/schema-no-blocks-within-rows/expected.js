@@ -15,6 +15,9 @@ export default (
                     <table_cell>
                         <paragraph>Row 1, Col 3</paragraph>
                     </table_cell>
+                    <table_cell>
+                        <paragraph>Row 1, Col 4</paragraph>
+                    </table_cell>
                 </table_row>
             </table>
         </document>

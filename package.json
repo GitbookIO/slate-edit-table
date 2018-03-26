@@ -7,7 +7,8 @@
   "main": "./dist/index.js",
   "peerDependencies": {
     "immutable": "^3.8.1",
-    "slate": "^0.33.3"
+    "slate": "^0.33.3",
+    "slate-schema-violations": "^0.1.7"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -43,6 +44,7 @@
     "slate-hyperprint": "^2.2.0",
     "slate-hyperscript": "^0.5.0",
     "slate-react": "^0.12.3",
+    "slate-schema-violations": "^0.1.7",
     "watchify": "^3.7.0"
   },
   "scripts": {

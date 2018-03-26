@@ -18,7 +18,7 @@ export default (
                 </table_row>
                 <table_row>
                     <table_cell>
-                        <paragraph />
+                        <paragraph>There is no columns here</paragraph>
                     </table_cell>
                     <table_cell>
                         <paragraph />
@@ -29,10 +29,10 @@ export default (
                 </table_row>
                 <table_row>
                     <table_cell>
-                        <paragraph />
+                        <paragraph>Row 3, Col 1</paragraph>
                     </table_cell>
                     <table_cell>
-                        <paragraph>Row 3, Col 1</paragraph>
+                        <paragraph>Row 3, Col 2</paragraph>
                     </table_cell>
                     <table_cell>
                         <paragraph>Row 3, Col 3</paragraph>
