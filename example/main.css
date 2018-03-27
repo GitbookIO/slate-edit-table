@@ -2,6 +2,13 @@
     width: 100%;
     max-width: 600px;
     margin: 20px auto;
+    position: relative;
+    padding-top: 30px;
+}
+
+#example .toolbar {
+    position: absolute;
+    top: 0;
 }
 
 #example table {

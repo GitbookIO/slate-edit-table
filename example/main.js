@@ -112,7 +112,7 @@ class Example extends React.Component<*, *> {
 
     renderTableToolbar() {
         return (
-            <div>
+            <div className="toolbar">
                 <button onMouseDown={this.onInsertColumn}>Insert Column</button>
                 <button onMouseDown={this.onInsertRow}>Insert Row</button>
                 <button onMouseDown={this.onRemoveColumn}>Remove Column</button>
@@ -134,7 +134,7 @@ class Example extends React.Component<*, *> {
 
     renderNormalToolbar() {
         return (
-            <div>
+            <div className="toolbar">
                 <button onClick={this.onInsertTable}>Insert Table</button>
             </div>
         );
@@ -194,7 +194,7 @@ class Example extends React.Component<*, *> {
         const isOutTable = tablePlugin.utils.isSelectionOutOfTable(value);
 
         return (
-            <div>
+            <React.Fragment>
                 {isInTable ? this.renderTableToolbar() : null}
                 {isOutTable ? this.renderNormalToolbar() : null}
                 <Editor
@@ -204,7 +204,7 @@ class Example extends React.Component<*, *> {
                     value={value}
                     onChange={this.onChange}
                 />
-            </div>
+            </React.Fragment>
         );
     }
 }
