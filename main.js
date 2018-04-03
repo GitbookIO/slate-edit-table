@@ -10,7 +10,7 @@ import { Editor } from 'slate-react';
 
 import PluginEditTable from '../lib/';
 import alignPlugin from './aligns';
-import INITIAL_STATE from './state';
+import INITIAL_VALUE from './value';
 
 const tablePlugin = PluginEditTable({
     typeTable: 'table',
@@ -19,7 +19,24 @@ const tablePlugin = PluginEditTable({
     typeContent: 'paragraph'
 });
 
-const plugins = [tablePlugin, alignPlugin];
+function renderNode(props) {
+    switch (props.node.type) {
+        case 'table':
+            return <Table {...props} />;
+        case 'table_row':
+            return <TableRow {...props} />;
+        case 'table_cell':
+            return <TableCell {...props} />;
+        case 'paragraph':
+            return <Paragraph {...props} />;
+        case 'heading':
+            return <h1 {...props.attributes}>{props.children}</h1>;
+        default:
+            return null;
+    }
+}
+
+const plugins = [tablePlugin, alignPlugin, { renderNode }];
 
 type NodeProps = {
     attributes: Object,
@@ -86,28 +103,16 @@ class Paragraph extends React.Component<NodeProps> {
     }
 }
 
-const schema = {
-    nodes: {
-        table: Table,
-        table_row: TableRow,
-        table_cell: TableCell,
-        paragraph: Paragraph,
-        heading: ({ attributes, children }: *) => (
-            <h1 {...attributes}>{children}</h1>
-        )
-    }
-};
-
 class Example extends React.Component<*, *> {
     submitChange: Function;
     editorREF: Editor;
     state = {
-        state: INITIAL_STATE
+        value: INITIAL_VALUE
     };
 
     renderTableToolbar() {
         return (
-            <div>
+            <div className="toolbar">
                 <button onMouseDown={this.onInsertColumn}>Insert Column</button>
                 <button onMouseDown={this.onInsertRow}>Insert Row</button>
                 <button onMouseDown={this.onRemoveColumn}>Remove Column</button>
@@ -129,7 +134,7 @@ class Example extends React.Component<*, *> {
 
     renderNormalToolbar() {
         return (
-            <div>
+            <div className="toolbar">
                 <button onClick={this.onInsertTable}>Insert Table</button>
             </div>
         );
@@ -140,9 +145,9 @@ class Example extends React.Component<*, *> {
         this.submitChange = ref.change;
     };
 
-    onChange = ({ state }) => {
+    onChange = ({ value }) => {
         this.setState({
-            state
+            value
         });
     };
 
@@ -184,23 +189,22 @@ class Example extends React.Component<*, *> {
     };
 
     render() {
-        const { state } = this.state;
-        const isInTable = tablePlugin.utils.isSelectionInTable(state);
-        const isOutTable = tablePlugin.utils.isSelectionOutOfTable(state);
+        const { value } = this.state;
+        const isInTable = tablePlugin.utils.isSelectionInTable(value);
+        const isOutTable = tablePlugin.utils.isSelectionOutOfTable(value);
 
         return (
-            <div>
+            <React.Fragment>
                 {isInTable ? this.renderTableToolbar() : null}
                 {isOutTable ? this.renderNormalToolbar() : null}
                 <Editor
                     ref={this.setEditorComponent}
                     placeholder={'Enter some text...'}
-                    schema={schema}
                     plugins={plugins}
-                    state={state}
+                    value={value}
                     onChange={this.onChange}
                 />
-            </div>
+            </React.Fragment>
         );
     }
 }
