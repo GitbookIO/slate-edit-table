@@ -1,13 +1,14 @@
 {
   "name": "slate-edit-table",
   "description": "A Slate plugin to handle keyboard events in tables.",
-  "version": "0.14.3",
+  "version": "0.15.0-alpha.4",
   "license": "Apache-2.0",
   "repository": "git://github.com/GitbookIO/slate-edit-table.git",
   "main": "./dist/index.js",
   "peerDependencies": {
     "immutable": "^3.8.1",
-    "slate": "^0.32.0"
+    "slate": "^0.33.3",
+    "slate-schema-violations": "^0.1.7"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -38,10 +39,11 @@
     "prettier": "^1.9.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "read-metadata": "^1.0.0",
-    "slate": "^0.32.0",
+    "slate": "^0.33.3",
+    "slate-hyperprint": "^2.2.0",
     "slate-hyperscript": "^0.5.0",
-    "slate-react": "^0.11.0",
+    "slate-react": "^0.12.3",
+    "slate-schema-violations": "^0.1.7",
     "watchify": "^3.7.0"
   },
   "scripts": {
@@ -55,7 +57,7 @@
     "serve-example": "http-server ./example/ -p 8080",
     "start": "npm run build-example; npm run serve-example",
     "deploy-example": "npm run build-example; gh-pages -d ./example",
-    "test": "./node_modules/.bin/mocha ./tests/*.js --compilers js:babel-register --reporter=list"
+    "test": "./node_modules/.bin/mocha ./tests/all.js --compilers js:babel-register --reporter=list"
   },
   "keywords": [
     "slate"

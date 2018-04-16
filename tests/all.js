@@ -1,9 +1,10 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 import expect from 'expect';
 import fs from 'fs';
 import path from 'path';
 import Slate from 'slate';
-import readMetadata from 'read-metadata';
-
+import hyperprint from 'slate-hyperprint';
 import EditTable from '../lib';
 
 const PLUGIN = EditTable();
@@ -11,9 +12,9 @@ const SCHEMA = Slate.Schema.create({
     plugins: [PLUGIN]
 });
 
-function deserializeValue(json) {
+function deserializeValue(value) {
     return Slate.Value.fromJSON(
-        { ...json, schema: SCHEMA },
+        { document: value.document, schema: SCHEMA },
         { normalize: false }
     );
 }
@@ -25,13 +26,13 @@ describe('slate-edit-table', () => {
         if (test[0] === '.' || path.extname(test).length > 0) return;
 
         it(test, () => {
+            Slate.resetKeyGenerator();
             const dir = path.resolve(__dirname, test);
-            const input = readMetadata.sync(path.resolve(dir, 'input.yaml'));
-            const expectedPath = path.resolve(dir, 'expected.yaml');
+            const input = require(path.resolve(dir, 'input.js')).default;
+            const expectedPath = path.resolve(dir, 'expected.js');
             const expected =
-                fs.existsSync(expectedPath) && readMetadata.sync(expectedPath);
+                fs.existsSync(expectedPath) && require(expectedPath).default;
 
-            // eslint-disable-next-line
             const runChange = require(path.resolve(dir, 'change.js')).default;
 
             const valueInput = deserializeValue(input);
@@ -39,8 +40,12 @@ describe('slate-edit-table', () => {
             const newChange = runChange(PLUGIN, valueInput.change());
 
             if (expected) {
-                const newDocJSon = newChange.value.toJSON();
-                expect(newDocJSon).toEqual(deserializeValue(expected).toJSON());
+                const newDoc = hyperprint(newChange.value.document, {
+                    strict: true
+                });
+                expect(newDoc).toEqual(
+                    hyperprint(expected.document, { strict: true })
+                );
             }
         });
     });

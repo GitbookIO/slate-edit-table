@@ -1,5 +1,5 @@
 export default function(plugin, change) {
-    const cursorBlock = change.value.document.getDescendant('_cursor_');
+    const cursorBlock = change.value.document.getDescendant('anchor');
     const initial = change.value
         .change({ save: false })
         .moveToRangeOf(cursorBlock);

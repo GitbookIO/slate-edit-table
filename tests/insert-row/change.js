@@ -1,6 +1,6 @@
 export default function(plugin, change) {
     const { value } = change;
-    const cursorBlock = value.document.getDescendant('_cursor_');
+    const cursorBlock = value.document.getDescendant('anchor');
     change.moveToRangeOf(cursorBlock);
 
     return plugin.changes.insertRow(change);
