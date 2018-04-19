@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.15.0] - 2018-04-19
+
+- Allow blocks in cells
+- Align for columns have been removed
 - Improve package size by publishing only the `dist` folder
 
 ## [0.14.3] - 2018-02-06
