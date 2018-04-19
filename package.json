@@ -5,6 +5,10 @@
   "license": "Apache-2.0",
   "repository": "git://github.com/GitbookIO/slate-edit-table.git",
   "main": "./dist/index.js",
+  "files": [
+     "dist",
+     "*.md"
+  ],
   "peerDependencies": {
     "immutable": "^3.8.1",
     "slate": "^0.33.3",

@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+- Improve package size by publishing only the `dist` folder
+
 ## [0.14.3] - 2018-02-06
 
 - Fix normalization of multiple blocks in cells
