@@ -1,4 +1,5 @@
 import expect from 'expect';
+import { is } from 'immutable';
 
 export default function(plugin, change) {
     const { value } = change;
@@ -13,6 +14,11 @@ export default function(plugin, change) {
     expect(position.getHeight()).toEqual(3);
     expect(position.getRowIndex()).toEqual(1);
     expect(position.getColumnIndex()).toEqual(1);
+
+    // Make sure that passing the node directly results in the same position
+    expect(
+        is(position, plugin.utils.getPosition(change.value, cursorBlock.key))
+    );
 
     return value;
 }
