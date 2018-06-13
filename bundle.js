@@ -1920,7 +1920,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function getPosition(opts,
 // The current value
 value) {
-    return _TablePosition2.default.create(opts, value.document, value.startKey);
+    var key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : value.startKey;
+
+    return _TablePosition2.default.create(opts, value.document, key);
 }
 
 exports.default = getPosition;
