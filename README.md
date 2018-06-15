@@ -20,6 +20,7 @@ npm install slate-edit-table
 *   Pressing <kbd>Cmd+Enter</kbd> (<kbd>Ctrl+Enter</kbd> on Windows/Linux) exits the table, into a new default block
 *   Pressing <kbd>Tab</kbd> moves the cursor to next cell
 *   Pressing <kbd>Shift+Tab</kbd> moves the cursor to previous cell
+*   Pressing <kbd>Shift+Enter</kbd> adds a new line into the cell
 
 All these default features are configurable.
 
