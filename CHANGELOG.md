@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.15.2] - 2018-06-19
+
+*  Export TablePosition type
+
 ## [0.15.1] - 2018-06-13
 
 *   Add key option to `getPosition`
