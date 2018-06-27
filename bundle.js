@@ -556,10 +556,19 @@ var _slate = require('slate');
  * Clear the content of the given cell
  */
 function clearCell(opts, change, cell) {
-    cell.nodes.forEach(function (node, index) {
-        var range = _slate.Range.create().moveToRangeOf(cell);
-        change.deleteAtRange(range);
+    var newBlock = _slate.Block.create({ type: opts.typeContent });
+    var nodes = cell.nodes;
+
+    // Insert a new empty node
+
+    change.insertNodeByKey(cell.key, 0, newBlock, { normalize: false });
+
+    // Remove all previous nodes
+    nodes.forEach(function (node) {
+        change.removeNodeByKey(node.key);
     });
+
+    change.normalizeNodeByKey(cell.key);
 
     return change;
 }
@@ -778,8 +787,6 @@ require('slate');
 
 var _utils = require('../utils');
 
-var _changes = require('../changes');
-
 /**
  * Move selection by a {x,y} relative movement
  */
@@ -804,12 +811,25 @@ y // Move vertically by y
         absX = _normPos2[0],
         absY = _normPos2[1];
 
+    var isGoingUp = y < 0;
+
     if (absX === -1) {
         // Out of table
         return change;
     }
 
-    return (0, _changes.moveSelection)(opts, change, absX, absY);
+    var table = pos.table;
+
+    var row = table.nodes.get(absY);
+    var cell = row.nodes.get(absX);
+
+    if (isGoingUp) {
+        change.collapseToEndOf(cell);
+    } else {
+        change.collapseToStartOf(cell);
+    }
+
+    return change;
 }
 
 /**
@@ -840,7 +860,7 @@ function normPos(x, y, width, height) {
 
 exports.default = moveSelectionBy;
 
-},{"../changes":5,"../utils":32,"slate":264}],11:[function(require,module,exports){
+},{"../utils":32,"slate":264}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1149,11 +1169,22 @@ function onBackspace(event, change, editor, opts) {
     var startBlock = value.startBlock,
         startOffset = value.startOffset,
         isCollapsed = value.isCollapsed,
-        endBlock = value.endBlock;
+        endBlock = value.endBlock,
+        document = value.document;
 
-    // If a cursor is collapsed at the start of the block, do nothing
 
+    var cell = document.getParent(startBlock.key);
+    var startBlockIndex = cell.nodes.findIndex(function (block) {
+        return block.key == startBlock.key;
+    });
+
+    // If a cursor is collapsed at the start of the first block, do nothing
     if (startOffset === 0 && isCollapsed) {
+        if (startBlockIndex > 0) {
+            // Normal deletion
+            return undefined;
+        }
+
         event.preventDefault();
         return change;
     }
@@ -1167,21 +1198,24 @@ function onBackspace(event, change, editor, opts) {
     // we clear the content of the cells
     event.preventDefault();
 
-    var blocks = value.blocks,
-        document = value.document;
+    var blocks = value.blocks;
 
-    var getAncestorCell = function getAncestorCell(node) {
+    // Get all cells that contains the selection
+
+    var cells = blocks.map(function (node) {
         return node.type === opts.typeCell ? node : document.getClosest(node.key, function (a) {
             return a.type === opts.typeCell;
         });
-    };
-    var cells = blocks.map(getAncestorCell).toSet();
-    cells.forEach(function (cell) {
-        return (0, _changes.clearCell)(opts, change, cell);
+    }).toSet();
+
+    // Clear all the selection
+    cells.forEach(function (block) {
+        return (0, _changes.clearCell)(opts, change, block);
     });
 
-    // Clear selected cells
-    return change.collapseToStartOf(startBlock);
+    // Update the selection to avoid reset of selection
+    var updatedCell = change.value.document.getDescendant(cells.last().key);
+    return change.collapseToStartOf(updatedCell);
 }
 
 exports.default = onBackspace;
@@ -1195,6 +1229,8 @@ Object.defineProperty(exports, "__esModule", {
 
 require('slate');
 
+var _utils = require('../utils');
+
 var _changes = require('../changes');
 
 /**
@@ -1202,13 +1238,25 @@ var _changes = require('../changes');
  */
 function onEnter(event, change, editor, opts) {
     event.preventDefault();
+    var _change$value = change.value,
+        selection = _change$value.selection,
+        document = _change$value.document;
+
+    var pos = _utils.TablePosition.create(opts, document, selection.startKey);
+
+    if (!selection.hasFocusAtStartOf(pos.cell) && !selection.hasFocusAtEndOf(pos.cell)) {
+        return undefined;
+    }
+
+    if (event.shiftKey) {
+        return change.splitBlock().setBlocks({ type: opts.typeContent, data: {} });
+    }
 
     return (0, _changes.insertRow)(opts, change);
 }
-
 exports.default = onEnter;
 
-},{"../changes":5,"slate":264}],18:[function(require,module,exports){
+},{"../changes":5,"../utils":32,"slate":264}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1399,9 +1447,18 @@ function onUpDown(event, change, editor, opts) {
         // Let the default behavior move out of the table
         return undefined;
     }
+
+    if (direction === -1 && !pos.isTopOfCell()) {
+        return undefined;
+    }
+
+    if (direction === +1 && !pos.isBottomOfCell()) {
+        return undefined;
+    }
+
     event.preventDefault();
 
-    (0, _changes.moveSelectionBy)(opts, change, 0, event.key === 'ArrowUp' ? -1 : +1);
+    (0, _changes.moveSelectionBy)(opts, change, 0, direction);
 
     return change;
 }
@@ -1540,6 +1597,54 @@ var TablePosition = function (_Record) {
         key: 'isInTable',
         value: function isInTable() {
             return Boolean(this.tableBlock);
+        }
+
+        /**
+         * Check to see if this position is at the top of the cell.
+         */
+
+    }, {
+        key: 'isTopOfCell',
+        value: function isTopOfCell() {
+            var contentBlock = this.contentBlock,
+                cellBlock = this.cellBlock;
+
+
+            if (!contentBlock || !cellBlock) {
+                return false;
+            }
+
+            var nodes = cellBlock.nodes;
+
+            var index = nodes.findIndex(function (block) {
+                return block.key == contentBlock.key;
+            });
+
+            return index == 0;
+        }
+
+        /**
+         * Check to see if this position is at the bottom of the cell.
+         */
+
+    }, {
+        key: 'isBottomOfCell',
+        value: function isBottomOfCell() {
+            var contentBlock = this.contentBlock,
+                cellBlock = this.cellBlock;
+
+
+            if (!contentBlock || !cellBlock) {
+                return false;
+            }
+
+            var nodes = cellBlock.nodes;
+
+            var index = nodes.findIndex(function (block) {
+                return block.key == contentBlock.key;
+            });
+
+            return index == nodes.size - 1;
         }
 
         /**
@@ -1698,7 +1803,9 @@ var TablePosition = function (_Record) {
          */
 
 
-        // Block for current row
+        // Block for current cell
+
+        // Block container for the table
         value: function create(opts, document, key) {
             var node = document.getDescendant(key);
             var ancestors = document.getAncestors(key).push(node);
@@ -1708,20 +1815,26 @@ var TablePosition = function (_Record) {
             var rowBlock = ancestors.findLast(function (p) {
                 return p.type === opts.typeRow;
             });
+
             var cellBlock = ancestors.findLast(function (p) {
                 return p.type === opts.typeCell;
             });
+            var contentBlock = ancestors.skipUntil(function (ancestor) {
+                return ancestor === cellBlock;
+            }).skip(1).first();
 
             return new TablePosition({
                 tableBlock: tableBlock,
                 rowBlock: rowBlock,
-                cellBlock: cellBlock
+                cellBlock: cellBlock,
+                contentBlock: contentBlock
             });
         }
 
-        // Block for current cell
+        // Current content block in the cell
 
-        // Block container for the table
+
+        // Block for current row
 
     }]);
 
@@ -1729,7 +1842,8 @@ var TablePosition = function (_Record) {
 }((0, _immutable.Record)({
     tableBlock: null,
     rowBlock: null,
-    cellBlock: null
+    cellBlock: null,
+    contentBlock: null
 }));
 
 exports.default = TablePosition;
