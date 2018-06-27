@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.16.0 (pre)] - 2018-06-27
+
+- Add keyboard interactions to handle multiple blocks in cells:
+  - Split block when pressing <kbd>Shift+Enter</kbd>
+  - Split block when pressing <kbd>Enter</kbd> inside the cell
+
 ## [0.15.2] - 2018-06-19
 
 *  Export TablePosition type
