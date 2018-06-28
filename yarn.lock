@@ -4586,9 +4586,9 @@ slate-hyperprint@^2.2.0:
     meow "^4.0.0"
     prettier "1.6.1"
 
-slate-hyperscript@^0.5.0:
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.5.9.tgz#b0b8ed64ea93be2d2b5c1aa480e8a0bcda9c399e"
+slate-hyperscript@^0.5.13:
+  version "0.5.17"
+  resolved "https://registry.yarnpkg.com/slate-hyperscript/-/slate-hyperscript-0.5.17.tgz#b45078b9ce6a8a72986d99ce717b73a9d9f18781"
   dependencies:
     is-empty "^1.0.0"
     is-plain-object "^2.0.4"
