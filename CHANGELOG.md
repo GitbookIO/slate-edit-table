@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.16.0] - 2018-06-27
+
+- Fix some case where pressing Backspace would unexpectedly clear the whole cell
+
 ## [0.16.0 (pre)] - 2018-06-27
 
 - Add keyboard interactions to handle multiple blocks in cells:
