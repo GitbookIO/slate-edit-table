@@ -14,7 +14,11 @@ const SCHEMA = Slate.Schema.create({
 
 function deserializeValue(value) {
     return Slate.Value.fromJSON(
-        { document: value.document, schema: SCHEMA },
+        {
+            document: value.document,
+            schema: SCHEMA,
+            selection: value.selection
+        },
         { normalize: false }
     );
 }
