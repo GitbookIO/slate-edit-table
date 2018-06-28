@@ -641,7 +641,11 @@ require('slate');
 
 var _utils = require('../utils');
 
-var _changes = require('../changes');
+var _moveSelection = require('./moveSelection');
+
+var _moveSelection2 = _interopRequireDefault(_moveSelection);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Insert a new column in current table
@@ -667,11 +671,11 @@ getCell) {
     });
 
     // Update the selection (not doing can break the undo)
-    return (0, _changes.moveSelection)(opts, change, pos.getColumnIndex() + 1, pos.getRowIndex());
+    return (0, _moveSelection2.default)(opts, change, pos.getColumnIndex() + 1, pos.getRowIndex());
 }
 exports.default = insertColumn;
 
-},{"../changes":5,"../utils":32,"slate":264}],7:[function(require,module,exports){
+},{"../utils":32,"./moveSelection":9,"slate":264}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1173,24 +1177,21 @@ function onBackspace(event, change, editor, opts) {
         document = value.document;
 
 
-    var cell = document.getParent(startBlock.key);
-    var startBlockIndex = cell.nodes.findIndex(function (block) {
+    var startCell = document.getClosest(startBlock.key, opts.isCell);
+    var endCell = document.getClosest(endBlock.key, opts.isCell);
+
+    var startBlockIndex = startCell.nodes.findIndex(function (block) {
         return block.key == startBlock.key;
     });
 
     // If a cursor is collapsed at the start of the first block, do nothing
-    if (startOffset === 0 && isCollapsed) {
-        if (startBlockIndex > 0) {
-            // Normal deletion
-            return undefined;
-        }
-
+    if (startOffset === 0 && isCollapsed && startBlockIndex === 0) {
         event.preventDefault();
         return change;
     }
 
     // If "normal" deletion, we continue
-    if (startBlock === endBlock) {
+    if (startCell === endCell) {
         return undefined;
     }
 
@@ -1524,10 +1525,35 @@ var Options = function (_Record) {
     _inherits(Options, _Record);
 
     function Options() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
         _classCallCheck(this, Options);
 
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Options.__proto__ || Object.getPrototypeOf(Options)).call.apply(_ref, [this].concat(args))), _this), _this.isCell = function (node) {
+            return node.object == 'block' && node.type == _this.typeCell;
+        }, _temp), _possibleConstructorReturn(_this, _ret);
     }
+    // The type of table blocks
+
+    // The type of row blocks
+
+    // The type of cell blocks
+
+    // The default type for blocks in cells
+
+    // The type of block inserted when exiting
+
+
+    /*
+     * Return a node filter to find a cell.
+     */
+
 
     return Options;
 }((0, _immutable.Record)({
@@ -33503,6 +33529,20 @@ var isEmpty = _interopDefault(require('is-empty'));
 var isPlainObject = _interopDefault(require('is-plain-object'));
 var slate = require('slate');
 
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+
+
+
+
+
+
+
+
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
@@ -33552,10 +33592,61 @@ var CURSOR = {};
 var FOCUS = {};
 
 /**
+ *  wrappers for decorator points, for comparison by instanceof,
+ *  and for composition into ranges (anchor.combine(focus), etc)
+ */
+
+var DecoratorPoint = function DecoratorPoint(_ref, marks) {
+  var key = _ref.key,
+      data = _ref.data;
+  classCallCheck(this, DecoratorPoint);
+
+  _initialiseProps.call(this);
+
+  this._key = key;
+  this.marks = marks;
+  this.attribs = data || {};
+  this.isAtomic = !!this.attribs.atomic;
+  delete this.attribs.atomic;
+  return this;
+};
+
+/**
  * The default Slate hyperscript creator functions.
  *
  * @type {Object}
  */
+
+var _initialiseProps = function _initialiseProps() {
+  var _this = this;
+
+  this.withPosition = function (offset) {
+    _this.offset = offset;
+    return _this;
+  };
+
+  this.addOffset = function (offset) {
+    _this.offset += offset;
+    return _this;
+  };
+
+  this.withKey = function (key) {
+    _this.key = key;
+    return _this;
+  };
+
+  this.combine = function (focus) {
+    if (!(focus instanceof DecoratorPoint)) throw new Error('misaligned decorations');
+    return slate.Range.create(_extends({
+      anchorKey: _this.key,
+      focusKey: focus.key,
+      anchorOffset: _this.offset,
+      focusOffset: focus.offset,
+      marks: _this.marks,
+      isAtomic: _this.isAtomic
+    }, _this.attribs));
+  };
+};
 
 var CREATORS = {
   anchor: function anchor(tagName, attributes, children) {
@@ -33587,15 +33678,36 @@ var CREATORS = {
     var nodes = createChildren(children, { marks: marks });
     return nodes;
   },
+  decoration: function decoration(tagName, attributes, children) {
+    if (attributes.key) {
+      return new DecoratorPoint(attributes, [{ type: tagName }]);
+    }
+
+    var nodes = createChildren(children, { key: attributes.key });
+
+    nodes[0].__decorations = (nodes[0].__decorations || []).concat([{
+      anchorOffset: 0,
+      focusOffset: nodes.reduce(function (len, n) {
+        return len + n.text.length;
+      }, 0),
+      marks: [{ type: tagName }],
+      isAtomic: !!attributes.data.atomic
+    }]);
+    return nodes;
+  },
   selection: function selection(tagName, attributes, children) {
     return slate.Range.create(attributes);
   },
   value: function value(tagName, attributes, children) {
-    var data = attributes.data;
+    var data = attributes.data,
+        _attributes$normalize = attributes.normalize,
+        normalize = _attributes$normalize === undefined ? true : _attributes$normalize;
 
     var document = children.find(slate.Document.isDocument);
     var selection = children.find(slate.Range.isRange) || slate.Range.create();
     var props = {};
+    var decorations = [];
+    var partialDecorations = {};
 
     // Search the document's texts to see if any of them have the anchor or
     // focus information saved, so we can set the selection.
@@ -33613,6 +33725,40 @@ var CREATORS = {
           props.isFocused = true;
         }
       });
+
+      // now check for decorations and hoist them to the top
+      document.getTexts().forEach(function (text) {
+        if (text.__decorations != null) {
+          // add in all mark-like (keyless) decorations
+          decorations = decorations.concat(text.__decorations.filter(function (d) {
+            return d._key === undefined;
+          }).map(function (d) {
+            return slate.Range.create(_extends({}, d, {
+              anchorKey: text.key,
+              focusKey: text.key
+            }));
+          }));
+
+          // store or combine partial decorations (keyed with anchor / focus)
+          text.__decorations.filter(function (d) {
+            return d._key !== undefined;
+          }).forEach(function (partial) {
+            if (partialDecorations[partial._key]) {
+              decorations.push(partialDecorations[partial._key].combine(partial.withKey(text.key)));
+
+              delete partialDecorations[partial._key];
+              return;
+            }
+
+            partialDecorations[partial._key] = partial.withKey(text.key);
+          });
+        }
+      });
+    }
+
+    // should have no more parital decorations outstanding (all paired)
+    if (Object.keys(partialDecorations).length > 0) {
+      throw new Error('Slate hyperscript must have both an anchor and focus defined for each keyed decorator.');
     }
 
     if (props.anchorKey && !props.focusKey) {
@@ -33627,7 +33773,15 @@ var CREATORS = {
       selection = selection.merge(props).normalize(document);
     }
 
-    var value = slate.Value.create({ data: data, document: document, selection: selection });
+    var value = slate.Value.fromJSON({ data: data, document: document, selection: selection }, { normalize: normalize });
+
+    // apply any decorations built
+    if (decorations.length > 0) {
+      value = value.change().setValue({ decorations: decorations.map(function (d) {
+          return d.normalize(document);
+        }) }).value;
+    }
+
     return value;
   },
   text: function text(tagName, attributes, children) {
@@ -33696,31 +33850,41 @@ function createChildren(children) {
   var length = 0;
 
   // When creating the new node, try to preserve a key if one exists.
-  var firstText = children.find(function (c) {
-    return slate.Text.isText(c);
+  var firstNodeOrText = children.find(function (c) {
+    return typeof c !== 'string';
   });
+  var firstText = slate.Text.isText(firstNodeOrText) ? firstNodeOrText : null;
   var key = options.key ? options.key : firstText ? firstText.key : undefined;
-  var node = slate.Text.create({ key: key });
+  var node = slate.Text.create({ key: key, leaves: [{ text: '', marks: options.marks }] });
 
   // Create a helper to update the current node while preserving any stored
   // anchor or focus information.
   function setNode(next) {
     var _node = node,
         __anchor = _node.__anchor,
-        __focus = _node.__focus;
+        __focus = _node.__focus,
+        __decorations = _node.__decorations;
 
     if (__anchor != null) next.__anchor = __anchor;
     if (__focus != null) next.__focus = __focus;
+    if (__decorations != null) next.__decorations = __decorations;
     node = next;
   }
 
-  children.forEach(function (child) {
+  children.forEach(function (child, index) {
+    var isLast = index === children.length - 1;
+
     // If the child is a non-text node, push the current node and the new child
     // onto the array, then creating a new node for future selection tracking.
     if (slate.Node.isNode(child) && !slate.Text.isText(child)) {
-      if (node.text.length || node.__anchor != null || node.__focus != null) array.push(node);
+      if (node.text.length || node.__anchor != null || node.__focus != null || node.getMarksAtIndex(0).size) {
+        array.push(node);
+      }
+
       array.push(child);
-      node = slate.Text.create();
+
+      node = isLast ? null : slate.Text.create({ leaves: [{ text: '', marks: options.marks }] });
+
       length = 0;
     }
 
@@ -33735,7 +33899,8 @@ function createChildren(children) {
     // child's key when updating the node.
     if (slate.Text.isText(child)) {
       var __anchor = child.__anchor,
-          __focus = child.__focus;
+          __focus = child.__focus,
+          __decorations = child.__decorations;
 
       var i = node.text.length;
 
@@ -33754,16 +33919,32 @@ function createChildren(children) {
       if (__anchor != null) node.__anchor = __anchor + length;
       if (__focus != null) node.__focus = __focus + length;
 
+      if (__decorations != null) {
+        node.__decorations = (node.__decorations || []).concat(__decorations.map(function (d) {
+          return d instanceof DecoratorPoint ? d.addOffset(length) : _extends({}, d, {
+            anchorOffset: d.anchorOffset + length,
+            focusOffset: d.focusOffset + length
+          });
+        }));
+      }
+
       length += child.text.length;
     }
 
     // If the child is a selection object store the current position.
     if (child == ANCHOR || child == CURSOR) node.__anchor = length;
     if (child == FOCUS || child == CURSOR) node.__focus = length;
+
+    // if child is a decorator point, store it as partial decorator
+    if (child instanceof DecoratorPoint) {
+      node.__decorations = (node.__decorations || []).concat([child.withPosition(length)]);
+    }
   });
 
   // Make sure the most recent node is added.
-  array.push(node);
+  if (node != null) {
+    array.push(node);
+  }
 
   return array;
 }
@@ -33781,7 +33962,9 @@ function resolveCreators(options) {
       _options$inlines = options.inlines,
       inlines = _options$inlines === undefined ? {} : _options$inlines,
       _options$marks = options.marks,
-      marks = _options$marks === undefined ? {} : _options$marks;
+      marks = _options$marks === undefined ? {} : _options$marks,
+      _options$decorators = options.decorators,
+      decorators = _options$decorators === undefined ? {} : _options$decorators;
 
 
   var creators = _extends({}, CREATORS, options.creators || {});
@@ -33796,6 +33979,10 @@ function resolveCreators(options) {
 
   Object.keys(marks).map(function (key) {
     creators[key] = normalizeMark(key, marks[key]);
+  });
+
+  Object.keys(decorators).map(function (key) {
+    creators[key] = normalizeNode(key, decorators[key], 'decoration');
   });
 
   return creators;
