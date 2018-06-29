@@ -6,7 +6,11 @@ const h = createHyperscript({
         paragraph: 'paragraph',
         table: 'table',
         table_row: 'table_row',
-        table_cell: 'table_cell'
+        table_cell: 'table_cell',
+        image: {
+            type: 'image',
+            isVoid: true
+        }
     },
     inlines: {
         link: 'link'
