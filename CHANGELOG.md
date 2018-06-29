@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.16.1] - 2018-06-28
+
+- Improve behavior of Backspace when deleting whole cells https://github.com/GitbookIO/slate-edit-table/pull/79
+
 ## [0.16.0] - 2018-06-27
 
 - Fix some case where pressing Backspace would unexpectedly clear the whole cell
