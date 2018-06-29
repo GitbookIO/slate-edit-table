@@ -1186,6 +1186,11 @@ function onBackspace(event, change, editor, opts) {
 
     // If a cursor is collapsed at the start of the first block, do nothing
     if (startOffset === 0 && isCollapsed && startBlockIndex === 0) {
+        if (startBlock.isVoid) {
+            // Delete the block normally if it is a void block
+            return undefined;
+        }
+
         event.preventDefault();
         return change;
     }
@@ -1196,7 +1201,7 @@ function onBackspace(event, change, editor, opts) {
     }
 
     // If cursor is between multiple blocks,
-    // we clear the content of the cells
+    // we clear the content of the cells.
     event.preventDefault();
 
     var blocks = value.blocks;
@@ -1209,14 +1214,29 @@ function onBackspace(event, change, editor, opts) {
         });
     }).toSet();
 
+    // If the cursor is at the very end of the first cell, ignore it.
+    // If the cursor is at the very start of the last cell, ignore it.
+    // This behavior is to compensate hanging selection behaviors:
+    // https://github.com/ianstormtaylor/slate/pull/1605
+    var ignoreFirstCell = value.selection.collapseToStart().isAtEndOf(cells.first());
+    var ignoreLastCell = value.selection.collapseToEnd().isAtStartOf(cells.last());
+
+    var cellsToClear = cells;
+    if (ignoreFirstCell) {
+        cellsToClear = cellsToClear.rest();
+    }
+    if (ignoreLastCell) {
+        cellsToClear = cellsToClear.butLast();
+    }
+
     // Clear all the selection
-    cells.forEach(function (block) {
-        return (0, _changes.clearCell)(opts, change, block);
+    cellsToClear.forEach(function (cell) {
+        return (0, _changes.clearCell)(opts, change, cell);
     });
 
-    // Update the selection to avoid reset of selection
-    var updatedCell = change.value.document.getDescendant(cells.last().key);
-    return change.collapseToStartOf(updatedCell);
+    // Update the selection properly, and avoid reset of selection
+    var updatedStartCell = change.value.document.getDescendant(cellsToClear.first().key);
+    return change.collapseToStartOf(updatedStartCell);
 }
 
 exports.default = onBackspace;
