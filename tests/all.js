@@ -50,6 +50,11 @@ describe('slate-edit-table', () => {
                 expect(newDoc).toEqual(
                     hyperprint(expected.document, { strict: true })
                 );
+
+                // Check that the selection is still valid
+                if (!newChange.value.document.nodes.isEmpty()) {
+                    expect(newChange.value.startBlock).toExist(null);
+                }
             }
         });
     });

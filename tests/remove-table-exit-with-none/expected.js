@@ -3,6 +3,8 @@ import hyperscript from '../hyperscript';
 
 export default (
     <value>
-        <document />
+        <document>
+            <paragraph />
+        </document>
     </value>
 );
