@@ -39,6 +39,7 @@ export default (
                     </table_cell>
                 </table_row>
             </table>
+            <paragraph />
         </document>
     </value>
 );

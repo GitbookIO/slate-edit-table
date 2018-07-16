@@ -1,4 +1,3 @@
-// import expect from 'expect';
 import EditTable from '../../lib';
 
 export default function(prevPlugin, change) {
