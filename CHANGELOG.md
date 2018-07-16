@@ -10,7 +10,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Add byKey variants to remove utils. removeRowByKey, removeColumnByKey, removeTableByKey
 
-
 ## [0.16.1] - 2018-06-28
 
 - Improve behavior of Backspace when deleting whole cells https://github.com/GitbookIO/slate-edit-table/pull/79
