@@ -175,17 +175,35 @@ Insert a new column after the current one or at the specific index (`at`).
 
 Remove current table.
 
+### `changes.removeTableByKey`
+
+`removeTableByKey(change: Change, key: string) => Change`
+
+Remove the table containing the given key.
+
 ### `changes.removeRow`
 
 `removeRow(change: Change, at: ?number) => Change`
 
 Remove current row or the one at a specific index (`at`).
 
+### `changes.removeRowByKey`
+
+`removeRowByKey(change: Change, key: string) => Change`
+
+Remove the row containing the given key.
+
 ### `changes.removeColumn`
 
 `removeColumn(change: Change, at: ?number) => Change`
 
 Remove current column or the one at a specific index (`at`).
+
+### `changes.removeColumnByKey`
+
+`removeColumnByKey(change: Change, key: string) => Change`
+
+Remove the column containing the given key.
 
 ### `changes.moveSelection`
 
