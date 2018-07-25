@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+- Remove `key` parameter of getPosition, and create a function `getPositionByKey`    
+
 ## [0.16.2] - 2018-07-16
 
 - Add byKey variants to remove utils. removeRowByKey, removeColumnByKey, removeTableByKey
