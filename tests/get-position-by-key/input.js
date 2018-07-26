@@ -4,7 +4,7 @@ import hyperscript from '../hyperscript';
 export default (
     <value>
         <document>
-            <table>
+            <table key="table">
                 <table_row>
                     <table_cell>
                         <paragraph>Col 0, Row 0</paragraph>
@@ -20,10 +20,8 @@ export default (
                     <table_cell>
                         <paragraph>Col 0, Row 1</paragraph>
                     </table_cell>
-                    <table_cell>
-                        <paragraph>
-                            Col <cursor />1, Row 1
-                        </paragraph>
+                    <table_cell key="cell">
+                        <paragraph>Col 1, Row 1</paragraph>
                     </table_cell>
                     <table_cell>
                         <paragraph>Col 2, Row 1</paragraph>

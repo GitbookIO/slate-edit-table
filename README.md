@@ -100,9 +100,15 @@ Return true if selection starts and ends both outside any table. (Notice: it is 
 
 ### `utils.getPosition`
 
-`getPosition(value: Slate.Value, key: ?string) => TablePosition`
+`getPosition(value: Slate.Value) => TablePosition`
 
-Returns all infos about where in a table the cursor is. Pass a `key` to get the position of a particular node.
+Returns the position of the cursor in a table (and all related infos).
+
+### `utils.getPositionByKey`
+
+`getPositionByKey(tableAncestor: Node, key: string) => TablePosition`
+
+Returns the position of a particular node in a table (and all related infos).
 
 ### `utils.createTable`
 

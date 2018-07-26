@@ -1,7 +1,11 @@
 import expect from 'expect';
 
 export default function(plugin, change) {
-    const position = plugin.utils.getPosition(change.value);
+    const table = change.value.document.getClosest(
+        'cell',
+        el => el.key === 'table'
+    );
+    const position = plugin.utils.getPositionByKey(table, 'cell');
 
     expect(position.getWidth()).toEqual(3);
     expect(position.getHeight()).toEqual(3);
