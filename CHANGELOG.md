@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.17.0] - 2018-07-26
+
 - Remove `key` parameter of getPosition, and create a function `getPositionByKey`    
 
 ## [0.16.2] - 2018-07-16
