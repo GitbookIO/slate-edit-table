@@ -3,17 +3,17 @@
 import expect from 'expect';
 import fs from 'fs';
 import path from 'path';
-import Slate from 'slate';
+import {Value, Schema, resetKeyGenerator} from 'slate';
 import hyperprint from 'slate-hyperprint';
 import EditTable from '../lib';
 
 const PLUGIN = EditTable();
-const SCHEMA = Slate.Schema.create({
+const SCHEMA = Schema.create({
     plugins: [PLUGIN]
 });
 
 function deserializeValue(value) {
-    return Slate.Value.fromJSON(
+    return Value.fromJSON(
         {
             document: value.document,
             schema: SCHEMA,
@@ -30,7 +30,7 @@ describe('slate-edit-table', () => {
         if (test[0] === '.' || path.extname(test).length > 0) return;
 
         it(test, () => {
-            Slate.resetKeyGenerator();
+            resetKeyGenerator();
             const dir = path.resolve(__dirname, test);
             const input = require(path.resolve(dir, 'input.js')).default;
             const expectedPath = path.resolve(dir, 'expected.js');
