@@ -3,7 +3,7 @@
 import expect from 'expect';
 import fs from 'fs';
 import path from 'path';
-import {Value, Schema, resetKeyGenerator} from 'slate';
+import { Value, Schema, KeyUtils } from 'slate';
 import hyperprint from 'slate-hyperprint';
 import EditTable from '../lib';
 
@@ -30,7 +30,7 @@ describe('slate-edit-table', () => {
         if (test[0] === '.' || path.extname(test).length > 0) return;
 
         it(test, () => {
-            resetKeyGenerator();
+            KeyUtils.resetGenerator();
             const dir = path.resolve(__dirname, test);
             const input = require(path.resolve(dir, 'input.js')).default;
             const expectedPath = path.resolve(dir, 'expected.js');

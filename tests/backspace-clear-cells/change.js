@@ -4,8 +4,8 @@ export default function(plugin, change) {
     const blockEnd = value.document.getDescendant('focus');
 
     const withCursor = change
-        .collapseToStartOf(blockStart)
-        .extendToEndOf(blockEnd);
+        .moveToStartOfNode(blockStart)
+        .moveFocusToEndOfNode(blockEnd);
 
     return plugin.onKeyDown(
         {

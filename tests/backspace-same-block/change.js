@@ -6,8 +6,8 @@ export default function(plugin, change) {
     const blockEnd = value.document.getDescendant('anchor');
 
     const withCursor = change
-        .collapseToStartOf(blockStart)
-        .extendToEndOf(blockEnd);
+        .moveToStartOfNode(blockStart)
+        .moveFocusToEndOfNode(blockEnd);
 
     const result = plugin.onKeyDown(
         {

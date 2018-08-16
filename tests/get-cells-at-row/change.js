@@ -1,7 +1,7 @@
 export default function(plugin, change) {
     const { value } = change;
     const cursorBlock = value.document.getDescendant('anchor');
-    change.moveToRangeOf(cursorBlock);
+    change.moveToRangeOfNode(cursorBlock);
 
     const pos = plugin.utils.getPosition(change.value);
 
