@@ -12,6 +12,7 @@
   "peerDependencies": {
     "immutable": "^3.8.1",
     "slate": "^0.34.5",
+    "slate-react": "^0.13.2",
     "slate-schema-violations": "^0.1.18"
   },
   "devDependencies": {
@@ -48,6 +49,7 @@
     "slate-hyperscript": "^0.5.20",
     "slate-react": "^0.13.2",
     "slate-schema-violations": "^0.1.18",
+    "slate-simulator": "^0.4.36",
     "watchify": "^3.7.0"
   },
   "scripts": {
