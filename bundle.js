@@ -771,8 +771,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _immutable = require('immutable');
-
 require('slate');
 
 var _changes = require('../changes');
@@ -789,16 +787,6 @@ fragment) {
     if (!(fragment.nodes.size === 1 && insertedTable && insertedTable.type === opts.typeTable)) {
         throw new Error('Expected to insert a fragment containing one table');
     }
-
-    // If the range is expanded, delete it first.
-    // To do that, we reuse Slate.insertFragmentAtRange logic
-    // but with an empty fragment.
-    var emptyFragment = fragment.merge({
-        nodes: (0, _immutable.List)()
-    });
-    change.insertFragmentAtRange(range, emptyFragment)
-    // Make sure the selection is collapsed
-    .collapseToAnchor();
 
     var value = change.value;
 
@@ -841,10 +829,9 @@ fragment) {
     var lastPastedCell = fragmentRows.last().nodes.last();
     return change.collapseToEndOf(lastPastedCell);
 }
-
 exports.default = insertTableFragmentAtRange;
 
-},{"../changes":5,"../utils":40,"immutable":68,"slate":275}],10:[function(require,module,exports){
+},{"../changes":5,"../utils":40,"slate":275}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
