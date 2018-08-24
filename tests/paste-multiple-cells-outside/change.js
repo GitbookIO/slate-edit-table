@@ -4,11 +4,9 @@ export default function(plugin, change) {
     const { value } = change;
 
     // Copy the selection
-    let copiedFragment = plugin.utils.getCopiedFragment(value);
+    const copiedFragment = plugin.utils.getCopiedFragment(value);
     // Default copy in this case
-    expect(copiedFragment).toBeFalsy();
-
-    copiedFragment = value.fragment;
+    expect(copiedFragment).toBeTruthy();
 
     // Paste it
     return change

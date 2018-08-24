@@ -7,18 +7,18 @@ export default (
             <table>
                 <table_row>
                     <table_cell>
-                        <paragraph>
-                            Col 0, <anchor />Row 0
-                        </paragraph>
+                        <paragraph>Col 0, Row 0</paragraph>
                     </table_cell>
                     <table_cell>
-                        <paragraph>Col 1, Row 0</paragraph>
+                        <paragraph>
+                            <anchor />Col 1, Row 0
+                        </paragraph>
                     </table_cell>
                 </table_row>
                 <table_row>
                     <table_cell>
                         <paragraph>
-                            Col 0<focus />, Row 1
+                            Col 0, Row 1<focus />
                         </paragraph>
                     </table_cell>
                     <table_cell>
