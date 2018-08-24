@@ -3,7 +3,7 @@
 import expect from 'expect';
 import fs from 'fs';
 import path from 'path';
-import {Value, Schema, resetKeyGenerator} from 'slate';
+import { Value, Schema, resetKeyGenerator } from 'slate';
 import hyperprint from 'slate-hyperprint';
 import EditTable from '../lib';
 
