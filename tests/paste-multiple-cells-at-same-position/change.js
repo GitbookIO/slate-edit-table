@@ -9,7 +9,7 @@ export default function(plugin, change) {
     expect(copiedFragment).toBeTruthy();
 
     // Paste it
-    change.collapseToFocus();
+    change.collapseToAnchor();
 
     return plugin.changes.insertTableFragmentAtRange(
         change,
