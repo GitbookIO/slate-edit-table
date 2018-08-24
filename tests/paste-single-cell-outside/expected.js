@@ -7,14 +7,10 @@ export default (
             <table>
                 <table_row>
                     <table_cell>
-                        <paragraph>
-                            <anchor />Col 0, <focus />Row 0
-                        </paragraph>
+                        <paragraph>Col 0, Row 0</paragraph>
                     </table_cell>
                     <table_cell>
-                        <paragraph>
-                            <text key="paste-here">Col 1, Row 0</text>
-                        </paragraph>
+                        <paragraph>Col 1, Row 0</paragraph>
                     </table_cell>
                 </table_row>
                 <table_row>
@@ -26,6 +22,7 @@ export default (
                     </table_cell>
                 </table_row>
             </table>
+            <paragraph>ElseCol 0where</paragraph>
         </document>
     </value>
 );

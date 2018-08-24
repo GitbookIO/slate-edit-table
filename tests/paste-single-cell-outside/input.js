@@ -8,13 +8,11 @@ export default (
                 <table_row>
                     <table_cell>
                         <paragraph>
-                            <anchor />Col 0, <focus />Row 0
+                            <anchor />Col 0<focus />, Row 0
                         </paragraph>
                     </table_cell>
                     <table_cell>
-                        <paragraph>
-                            <text key="paste-here">Col 1, Row 0</text>
-                        </paragraph>
+                        <paragraph>Col 1, Row 0</paragraph>
                     </table_cell>
                 </table_row>
                 <table_row>
@@ -26,6 +24,9 @@ export default (
                     </table_cell>
                 </table_row>
             </table>
+            <paragraph>
+                <text key="paste-here">Elsewhere</text>
+            </paragraph>
         </document>
     </value>
 );
