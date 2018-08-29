@@ -2359,7 +2359,7 @@ function getCopiedFragment(opts, value) {
     if (!(0, _utils.isSelectionInTable)(opts, value)) {
         return undefined;
     }
-    // The selection is a fragment one table
+    // else the selection is a fragment of one table
 
     var selection = value.selection,
         document = value.document;
