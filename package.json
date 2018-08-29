@@ -12,6 +12,7 @@
   "peerDependencies": {
     "immutable": "^3.8.1",
     "slate": "^0.34.5",
+    "slate-react": "^0.13.2",
     "slate-schema-violations": "^0.1.18"
   },
   "devDependencies": {
@@ -34,7 +35,7 @@
     "eslint-plugin-prettier": "^2.4.0",
     "eslint-plugin-react": "^7.5.1",
     "expect": "^1.20.2",
-    "flow-bin": "^0.57.3",
+    "flow-bin": "^0.73.0",
     "flow-copy-source": "^1.2.1",
     "gh-pages": "^0.11.0",
     "http-server": "^0.9.0",
@@ -48,6 +49,7 @@
     "slate-hyperscript": "^0.5.20",
     "slate-react": "^0.13.2",
     "slate-schema-violations": "^0.1.18",
+    "slate-simulator": "^0.4.36",
     "watchify": "^3.7.0"
   },
   "scripts": {

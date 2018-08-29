@@ -1,4 +1,8 @@
 sudo: false
 language: node_js
+script:
+  - yarn run test
+  - yarn run lint
+  # - yarn run flow
 node_js:
   - "9"

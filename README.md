@@ -23,6 +23,16 @@ npm install slate-edit-table
 
 All these default features are configurable.
 
+### Copy/Paste behavior
+
+Here are how different cases of copy-paste are handled by the plugin:
+
+1. Copying the content of a single cell into another cell → The content of the first cell is pasted inside the second cell
+2. Copying the content of a single cell outside the table →  Just the content of the cell is pasted (not the table)
+3. Copying some content into a cell → The content is inserted inside the cell
+4. Copying multiple cells somewhere else inside the table → The copied fragment of table is patched at the given position, overwritting cells and adding rows and columns if necessary.
+5. Copying multiple cells outside the table → A new table is pasted, containing the copied cells.
+
 ## Simple Usage
 
 ```js
