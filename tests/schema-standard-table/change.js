@@ -1,4 +1,4 @@
-import Slate from 'slate';
+import Slate from '@gitbook/slate';
 
 export default (plugin, change) => {
     const schema = Slate.Schema.create(plugin.schema);

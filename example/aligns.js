@@ -1,6 +1,6 @@
 // @flow
-import { type Change } from 'slate';
-import { NODE_DATA_INVALID } from 'slate-schema-violations';
+import { type Change } from '@gitbook/slate';
+import { NODE_DATA_INVALID } from '@gitbook/slate-schema-violations';
 import PluginEditTable from '../lib/';
 
 /*

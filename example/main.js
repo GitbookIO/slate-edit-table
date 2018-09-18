@@ -5,8 +5,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { type Block } from 'slate';
-import { Editor } from 'slate-react';
+import { type Block } from '@gitbook/slate';
+import { Editor } from '@gitbook/slate-react';
 
 import PluginEditTable from '../lib/';
 import alignPlugin from './aligns';
