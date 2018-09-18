@@ -11,9 +11,9 @@
   ],
   "peerDependencies": {
     "immutable": "^3.8.1",
-    "slate": "^0.34.5",
-    "slate-react": "^0.13.2",
-    "slate-schema-violations": "^0.1.18"
+    "@gitbook/slate": "^0.34.7",
+    "@gitbook/slate-react": "^0.13.4",
+    "@gitbook/slate-schema-violations": "^0.1.20"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -44,12 +44,12 @@
     "prettier": "^1.9.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "slate": "^0.34.5",
-    "slate-hyperprint": "^2.2.0",
-    "slate-hyperscript": "^0.5.20",
-    "slate-react": "^0.13.2",
-    "slate-schema-violations": "^0.1.18",
-    "slate-simulator": "^0.4.36",
+    "@gitbook/slate": "^0.34.7",
+    "slate-hyperprint": "^2.2.4",
+    "@gitbook/slate-hyperscript": "^0.5.22",
+    "@gitbook/slate-react": "^0.13.4",
+    "@gitbook/slate-schema-violations": "^0.1.20",
+    "@gitbook/slate-simulator": "^0.4.39",
     "watchify": "^3.7.0"
   },
   "scripts": {
