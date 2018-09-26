@@ -2,9 +2,9 @@ import expect from 'expect';
 
 export default function(plugin, change) {
     const cursorBlock = change.value.document.getDescendant('anchor');
-    const initial = change.value.change({ save: false });
+    const initial = change.withoutSaving(() => change.value.change());
 
-    initial.moveToRangeOf(cursorBlock).move(6); // Cursor here: Before|After
+    initial.moveToRangeOfNode(cursorBlock).moveForward(6); // Cursor here: Before|After
 
     const toTest = initial.value.change();
 

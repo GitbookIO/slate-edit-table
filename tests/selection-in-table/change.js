@@ -17,9 +17,9 @@ export default function(plugin, change) {
     change.moveToStartOfNode(table11);
     expect(plugin.utils.isSelectionInTable(change.value)).toBe(true);
 
-    change.extendToEndOf(table12);
+    change.moveFocusToEndOfNode(table12);
     expect(plugin.utils.isSelectionInTable(change.value)).toBe(true);
 
-    change.extendToEndOf(table2);
+    change.moveFocusToEndOfNode(table2);
     expect(plugin.utils.isSelectionInTable(change.value)).toBe(false);
 }

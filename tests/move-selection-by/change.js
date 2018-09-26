@@ -4,7 +4,7 @@ export default function(plugin, change) {
     const { value } = change;
     const cursorBlock = value.document.getDescendant('anchor');
     const offset = 2;
-    change.moveToRangeOf(cursorBlock).move(offset);
+    change.moveToRangeOfNode(cursorBlock).moveForward(offset);
 
     plugin.changes.moveSelectionBy(change, -1, -1);
 

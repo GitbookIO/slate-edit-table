@@ -38,3 +38,5 @@ jspm_packages
 
 dist
 example/bundle.js
+
+\.DS_Store

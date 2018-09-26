@@ -11,7 +11,7 @@ export default function(plugin, change) {
     change.moveToStartOfNode(paragraph);
     expect(plugin.utils.isSelectionOutOfTable(change.value)).toBe(true);
 
-    change.extendToEndOf(cellText);
+    change.moveFocusToEndOfNode(cellText);
     expect(plugin.utils.isSelectionOutOfTable(change.value)).toBe(false);
 
     change.moveToStartOfNode(cellText);
@@ -20,9 +20,9 @@ export default function(plugin, change) {
     change.moveToStartOfNode(table11);
     expect(plugin.utils.isSelectionOutOfTable(change.value)).toBe(false);
 
-    change.extendToEndOf(table12);
+    change.moveFocusToEndOfNode(table12);
     expect(plugin.utils.isSelectionOutOfTable(change.value)).toBe(false);
 
-    change.extendToEndOf(table2);
+    change.moveFocusToEndOfNode(table2);
     expect(plugin.utils.isSelectionOutOfTable(change.value)).toBe(false);
 }

@@ -7,7 +7,7 @@ export default function(plugin, change) {
 
     const withCursor = change
         .moveToStartOfNode(blockStart)
-        .extendToEndOf(blockEnd);
+        . moveFocusToEndOfNode(blockEnd);
 
     const result = plugin.onKeyDown(
         {
