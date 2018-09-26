@@ -2,7 +2,7 @@ import expect from 'expect';
 
 export default function(plugin, change) {
     const blockStart = change.value.document.getDescendant('anchor');
-    const withCursor = change.collapseToEndOf(blockStart);
+    const withCursor = change.moveToEndOfNode(blockStart);
 
     const result = plugin.onKeyDown(
         {

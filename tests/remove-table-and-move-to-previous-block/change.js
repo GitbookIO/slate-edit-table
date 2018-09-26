@@ -6,7 +6,7 @@ export default function(plugin, change) {
 
     plugin.changes.removeTable(change);
     expect(change.value.startBlock.key).toEqual('anchor_after');
-    expect(change.value.startOffset).toEqual(
+    expect(change.value.selection.start.offset).toEqual(
         change.value.startBlock.text.length
     );
     return change;

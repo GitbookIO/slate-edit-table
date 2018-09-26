@@ -10,7 +10,7 @@ export default function(plugin, change) {
 
     expect(change.value.startBlock.text).toEqual('Col 2, Row 2');
     const selection = change.value.selection;
-    expect(selection.startKey).toEqual(selection.endKey);
+    expect(selection.start.key).toEqual(selection.end.key);
 
     return change;
 }

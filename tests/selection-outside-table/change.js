@@ -8,16 +8,16 @@ export default function(plugin, change) {
     const cellText = value.document.getDescendant('cellText');
     const table2 = value.document.getDescendant('table2');
 
-    change.collapseToStartOf(paragraph);
+    change.moveToStartOfNode(paragraph);
     expect(plugin.utils.isSelectionOutOfTable(change.value)).toBe(true);
 
     change.extendToEndOf(cellText);
     expect(plugin.utils.isSelectionOutOfTable(change.value)).toBe(false);
 
-    change.collapseToStartOf(cellText);
+    change.moveToStartOfNode(cellText);
     expect(plugin.utils.isSelectionOutOfTable(change.value)).toBe(false);
 
-    change.collapseToStartOf(table11);
+    change.moveToStartOfNode(table11);
     expect(plugin.utils.isSelectionOutOfTable(change.value)).toBe(false);
 
     change.extendToEndOf(table12);
