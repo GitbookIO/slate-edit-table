@@ -4643,10 +4643,6 @@ slate-react@^0.18.9:
     slate-plain-serializer "^0.6.6"
     slate-prop-types "^0.4.65"
 
-slate-schema-violations@^0.1.39:
-  version "0.1.39"
-  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.39.tgz#854ab5624136419cef4c803b1823acabe11f1c15"
-
 slate-simulator@^0.4.36:
   version "0.4.59"
   resolved "https://registry.yarnpkg.com/slate-simulator/-/slate-simulator-0.4.59.tgz#dfd5e6a6ffcafc0ce082619ae35634b745a37867"

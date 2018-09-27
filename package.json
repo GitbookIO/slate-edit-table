@@ -11,9 +11,8 @@
   ],
   "peerDependencies": {
     "immutable": "^3.8.1",
-    "slate": "^0.34.5",
-    "slate-react": "^0.13.2",
-    "slate-schema-violations": "^0.1.18"
+    "slate": "^0.41.1",
+    "slate-react": "^0.18.9"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -48,7 +47,6 @@
     "slate-hyperprint": "^2.2.6",
     "slate-hyperscript": "^0.10.6",
     "slate-react": "^0.18.9",
-    "slate-schema-violations": "^0.1.39",
     "slate-simulator": "^0.4.36",
     "watchify": "^3.7.0"
   },
