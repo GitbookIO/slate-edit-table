@@ -4,7 +4,6 @@ import hyperscript from '../hyperscript';
 export default (
     <value>
         <document>
-            <table>No rows</table>
             <table>
                 <table_row>
                     <table_cell>
@@ -22,6 +21,7 @@ export default (
                     </table_cell>
                 </table_row>
             </table>
+            <table>No Rows here</table>
         </document>
     </value>
 );
