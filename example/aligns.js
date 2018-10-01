@@ -11,7 +11,7 @@ const tablePlugin = PluginEditTable({
     typeTable: 'table',
     typeRow: 'table_row',
     typeCell: 'table_cell',
-    typeContent: 'paragraph'
+    typeContent: 'paragraph',
 });
 
 /*
@@ -21,7 +21,7 @@ function setColumnAlign(change: Change, align: string): Change {
     const pos = tablePlugin.utils.getPosition(change.value);
     const columnCells = tablePlugin.utils.getCellsAtColumn(
         pos.table,
-        pos.getColumnIndex()
+        pos.getColumnIndex(),
     );
     columnCells.forEach(cell => {
         change.setNodeByKey(cell.key, { data: { align } });
@@ -35,22 +35,22 @@ const alignPlugin = {
             table_cell: {
                 data: {
                     // Make sure cells have an alignment
-                    align: align => ['left', 'center', 'right'].includes(align)
+                    align: align => ['left', 'center', 'right'].includes(align),
                 },
                 normalize(change: Change, violation: string, context: Object) {
                     if (violation === NODE_DATA_INVALID) {
                         change.setNodeByKey(context.node.key, {
-                            data: context.node.data.set('align', 'left')
+                            data: context.node.data.set('align', 'left'),
                         });
                     }
-                }
-            }
-        }
+                },
+            },
+        },
     },
 
     changes: {
-        setColumnAlign
-    }
+        setColumnAlign,
+    },
 };
 
 export default alignPlugin;
