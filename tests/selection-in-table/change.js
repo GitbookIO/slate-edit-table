@@ -9,17 +9,17 @@ export default function(plugin, change) {
     const table2 = value.document.getDescendant('table2');
 
     change.moveToStartOfNode(paragraph);
-    expect(plugin.utils.isSelectionInTable(change.value)).toBe(false);
+    expect(plugin.queries.isSelectionInTable(change.value)).toBe(false);
 
     change.moveToStartOfNode(cellText);
-    expect(plugin.utils.isSelectionInTable(change.value)).toBe(true);
+    expect(plugin.queries.isSelectionInTable(change.value)).toBe(true);
 
     change.moveToStartOfNode(table11);
-    expect(plugin.utils.isSelectionInTable(change.value)).toBe(true);
+    expect(plugin.queries.isSelectionInTable(change.value)).toBe(true);
 
     change.moveFocusToEndOfNode(table12);
-    expect(plugin.utils.isSelectionInTable(change.value)).toBe(true);
+    expect(plugin.queries.isSelectionInTable(change.value)).toBe(true);
 
     change.moveFocusToEndOfNode(table2);
-    expect(plugin.utils.isSelectionInTable(change.value)).toBe(false);
+    expect(plugin.queries.isSelectionInTable(change.value)).toBe(false);
 }
