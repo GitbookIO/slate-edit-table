@@ -8,11 +8,10 @@
   "files": ["dist", "*.md"],
   "peerDependencies": {
     "immutable": "^3.8.1",
-    "slate": "^0.41.2",
-    "slate-react": "^0.18.10"
+    "slate": "^0.44.9",
+    "slate-react": "^0.20"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.2",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
@@ -32,25 +31,22 @@
     "eslint-plugin-react": "^7.5.1",
     "expect": "^1.20.2",
     "flow-bin": "^0.73.0",
-    "flow-copy-source": "^1.2.1",
     "gh-pages": "^0.11.0",
     "http-server": "^0.9.0",
     "immutable": "^3.8.2",
     "mocha": "^3.0.1",
     "prettier": "^1.9.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "slate": "^0.41.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "slate": "^0.44.9",
     "slate-hyperprint": "^2.2.6",
-    "slate-hyperscript": "^0.10.7",
-    "slate-react": "^0.18.10",
-    "slate-simulator": "^0.4.66",
-    "watchify": "^3.7.0"
+    "slate-hyperscript": "^0.11",
+    "slate-react": "^0.20",
+    "slate-simulator": "^0.4.66"
   },
   "scripts": {
     "build:dist": "rm -r ./dist; babel ./lib --out-dir ./dist",
-    "build:flow": "flow-copy-source -v ./lib/ ./dist/",
-    "prepublish": "npm run build:dist && npm run build:flow",
+    "prepublish": "npm run build:dist",
     "postpublish": "npm run deploy-example",
     "lint": "eslint ./",
     "build-example":
@@ -63,5 +59,8 @@
     "test":
       "./node_modules/.bin/mocha ./tests/all.js --compilers js:babel-register --reporter=list"
   },
-  "keywords": ["slate"]
+  "keywords": ["slate"],
+  "dependencies": {
+    "babel-cli": "^6.26.0"
+  }
 }
