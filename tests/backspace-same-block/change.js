@@ -1,24 +1,21 @@
 import expect from 'expect';
 
-export default function(plugin, change) {
-    const { value } = change;
+export default function(editor) {
+    const { value } = editor;
     const blockStart = value.document.getDescendant('anchor');
     const blockEnd = value.document.getDescendant('anchor');
 
-    const withCursor = change
+    const withCursor = editor
         .moveToStartOfNode(blockStart)
-        . moveFocusToEndOfNode(blockEnd);
+        .moveFocusToEndOfNode(blockEnd);
 
-    const result = plugin.onKeyDown(
-        {
-            key: 'Backspace',
-            preventDefault() {},
-            stopPropagation() {}
-        },
-        withCursor
-    );
+    const result = editor.run('onKeyDown', {
+        key: 'Backspace',
+        preventDefault() {},
+        stopPropagation() {},
+    });
 
     expect(result).toBe(undefined);
 
-    return change;
+    return editor;
 }

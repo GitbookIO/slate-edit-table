@@ -1,24 +1,24 @@
 import expect from 'expect';
 
-export default function(plugin, change) {
-    const cursorBlock = change.value.document.getDescendant('anchor');
-    change.moveToRangeOfNode(cursorBlock);
+export default function(editor) {
+    const cursorBlock = editor.value.document.getDescendant('anchor');
+    editor.moveToRangeOfNode(cursorBlock);
 
-    plugin.onKeyDown(
+    editor.run('onKeyDown',
         {
             key: 'Tab',
             preventDefault() {},
-            stopPropagation() {}
+            stopPropagation() {},
         },
-        change
+        editor,
     );
 
-    const position = plugin.utils.getPosition(change.value);
+    const position = editor.getPosition(editor.value);
 
     // Last row (new one)
     expect(position.getRowIndex()).toEqual(2);
     // First cell
     expect(position.getColumnIndex()).toEqual(0);
 
-    return change;
+    return editor;
 }

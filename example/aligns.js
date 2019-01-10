@@ -17,16 +17,16 @@ const tablePlugin = PluginEditTable({
 /*
  * Set align data for the current column
  */
-function setColumnAlign(change: Change, align: string): Change {
-    const pos = tablePlugin.utils.getPosition(change.value);
+function setColumnAlign(editor: Change, align: string): Change {
+    const pos = tablePlugin.utils.getPosition(editor.value);
     const columnCells = tablePlugin.utils.getCellsAtColumn(
         pos.table,
         pos.getColumnIndex(),
     );
     columnCells.forEach(cell => {
-        change.setNodeByKey(cell.key, { data: { align } });
+        editor.setNodeByKey(cell.key, { data: { align } });
     });
-    return change;
+    return editor;
 }
 
 const alignPlugin = {
@@ -35,7 +35,8 @@ const alignPlugin = {
             table_cell: {
                 data: {
                     // Make sure cells have an alignment
-                    align: align => ['left', 'center', 'right'].includes(align),
+                    align: (align: string) =>
+                        ['left', 'center', 'right'].includes(align),
                 },
                 normalize(change: Change, violation: string, context: Object) {
                     if (violation === NODE_DATA_INVALID) {

@@ -1,14 +1,14 @@
 import expect from 'expect';
 
-export default function(plugin, change) {
-    const cursorBlock = change.value.document.getDescendant('anchor');
-    change.moveToRangeOfNode(cursorBlock);
+export default function(editor) {
+    const cursorBlock = editor.value.document.getDescendant('anchor');
+    editor.moveToRangeOfNode(cursorBlock);
 
-    plugin.changes.removeTable(change);
-    const { value } = change;
+    editor.removeTable(editor);
+    const { value } = editor;
     expect(value.startBlock.type).toEqual('paragraph');
-    expect(change.value.selection.start.offset)
-        .toEqual(change.value.startBlock.text.length)
+    expect(editor.value.selection.start.offset)
+        .toEqual(editor.value.startBlock.text.length)
         .toEqual(0);
-    return change;
+    return editor;
 }

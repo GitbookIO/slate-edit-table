@@ -1,16 +1,16 @@
 import expect from 'expect';
 
-export default function(plugin, change) {
-    const { value } = change;
+export default function(editor) {
+    const { value } = editor;
     const cursorBlock = value.document.getDescendant('anchor');
     const offset = 2;
-    change.moveToRangeOfNode(cursorBlock).moveForward(offset);
+    editor.moveToRangeOfNode(cursorBlock).moveForward(offset);
 
-    plugin.changes.moveSelectionBy(change, -1, -1);
+    editor.moveSelectionBy(editor, -1, -1);
 
-    expect(change.value.startBlock.text).toEqual('Col 0, Row 0');
-    const selection = change.value.selection;
+    expect(editor.value.startBlock.text).toEqual('Col 0, Row 0');
+    const selection = editor.value.selection;
     expect(selection.start.key).toEqual(selection.end.key);
 
-    return change;
+    return editor;
 }

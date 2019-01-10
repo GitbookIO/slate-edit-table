@@ -1,16 +1,13 @@
-export default function(plugin, change) {
-    const { value } = change;
+export default function(editor) {
+    const { value } = editor;
     const cursorBlock = value.document.getDescendant('anchor');
-    change.moveToRangeOfNode(cursorBlock);
+    editor.moveToRangeOfNode(cursorBlock);
 
-    const pos = plugin.utils.getPosition(change.value);
+    const pos = editor.getPosition(editor.value);
 
-    const cells = plugin.utils.getCellsAtColumn(
-        pos.table,
-        pos.getColumnIndex()
-    );
+    const cells = editor.getCellsAtColumn(pos.table, pos.getColumnIndex());
     cells.forEach(cell =>
-        change.setNodeByKey(cell.key, { data: { custom: 'value' } })
+        editor.setNodeByKey(cell.key, { data: { custom: 'value' } }),
     );
-    return change;
+    return editor;
 }

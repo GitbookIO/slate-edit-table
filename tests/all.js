@@ -3,28 +3,12 @@
 import expect from 'expect';
 import fs from 'fs';
 import path from 'path';
-import { Value, Schema, KeyUtils } from 'slate';
-import hyperprint from 'slate-hyperprint';
+import Slate, { KeyUtils } from 'slate';
 import EditTable from '../lib';
-
-const PLUGIN = EditTable();
-const SCHEMA = Schema.create({
-    plugins: [PLUGIN]
-});
-
-function deserializeValue(value) {
-    return Value.fromJSON(
-        {
-            document: value.document,
-            schema: SCHEMA,
-            selection: value.selection
-        },
-        { normalize: false }
-    );
-}
 
 describe('slate-edit-table', () => {
     const tests = fs.readdirSync(__dirname);
+    const plugin = EditTable();
 
     tests.forEach(test => {
         if (test[0] === '.' || path.extname(test).length > 0) return;
@@ -39,22 +23,20 @@ describe('slate-edit-table', () => {
 
             const runChange = require(path.resolve(dir, 'change.js')).default;
 
-            const valueInput = deserializeValue(input);
+            const editor = new Slate.Editor({
+                value: input,
+                plugins: [plugin],
+            });
+            const newChange = runChange(editor);
 
-            const newChange = runChange(PLUGIN, valueInput.change());
+            if (expected && newChange) {
+                const actual = newChange.value;
 
-            if (expected) {
-                const newDoc = hyperprint(newChange.value.document, {
-                    strict: true
-                });
-                expect(newDoc).toEqual(
-                    hyperprint(expected.document, { strict: true })
-                );
-
-                // Check that the selection is still valid
-                if (!newChange.value.document.nodes.isEmpty()) {
-                    expect(newChange.value.startBlock).toExist(null);
-                }
+                expect(actual.toJSON()).toEqual(expected.toJSON());
+            }
+            // Check that the selection is still valid
+            if (newChange && !newChange.value.document.nodes.isEmpty()) {
+                expect(newChange.value.startBlock).toExist(null);
             }
         });
     });

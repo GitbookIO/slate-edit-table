@@ -1,19 +1,16 @@
 import expect from 'expect';
 
-export default function(plugin, change) {
-    const cursorBlock = change.value.document.getDescendant('anchor');
-    const initial = change.withoutSaving(() => change.value.change());
+export default function(editor) {
+    const cursorBlock = editor.value.document.getDescendant('anchor');
 
-    initial.moveToRangeOfNode(cursorBlock).moveForward(6); // Cursor here: Before|After
+    editor.moveToRangeOfNode(cursorBlock).moveForward(6); // Cursor here: Before|After
 
-    const toTest = initial.value.change();
+    editor.insertTable(editor);
 
-    plugin.changes.insertTable(toTest);
-
-    toTest.undo();
+    editor.undo();
 
     // Back to previous cursor position
-    expect(toTest.value.startBlock.text).toEqual('BeforeAfter');
+    expect(editor.value.startBlock.text).toEqual('BeforeAfter');
 
-    return toTest;
+    return editor;
 }

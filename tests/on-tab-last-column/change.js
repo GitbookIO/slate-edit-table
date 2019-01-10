@@ -1,26 +1,26 @@
 import expect from 'expect';
 
-export default function(plugin, change) {
-    const cursorBlock = change.value.document.getDescendant('anchor');
-    change.moveToRangeOfNode(cursorBlock);
+export default function(editor) {
+    const cursorBlock = editor.value.document.getDescendant('anchor');
+    editor.moveToRangeOfNode(cursorBlock);
 
-    const initialPosition = plugin.utils.getPosition(change.value);
+    const initialPosition = editor.getPosition(editor.value);
 
-    plugin.onKeyDown(
+    editor.run('onKeyDown',
         {
             key: 'Tab',
             preventDefault() {},
-            stopPropagation() {}
+            stopPropagation() {},
         },
-        change
+        editor,
     );
 
-    const position = plugin.utils.getPosition(change.value);
+    const position = editor.getPosition(editor.value);
 
     // Next row
     expect(position.getRowIndex()).toEqual(initialPosition.getRowIndex() + 1);
     // Moved to first column
     expect(position.getColumnIndex()).toEqual(0);
 
-    return change;
+    return editor;
 }

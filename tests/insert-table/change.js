@@ -1,7 +1,7 @@
-export default function(plugin, change) {
-    const { value } = change;
+export default function(editor) {
+    const { value } = editor;
     const cursorBlock = value.document.getDescendant('anchor');
-    change.moveToRangeOfNode(cursorBlock).moveForward(6); // Cursor here: Before|After
+    editor.moveToRangeOfNode(cursorBlock).moveForward(6); // Cursor here: Before|After
 
-    return plugin.changes.insertTable(change);
+    return editor.insertTable(editor);
 }

@@ -1,25 +1,25 @@
 import expect from 'expect';
 
-export default function(plugin, change) {
-    const { value } = change;
+export default function(editor) {
+    const { value } = editor;
     const paragraph = value.document.getDescendant('paragraph');
     const table11 = value.document.getDescendant('table11');
     const table12 = value.document.getDescendant('table12');
     const cellText = value.document.getDescendant('cellText');
     const table2 = value.document.getDescendant('table2');
 
-    change.moveToStartOfNode(paragraph);
-    expect(plugin.queries.isSelectionInTable(change.value)).toBe(false);
+    editor.moveToStartOfNode(paragraph);
+    expect(editor.isSelectionInTable(editor.value)).toBe(false);
 
-    change.moveToStartOfNode(cellText);
-    expect(plugin.queries.isSelectionInTable(change.value)).toBe(true);
+    editor.moveToStartOfNode(cellText);
+    expect(editor.isSelectionInTable(editor.value)).toBe(true);
 
-    change.moveToStartOfNode(table11);
-    expect(plugin.queries.isSelectionInTable(change.value)).toBe(true);
+    editor.moveToStartOfNode(table11);
+    expect(editor.isSelectionInTable(editor.value)).toBe(true);
 
-    change.moveFocusToEndOfNode(table12);
-    expect(plugin.queries.isSelectionInTable(change.value)).toBe(true);
+    editor.moveFocusToEndOfNode(table12);
+    expect(editor.isSelectionInTable(editor.value)).toBe(true);
 
-    change.moveFocusToEndOfNode(table2);
-    expect(plugin.queries.isSelectionInTable(change.value)).toBe(false);
+    editor.moveFocusToEndOfNode(table2);
+    expect(editor.isSelectionInTable(editor.value)).toBe(false);
 }

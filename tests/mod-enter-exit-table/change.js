@@ -1,10 +1,10 @@
 import expect from 'expect';
 
-export default function(plugin, change) {
-    const blockStart = change.value.document.getDescendant('anchor');
-    const withCursor = change.moveToStartOfNode(blockStart);
+export default function(editor) {
+    const blockStart = editor.value.document.getDescendant('anchor');
+    const withCursor = editor.moveToStartOfNode(blockStart);
 
-    const result = plugin.onKeyDown(
+    const result = editor.run('onKeyDown',
         {
             key: 'Enter',
             metaKey: true,

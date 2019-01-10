@@ -1,17 +1,18 @@
-export default function(plugin, change) {
-    const { value } = change;
+export default function(editor) {
+    const { value } = editor;
     const blockStart = value.document.getDescendant('anchor');
 
-    const withCursor = change.moveToStartOfNode(blockStart);
+    const withCursor = editor.moveToStartOfNode(blockStart);
 
-    plugin.onKeyDown(
+    editor.run(
+        'onKeyDown',
         {
             key: 'Backspace',
             preventDefault() {},
-            stopPropagation() {}
+            stopPropagation() {},
         },
-        withCursor
+        withCursor,
     );
 
-    return change;
+    return editor;
 }
