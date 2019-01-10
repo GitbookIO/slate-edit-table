@@ -3,5 +3,5 @@ export default function(editor) {
     const cursorBlock = value.document.getDescendant('anchor');
     editor.moveToRangeOfNode(cursorBlock);
 
-    return editor.insertRow(editor);
+    return editor.insertRow();
 }

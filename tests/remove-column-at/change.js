@@ -1,3 +1,3 @@
 export default function(editor) {
-    return editor.removeColumn(editor, 0);
+    return editor.removeColumn(0);
 }

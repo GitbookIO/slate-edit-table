@@ -3,5 +3,5 @@ export default function(editor) {
     const cursorBlock = value.document.getDescendant('anchor');
     editor.moveToStartOfNode(cursorBlock);
 
-    return editor.removeColumn(editor);
+    return editor.removeColumn();
 }

@@ -13,7 +13,9 @@ export default (
                         <paragraph>Col 1, Row 0</paragraph>
                     </table_cell>
                     <table_cell>
-                        <paragraph />
+                                                <paragraph>
+                            <text />
+                        </paragraph>
                     </table_cell>
                 </table_row>
                 <table_row>
@@ -24,7 +26,9 @@ export default (
                         <paragraph>Col 1, Row 1</paragraph>
                     </table_cell>
                     <table_cell>
-                        <paragraph />
+                                                <paragraph>
+                            <text />
+                        </paragraph>
                     </table_cell>
                 </table_row>
                 <table_row>
@@ -35,7 +39,9 @@ export default (
                         <paragraph>Col 1, Row 2</paragraph>
                     </table_cell>
                     <table_cell>
-                        <paragraph />
+                                                <paragraph>
+                            <text />
+                        </paragraph>
                     </table_cell>
                 </table_row>
             </table>

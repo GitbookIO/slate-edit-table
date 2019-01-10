@@ -9,9 +9,7 @@ export default (
                 <table_row>
                     <table_cell>Row 1, Col 1</table_cell>
                     <table_cell>
-                        <paragraph>
-                            <link>Row 1, Col 2</link> with some text
-                        </paragraph>
+                        <paragraph>Row 1, Col 2</paragraph>
                     </table_cell>
                     <table_cell>
                         <paragraph>Row 1, Col 3</paragraph>

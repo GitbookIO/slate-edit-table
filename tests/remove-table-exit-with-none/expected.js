@@ -4,7 +4,9 @@ import hyperscript from '../hyperscript';
 export default (
     <value>
         <document>
-            <paragraph />
+            <paragraph>
+                <text />
+            </paragraph>
         </document>
     </value>
 );

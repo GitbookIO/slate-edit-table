@@ -1,3 +1,3 @@
 export default function(editor) {
-    return editor.removeRow(editor, 1);
+    return editor.removeRow(1);
 }

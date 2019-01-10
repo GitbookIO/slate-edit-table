@@ -6,7 +6,7 @@ export default function(editor) {
     const offset = 2;
     editor.moveToRangeOfNode(cursorBlock).moveForward(offset);
 
-    editor.moveSelection(editor, 2, 2);
+    editor.moveSelection(2, 2);
 
     expect(editor.value.startBlock.text).toEqual('Col 2, Row 2');
     const selection = editor.value.selection;

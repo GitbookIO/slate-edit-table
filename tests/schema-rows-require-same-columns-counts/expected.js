@@ -21,10 +21,14 @@ export default (
                         <paragraph>There is no columns here</paragraph>
                     </table_cell>
                     <table_cell>
-                        <paragraph />
+                        <paragraph>
+                            <text />
+                        </paragraph>
                     </table_cell>
                     <table_cell>
-                        <paragraph />
+                        <paragraph>
+                            <text />
+                        </paragraph>
                     </table_cell>
                 </table_row>
                 <table_row>

@@ -10,7 +10,9 @@ export default (
                         <paragraph>Col 0, Row 0</paragraph>
                     </table_cell>
                     <table_cell>
-                        <paragraph />
+                                                <paragraph>
+                            <text />
+                        </paragraph>
                     </table_cell>
                     <table_cell>
                         <paragraph>Col 2, Row 0</paragraph>
