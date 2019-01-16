@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## Unreleased
 
+## [0.18.1] - 2019-01-16
+
+- Fixed issue that prevented from using backspace at edges of inlines inside a cell
+
+## [0.18.0] - 2018-08-29
+
+- Now using GitBook's fork of Slate
+
 ## [0.17.1] - 2018-08-29
 
 - Greatly improved copy/paste behavior by adding onCopy and onPaste handlers.
