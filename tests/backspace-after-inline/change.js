@@ -1,10 +1,6 @@
 import expect from 'expect';
 
 export default function(plugin, change) {
-    const { value } = change;
-    const blockStart = value.document.getDescendant('anchor');
-    const withCursor = change.collapseToStartOf(blockStart);
-
     let isDefaultPrevented = false;
     const result = plugin.onKeyDown(
         {
@@ -14,14 +10,14 @@ export default function(plugin, change) {
             },
             stopPropagation() {}
         },
-        withCursor
+        change
     );
 
-    // It should have prevented the default behavior...
-    expect(isDefaultPrevented).toBe(true);
+    // It shouldn't alter the default behavior...
+    expect(isDefaultPrevented).toBe(false);
 
-    // ...and left the change unchanged
-    expect(result).toBe(change);
+    // ...and let Slate do the work
+    expect(result).toBe(undefined);
 
     return change;
 }
