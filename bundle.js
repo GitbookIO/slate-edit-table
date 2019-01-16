@@ -1367,9 +1367,8 @@ var _changes = require('../changes');
 function onBackspace(event, change, editor, opts) {
     var value = change.value;
     var startBlock = value.startBlock,
-        startOffset = value.startOffset,
-        isCollapsed = value.isCollapsed,
         endBlock = value.endBlock,
+        selection = value.selection,
         document = value.document;
 
 
@@ -1381,7 +1380,7 @@ function onBackspace(event, change, editor, opts) {
     });
 
     // If a cursor is collapsed at the start of the first block, do nothing
-    if (startOffset === 0 && isCollapsed && startBlockIndex === 0) {
+    if (startBlockIndex === 0 && selection.isAtStartOf(startBlock)) {
         if (startBlock.isVoid) {
             // Delete the block normally if it is a void block
             return undefined;
